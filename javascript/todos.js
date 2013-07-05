@@ -17,8 +17,25 @@ $(function(){
         title: "empty todo...",
         order: 1,
         done: false,
-        active: false
+        active: false,
+        conditions: []
       };
+    },
+
+    addCondition: function(condition){
+      newConditions = _.union(this.get('conditions'), [condition]);
+      this.save({
+        'conditions': newConditions
+      });
+    },
+
+    removeCondition: function(condition){
+      newConditions = _.reject(this.get('conditions'), function(existing_condition){
+        return existing_condition === condition;
+      });
+      this.save({
+        'conditions': newConditions
+      });
     },
 
     // Toggle the `done` state of this todo item.
@@ -253,7 +270,7 @@ $(function(){
 
   });
 
-  // Finally, we kick things off by creating the **App**.
+  _.templateSettings = { interpolate: /\<\@\=(.+?)\@\>/g, evaluate: /\<\@(.+?)\@\>/g };
   var App = new AppView;
 
 });

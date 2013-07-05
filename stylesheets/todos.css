@@ -30,11 +30,11 @@ body {
   border-radius: 0 0 5px 5px;
 }
 
-#todoapp h1 {
+#todoapp .head {
   font-size: 36px;
   font-weight: bold;
   text-align: center;
-  padding: 0 0 10px 0;
+  margin: 10px 0 10px 0;
 }
 
 #todoapp input[type="text"] {
@@ -68,6 +68,7 @@ body {
   padding: 0 17px 0 17px;
   list-style: none;
   float: left;
+  margin: 0;
 }
 
 #todo-list ul {
@@ -75,7 +76,7 @@ body {
 }
 
 #todo-list li.actor-item {
-  padding: 18px 20px 18px 0px;
+  padding: 18px 10px 18px 0px;
   width: 466px;
   position: relative;
   font-size: 24px;
@@ -218,7 +219,6 @@ li:hover .destroy, li:hover .activate {
 .active {
   background-color: #0a0;
   color: white;
-  height: 30px;
   font-weight: bold;
 }
 

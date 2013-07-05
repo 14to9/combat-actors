@@ -20,7 +20,7 @@
     </div>
     <section id="main" style="display: block;">
       <header>
-        <h1>Actors</h1>
+        <p class='head'>Action Order</p>
       </header>
       <ul id="todo-list"></ul>
     </section>
@@ -42,15 +42,19 @@
 
   <script type="text/template" id="item-template">
     <div class="actor">
+      <a class="activate" alt="activate"></a>
+      <a class="destroy" alt="destroy"></a>
       <label><%- title %></label>
     </div>
     <div class='labels'>
       <div class='labels-maker'>
         <ul class="selected labels">
-          <li class="label">
-            <a href="#" class="label name">slowed</a>
-            <a href="#" class="remove"></a>
-          </li>
+          <% _.each(conditions, function(i) { %>
+            <li class="label">
+              <a href="#" class="label name"><%- i %></a>
+              <a href="#" class="remove"></a>
+            </li>
+          <% }); %>
         </ul>
       </div>
     </div>
