@@ -12,6 +12,25 @@
   border-left: 1px solid #e00;
 }
 
+.active .selected.labels li.stance  a {
+  background-color: #80a;
+}
+.active .selected.labels li.stance a.remove:before {
+  border-left: 1px solid #c0e;
+}
+
+/* Negative effects */
+.active .selected.labels li.dazed a,
+.active .selected.labels li.stunned a {
+  background-color: #b40;
+}
+
+.active .selected.labels li.dazed a.remove:before,
+.active .selected.labels li.stunned a.remove:before {
+  border-left: 1px solid #c60;
+}
+
+
 .labels {
   padding: 0 0 0 8px;
 }
@@ -75,11 +94,11 @@
 }
 
 .active .selected.labels li a {
-  background-color: #b40;
+  background-color: #00f;
 }
 
 .selected.labels li a {
-  background-color: #966;
+  background-color: #666;
   color: #fff;
   padding: 2px 4px 2px 6px;
   text-decoration: none;
@@ -97,10 +116,10 @@
 }
 
 .active .selected.labels li a.remove:before {
-  border-left: 1px solid #c60;
+  border-left: 1px solid #009;
 }
 .selected.labels li a.remove:before {
-  border-left: 1px solid #a50;
+  border-left: 1px solid #840;
   content: "";
   float: left;
   margin: 3px 0 0;
