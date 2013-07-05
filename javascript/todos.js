@@ -12,12 +12,12 @@ $(function(){
   // Our basic **Todo** model has `title`, `order`, and `done` attributes.
   var Todo = Backbone.Model.extend({
 
-    // Default attributes for the todo item.
     defaults: function() {
       return {
         title: "empty todo...",
         order: 1,
-        done: false
+        done: false,
+        active: false
       };
     },
 
@@ -51,8 +51,14 @@ $(function(){
       return this.without.apply(this, this.done());
     },
 
-    // Todos are sorted by their original insertion order.
-    comparator: 'title'
+    comparator: 'title',
+
+    setActive: function(todo){
+      this.where({active: true}).forEach(function(previous) {
+        previous.save({active: false});
+      });
+      todo.save({active: true});
+    }
 
   });
 
@@ -75,8 +81,9 @@ $(function(){
     // The DOM events specific to an item.
     events: {
       "click .toggle"   : "toggleDone",
-      "dblclick .view"  : "edit",
+      "dblclick .actor"  : "edit",
       "click a.destroy" : "clear",
+      "click a.activate" : "activate",
       "keypress .edit"  : "updateOnEnter",
       "blur .edit"      : "close"
     },
@@ -93,8 +100,13 @@ $(function(){
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
       this.$el.toggleClass('done', this.model.get('done'));
+      this.$el.toggleClass('active', this.model.get('active'));
       this.input = this.$('.edit');
       return this;
+    },
+
+    activate: function() {
+      Todos.setActive(this.model);
     },
 
     // Toggle the `"done"` state of the model.
@@ -162,7 +174,7 @@ $(function(){
       // this.listenTo(Todos, 'all', this.render);
       this.listenTo(Todos, 'add', this.addAll);
       this.listenTo(Todos, 'reset', this.addAll);
-      this.listenTo(Todos, 'change', this.forceSort);
+      this.listenTo(Todos, 'change:title', this.forceSort);
       this.listenTo(Todos, 'sort', this.reset);
 
       this.footer = this.$('footer');

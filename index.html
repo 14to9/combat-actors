@@ -9,15 +9,14 @@
 <body>
 
   <div id="todoapp">
-
-    <header>
-      <h1>Todos</h1>
-      <input id="new-todo" type="text" placeholder="What needs to be done?">
-    </header>
+    <div id="actor-form">
+      <input id="new-todo" type="text" placeholder="New actor name..">
+    </div>
 
     <section id="main" style="display: block;">
-      <input id="toggle-all" type="checkbox">
-      <label for="toggle-all">Mark all as complete</label>
+      <header>
+        <h1>Actors</h1>
+      </header>
       <ul id="todo-list"></ul>
     </section>
 
@@ -26,17 +25,6 @@
     <div class="todo-count"><b>0</b> items left</div>
   </footer>
 
-  </div>
-
-  <div id="instructions">
-    Double-click to edit a todo.
-  </div>
-
-  <div id="credits">
-    Created by
-    <br>
-    <a href="http://jgn.me/">Jérôme Gravel-Niquet</a>.
-    <br>Rewritten by: <a href="http://addyosmani.github.com/todomvc">TodoMVC</a>.
   </div>
 
   <script src="javascript/jquery.js"></script>
@@ -48,10 +36,10 @@
   <!-- Templates -->
 
   <script type="text/template" id="item-template">
-    <div class="view">
-      <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+    <div class="actor">
       <label><%- title %></label>
-      <a class="destroy"></a>
+      <a class="activate" alt="activate"></a>
+      <a class="destroy" alt="destroy"></a>
     </div>
     <input class="edit" type="text" value="<%- title %>" />
   </script>

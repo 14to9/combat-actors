@@ -7,9 +7,9 @@ body {
 body {
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.4em;
-  background: #eeeeee;
+  background: #666;
   color: #333333;
-  width: 520px;
+  width: 1020px;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
 }
@@ -38,7 +38,7 @@ body {
 }
 
 #todoapp input[type="text"] {
-  width: 466px;
+  width: 436px;
   font-size: 24px;
   font-family: inherit;
   line-height: 1.4em;
@@ -58,17 +58,21 @@ body {
 }
 
 #main {
-  display: none;
+  background: #eeeeee;
+  color: #333333;
+  width: 520px;
+  float: left;
 }
 
 #todo-list {
-  margin: 10px 0;
-  padding: 0;
+  padding: 0 17px 0 17px;
   list-style: none;
+  float: left;
 }
 
 #todo-list li {
-  padding: 18px 20px 18px 0;
+  padding: 18px 20px 18px 0px;
+  width: 466px;
   position: relative;
   font-size: 24px;
   border-bottom: 1px solid #cccccc;
@@ -83,52 +87,31 @@ body {
   text-decoration: line-through;
 }
 
-#todo-list .edit-action {
-  right: 5px;
-  top: 20px;
-  cursor: pointer;
-  width: 100px;
-  height: 20px;
-  float: left;
-}
-
-#todo-list .destroy {
+.destroy, .activate {
   position: absolute;
-  right: 5px;
+  right: 10px;
   top: 20px;
-  display: none;
+  display: block;
   cursor: pointer;
   width: 20px;
   height: 20px;
   background: url(../images/destroy.png) no-repeat;
 }
 
-#todo-list li:hover .destroy {
+.activate {
+  right: 35px;
+}
+li:hover .destroy, li:hover .activate {
     display: block;
 }
 
-#todo-list .destroy:hover {
+.destroy:hover, .activate:hover {
     background-position: 0 -20px;
 }
 
-.order-sort {
-  float: left;
-  right: 5px;
-  top: 20px;
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-  background: url(../images/destroy.png) no-repeat;
+#todo-list li .actor {
+  padding: 0 8px 0 8px;
 }
-
-li:hover .order-sort {
-    display: block;
-}
-
-.order-sort:hover {
-    background-position: 0 -20px;
-}
-
 
 #todo-list li.editing {
   border-bottom: none;
@@ -147,11 +130,11 @@ li:hover .order-sort {
   margin: 0;
 }
 
-#todo-list li.editing .view {
+#todo-list li.editing .actor {
   display: none;
 }
 
-#todo-list li .view label {
+#todo-list li .actor label {
   word-break: break-word;
 }
 
@@ -227,6 +210,15 @@ li:hover .order-sort {
   color: #336699;
 }
 
+.active {
+  background-color: #0a0;
+  color: white;
+  height: 30px;
+  font-weight: bold;
+  border-right: 4px solid #030;
+  border-bottom: 20px solid #030;
+}
+
 #credits {
   margin: 30px auto;
   color: #999;
@@ -236,4 +228,9 @@ li:hover .order-sort {
 
 #credits a {
   color: #888;
+}
+
+#actor-form {
+  float: right;
+  display: block;
 }
