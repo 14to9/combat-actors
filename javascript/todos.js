@@ -58,6 +58,7 @@ $(function(){
 
   // Create our global collection of **Todos**.
   var Todos = new TodoList;
+  foo = Todos;
 
   // Todo Item View
   // --------------
@@ -158,8 +159,11 @@ $(function(){
       this.input = this.$("#new-todo");
       this.allCheckbox = this.$("#toggle-all")[0];
 
-      this.listenTo(Todos, 'reset change', this.addAll);
-      this.listenTo(Todos, 'all', this.render);
+      // this.listenTo(Todos, 'all', this.render);
+      this.listenTo(Todos, 'add', this.addAll);
+      this.listenTo(Todos, 'reset', this.addAll);
+      this.listenTo(Todos, 'change', this.forceSort);
+      this.listenTo(Todos, 'sort', this.reset);
 
       this.footer = this.$('footer');
       this.main = $('#main');
@@ -168,20 +172,25 @@ $(function(){
       Todos.fetch();
     },
 
+    reset: function(){
+      console.log('reset!');
+      this.addAll();
+    },
+
     render: function() {
+      console.log('render!');
       var done = Todos.done().length;
       var remaining = Todos.remaining().length;
 
-      if (Todos.length) {
-        this.main.show();
-        this.footer.show();
-        this.footer.html(this.statsTemplate({done: done, remaining: remaining}));
-      } else {
-        this.main.hide();
-        this.footer.hide();
-      }
-
+      this.main.show();
+      this.footer.show();
+      this.footer.html(this.statsTemplate({done: done, remaining: remaining}));
       this.allCheckbox.checked = !remaining;
+    },
+
+    forceSort: function(todo) {
+      console.log('forceSorting?');
+      Todos.sort();
     },
 
     // Add a single todo item to the list by creating a view for it, and
