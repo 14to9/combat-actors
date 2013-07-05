@@ -50,9 +50,9 @@
       <div class='labels-maker'>
         <ul class="selected labels">
           <% _.each(conditions, function(i) { %>
-            <li class="label">
+            <li class="label <%- i %>" id = <%- i.replace(/\s/g , "-") %>>
               <a href="#" class="label name"><%- i %></a>
-              <a href="#" id=<%- 'remove-' + i.replace(/\s/g , "-") %> class="remove"></a>
+              <a href="#" class="remove"></a>
             </li>
           <% }); %>
         </ul>

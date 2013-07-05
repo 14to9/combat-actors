@@ -1,3 +1,17 @@
+.active .selected.labels li.failed  a {
+  background-color: black;
+}
+.active .selected.labels li.failed a.remove:before {
+  border-left: 1px solid #999;
+}
+
+.active .selected.labels li.ongoing  a {
+  background-color: red;
+}
+.active .selected.labels li.ongoing a.remove:before {
+  border-left: 1px solid #e00;
+}
+
 .labels {
   padding: 0 0 0 8px;
 }
@@ -82,8 +96,11 @@
   margin-right: 16px;
 }
 
+.active .selected.labels li a.remove:before {
+  border-left: 1px solid #c60;
+}
 .selected.labels li a.remove:before {
-  border-left: 1px solid #e60;
+  border-left: 1px solid #a50;
   content: "";
   float: left;
   margin: 3px 0 0;

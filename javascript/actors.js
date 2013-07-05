@@ -111,42 +111,28 @@ $(function(){
     },
 
     removeCondition: function(e) {
-      var target_id = e.target.id;
-      var condition = target_id.replace("remove-", "").replace(/-/g , " ");
+      var target_id = $(e.target).parent().attr('id');
+      var condition = target_id.replace(/-/g , " ");
       this.model.removeCondition(condition);
     }
 
   });
 
-  // The Application
-  // ---------------
-
-  // Our overall **AppView** is the top-level piece of UI.
   var AppView = Backbone.View.extend({
 
-    // Instead of generating a new element, bind to the existing skeleton of
-    // the App already present in the HTML.
     el: $("#actorapp"),
 
-    // Our template for the line of statistics at the bottom of the app.
     statsTemplate: _.template($('#stats-template').html()),
 
-    // Delegated events for creating new items, and clearing completed ones.
     events: {
       "keypress #new-actor":  "createOnEnter",
-      "click #clear-completed": "clearCompleted",
       "click #activate-next": "activateNext"
     },
 
-    // At initialization we bind to the relevant events on the `Actors`
-    // collection, when items are added or changed. Kick things off by
-    // loading any preexisting actors that might be saved in *localStorage*.
     initialize: function() {
 
       this.input = this.$("#new-actor");
-      this.allCheckbox = this.$("#toggle-all")[0];
 
-      // this.listenTo(Actors, 'all', this.render);
       this.listenTo(Actors, 'add', this.addAll);
       this.listenTo(Actors, 'reset', this.addAll);
       this.listenTo(Actors, 'change:title', this.forceSort);
@@ -160,23 +146,18 @@ $(function(){
     },
 
     reset: function(){
-      console.log('reset!');
       this.addAll();
     },
 
     render: function() {
-      console.log('render!');
       var done = Actors.done().length;
       var remaining = Actors.remaining().length;
 
       this.main.show();
       this.footer.show();
-      this.footer.html(this.statsTemplate({done: done, remaining: remaining}));
-      this.allCheckbox.checked = !remaining;
     },
 
     forceSort: function(actor) {
-      console.log('forceSorting?');
       Actors.sort();
     },
 
@@ -208,17 +189,10 @@ $(function(){
 
       Actors.create({title: this.input.val()});
       this.input.val('');
-    },
-
-    // Clear all done actor items, destroying their models.
-    clearCompleted: function() {
-      _.invoke(Actors.done(), 'destroy');
-      return false;
     }
 
   });
 
-  _.templateSettings = { interpolate: /\<\@\=(.+?)\@\>/g, evaluate: /\<\@(.+?)\@\>/g };
   var App = new AppView;
 
 });
