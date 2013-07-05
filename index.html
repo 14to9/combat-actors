@@ -4,15 +4,20 @@
   <meta charset="utf-8">
   <title>Backbone.js Todos</title>
   <link rel="stylesheet" href="stylesheets/todos.css">
+  <link rel="stylesheet" href="stylesheets/labels.css">
 </head>
 
 <body>
 
   <div id="todoapp">
-    <div id="actor-form">
-      <input id="new-todo" type="text" placeholder="New actor name..">
+    <div id="control-panel">
+      <div id="actor-form">
+        <input id="new-todo" type="text" placeholder="New actor name..">
+      </div>
+      <div id="activate-next">
+        NEXT
+      </div>
     </div>
-
     <section id="main" style="display: block;">
       <header>
         <h1>Actors</h1>
@@ -38,8 +43,16 @@
   <script type="text/template" id="item-template">
     <div class="actor">
       <label><%- title %></label>
-      <a class="activate" alt="activate"></a>
-      <a class="destroy" alt="destroy"></a>
+    </div>
+    <div class='labels'>
+      <div class='labels-maker'>
+        <ul class="selected labels">
+          <li class="label">
+            <a href="#" class="label name">slowed</a>
+            <a href="#" class="remove"></a>
+          </li>
+        </ul>
+      </div>
     </div>
     <input class="edit" type="text" value="<%- title %>" />
   </script>

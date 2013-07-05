@@ -75,6 +75,10 @@ $(function(){
     //... is a list tag.
     tagName:  "li",
 
+    attributes : {
+      'class' : 'actor-item'
+    },
+
     // Cache the template function for a single item.
     template: _.template($('#item-template').html()),
 
@@ -160,7 +164,8 @@ $(function(){
     events: {
       "keypress #new-todo":  "createOnEnter",
       "click #clear-completed": "clearCompleted",
-      "click #toggle-all": "toggleAllComplete"
+      "click #toggle-all": "toggleAllComplete",
+      "click #activate-next": "activateNext"
     },
 
     // At initialization we bind to the relevant events on the `Todos`
@@ -216,6 +221,13 @@ $(function(){
     addAll: function() {
       this.orderList.empty();
       Todos.each(this.addOne, this);
+    },
+
+    activateNext: function() {
+      current_index = Todos.indexOf(Todos.where({active:true})[0]) || 0;
+      candidate_index  = current_index + 1;
+      target_index = candidate_index == Todos.length ? 0 : candidate_index;
+      Todos.setActive(Todos.at(target_index));
     },
 
     // If you hit return in the main input field, create new **Todo** model,

@@ -70,19 +70,23 @@ body {
   float: left;
 }
 
-#todo-list li {
+#todo-list ul {
+  list-style: none;
+}
+
+#todo-list li.actor-item {
   padding: 18px 20px 18px 0px;
   width: 466px;
   position: relative;
   font-size: 24px;
-  border-bottom: 1px solid #cccccc;
+  /*border-bottom: 1px solid #cccccc;*/
 }
 
-#todo-list li:last-child {
+#todo-list li.actor-item:last-child {
   border-bottom: none;
 }
 
-#todo-list li.done label {
+#todo-list li.actor-item.done label {
   color: #777777;
   text-decoration: line-through;
 }
@@ -111,6 +115,7 @@ li:hover .destroy, li:hover .activate {
 
 #todo-list li .actor {
   padding: 0 8px 0 8px;
+  height: auto;
 }
 
 #todo-list li.editing {
@@ -215,8 +220,6 @@ li:hover .destroy, li:hover .activate {
   color: white;
   height: 30px;
   font-weight: bold;
-  border-right: 4px solid #030;
-  border-bottom: 20px solid #030;
 }
 
 #credits {
@@ -230,7 +233,21 @@ li:hover .destroy, li:hover .activate {
   color: #888;
 }
 
-#actor-form {
+#control-panel {
   float: right;
   display: block;
+}
+
+#actor-form {
+  display: block;
+}
+
+#activate-next {
+  width: 450px;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  display: block;
+  background-color: #393;
+  cursor: pointer;
 }
