@@ -14,7 +14,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-#todoapp {
+#actorapp {
   background: #fff;
   padding: 20px;
   margin-bottom: 40px;
@@ -30,14 +30,14 @@ body {
   border-radius: 0 0 5px 5px;
 }
 
-#todoapp .head {
+#actorapp .head {
   font-size: 36px;
   font-weight: bold;
   text-align: center;
   margin: 10px 0 10px 0;
 }
 
-#todoapp input[type="text"] {
+#actorapp input[type="text"] {
   width: 436px;
   font-size: 24px;
   font-family: inherit;
@@ -53,7 +53,7 @@ body {
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
 }
 
-#todoapp input::-webkit-input-placeholder {
+#actorapp input::-webkit-input-placeholder {
   font-style: italic;
 }
 
@@ -64,18 +64,18 @@ body {
   float: left;
 }
 
-#todo-list {
+#actor-list {
   padding: 0 17px 0 17px;
   list-style: none;
   float: left;
   margin: 0;
 }
 
-#todo-list ul {
+#actor-list ul {
   list-style: none;
 }
 
-#todo-list li.actor-item {
+#actor-list li.actor-item {
   padding: 18px 10px 18px 0px;
   width: 466px;
   position: relative;
@@ -83,11 +83,11 @@ body {
   /*border-bottom: 1px solid #cccccc;*/
 }
 
-#todo-list li.actor-item:last-child {
+#actor-list li.actor-item:last-child {
   border-bottom: none;
 }
 
-#todo-list li.actor-item.done label {
+#actor-list li.actor-item.done label {
   color: #777777;
   text-decoration: line-through;
 }
@@ -114,41 +114,41 @@ li:hover .destroy, li:hover .activate {
     background-position: 0 -20px;
 }
 
-#todo-list li .actor {
+#actor-list li .actor {
   padding: 0 8px 0 8px;
   height: auto;
 }
 
-#todo-list li.editing {
+#actor-list li.editing {
   border-bottom: none;
   margin-top: -1px;
   padding: 0;
 }
 
-#todo-list li.editing:last-child {
+#actor-list li.editing:last-child {
   margin-bottom: -1px;
 }
 
-#todo-list li.editing .edit {
+#actor-list li.editing .edit {
   display: block;
   width: 444px;
   padding: 13px 15px 14px 20px;
   margin: 0;
 }
 
-#todo-list li.editing .actor {
+#actor-list li.editing .actor {
   display: none;
 }
 
-#todo-list li .actor label {
+#actor-list li .actor label {
   word-break: break-word;
 }
 
-#todo-list li .edit {
+#actor-list li .edit {
   display: none;
 }
 
-#todoapp footer {
+#actorapp footer {
   display: none;
   margin: 0 -20px -20px -20px;
   overflow: hidden;
@@ -201,7 +201,7 @@ li:hover .destroy, li:hover .activate {
   top: 1px;
 }
 
-#todo-count span {
+#actor-count span {
   font-weight: bold;
 }
 

@@ -24,6 +24,7 @@
   border-radius: 3px;
   padding: 3px 2px 3px 5px;
   min-height: 29px;
+  overflow-y: auto;
 }
 .active .labels-maker {
   background-color: #fff;

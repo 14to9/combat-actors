@@ -28,12 +28,6 @@ $(function(){
         'conditions': newConditions
       });
     },
-
-    // Toggle the `done` state of this actor item.
-    toggle: function() {
-      this.save({done: !this.get("done")});
-    }
-
   });
 
   var ActorList = Backbone.Collection.extend({
@@ -68,12 +62,12 @@ $(function(){
     template: _.template($('#item-template').html()),
 
     events: {
-      "click .toggle"   : "toggleDone",
       "dblclick .actor"  : "edit",
       "click a.destroy" : "clear",
       "click a.activate" : "activate",
       "keypress .edit"  : "updateOnEnter",
-      "blur .edit"      : "close"
+      "blur .edit"      : "close",
+      "click a.remove"   : "removeCondition"
     },
 
     initialize: function() {
@@ -114,6 +108,12 @@ $(function(){
 
     clear: function() {
       this.model.destroy();
+    },
+
+    removeCondition: function(e) {
+      var target_id = e.target.id;
+      var condition = target_id.replace("remove-", "").replace(/-/g , " ");
+      this.model.removeCondition(condition);
     }
 
   });
@@ -135,7 +135,6 @@ $(function(){
     events: {
       "keypress #new-actor":  "createOnEnter",
       "click #clear-completed": "clearCompleted",
-      "click #toggle-all": "toggleAllComplete",
       "click #activate-next": "activateNext"
     },
 
@@ -215,11 +214,6 @@ $(function(){
     clearCompleted: function() {
       _.invoke(Actors.done(), 'destroy');
       return false;
-    },
-
-    toggleAllComplete: function () {
-      var done = this.allCheckbox.checked;
-      Actors.each(function (actor) { actor.save({'done': done}); });
     }
 
   });

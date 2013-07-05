@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<!-- saved from url=(0022)http://localtodos.com/ -->
+<!-- saved from url=(0022)http://localactors.com/ -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
-  <title>Backbone.js Todos</title>
-  <link rel="stylesheet" href="stylesheets/todos.css">
+  <title>Backbone.js Actors</title>
+  <link rel="stylesheet" href="stylesheets/actors.css">
   <link rel="stylesheet" href="stylesheets/labels.css">
 </head>
 
 <body>
 
-  <div id="todoapp">
+  <div id="actorapp">
     <div id="control-panel">
       <div id="actor-form">
-        <input id="new-todo" type="text" placeholder="New actor name..">
+        <input id="new-actor" type="text" placeholder="New actor name..">
       </div>
       <div id="activate-next">
         NEXT
@@ -22,12 +22,12 @@
       <header>
         <p class='head'>Action Order</p>
       </header>
-      <ul id="todo-list"></ul>
+      <ul id="actor-list"></ul>
     </section>
 
     <footer style="display: block;">
 
-    <div class="todo-count"><b>0</b> items left</div>
+    <div class="actor-count"><b>0</b> items left</div>
   </footer>
 
   </div>
@@ -36,7 +36,7 @@
   <script src="javascript/underscore.js"></script>
   <script src="javascript/backbone.js"></script>
   <script src="javascript/backbone.localStorage.js"></script>
-  <script src="javascript/todos.js"></script>
+  <script src="javascript/actors.js"></script>
 
   <!-- Templates -->
 
@@ -52,7 +52,7 @@
           <% _.each(conditions, function(i) { %>
             <li class="label">
               <a href="#" class="label name"><%- i %></a>
-              <a href="#" class="remove"></a>
+              <a href="#" id=<%- 'remove-' + i.replace(/\s/g , "-") %> class="remove"></a>
             </li>
           <% }); %>
         </ul>
@@ -65,7 +65,7 @@
     <% if (done) { %>
       <a id="clear-completed">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a>
     <% } %>
-    <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>
+    <div class="actor-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>
   </script>
 
 
