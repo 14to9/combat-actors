@@ -98,6 +98,11 @@ body {
 li.actor-item.active {
   background-color: #fff;
   color: black;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
+  -ms-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
+  -o-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
 }
 
 #arrow {
@@ -117,11 +122,14 @@ li.actor-item.active {
   cursor: pointer;
   width: 20px;
   height: 20px;
+}
+.destroy {
   background: url(../images/destroy.png) no-repeat;
 }
 
 .activate {
   right: 35px;
+  background: url(../images/activate.png) no-repeat;
 }
 li:hover .destroy, li:hover .activate {
     display: block;
@@ -203,67 +211,8 @@ li:hover .destroy, li:hover .activate {
   width: 28px;
 }
 
-#clear-completed {
-  float: right;
-  line-height: 20px;
-  text-decoration: none;
-  background: rgba(0, 0, 0, 0.1);
-  color: #555555;
-  font-size: 11px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding: 0 10px 1px;
-  cursor: pointer;
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  -ms-border-radius: 12px;
-  -o-border-radius: 12px;
-  border-radius: 12px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
-  -ms-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
-  -o-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
-}
-
-#clear-completed:hover {
-  background: rgba(0, 0, 0, 0.15);
-  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  -ms-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  -o-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-}
-
-#clear-completed:active {
-  position: relative;
-  top: 1px;
-}
-
 #actor-count span {
   font-weight: bold;
-}
-
-#instructions {
-  margin: 10px auto;
-  color: #777777;
-  text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
-  text-align: center;
-}
-
-#instructions a {
-  color: #336699;
-}
-
-#credits {
-  margin: 30px auto;
-  color: #999;
-  text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
-  text-align: center;
-}
-
-#credits a {
-  color: #888;
 }
 
 #control-panel {
@@ -305,4 +254,10 @@ li:hover .destroy, li:hover .activate {
 #activate-next:hover {
   background-color: #888;
   color: white;
+}
+#activate-next a {
+  color: white;
+  text-decoration: none;
+  width: 100%;
+  display: inline-block;
 }

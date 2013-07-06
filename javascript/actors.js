@@ -177,8 +177,6 @@ $(function(){
 
     el: $("#actorapp"),
 
-    statsTemplate: _.template($('#stats-template').html()),
-
     events: {
       "keypress #new-actor":  "createOnEnter",
       "click #activate-next": "activateNext",
