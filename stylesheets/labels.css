@@ -116,7 +116,7 @@
 }
 
 .selected.labels li a {
-  background-color: #ccc;
+  background-color: #999;
   color: #fff;
   padding: 2px 4px 2px 6px;
   text-decoration: none;
