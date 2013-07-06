@@ -6,8 +6,7 @@ $(function(){
     defaults: function() {
       return {
         title: "empty actor...",
-        order: 1,
-        done: false,
+        order: '0',
         active: false,
         conditions: []
       };
@@ -36,7 +35,9 @@ $(function(){
 
     localStorage: new Backbone.LocalStorage("actors-backbone"),
 
-    comparator: 'title',
+    comparator: function(x){
+      return - parseInt(x.get('order'),10);
+    },
 
     setActive: function(actor){
       this.where({active: true}).forEach(function(previous) {
@@ -62,12 +63,17 @@ $(function(){
     template: _.template($('#item-template').html()),
 
     events: {
-      "dblclick .actor"  : "edit",
+      "dblclick label"  : "edit",
       "click a.destroy" : "clear",
       "click a.activate" : "activate",
       "keypress .edit"  : "updateOnEnter",
       "blur .edit"      : "close",
-      "click a.remove"   : "removeCondition"
+      "click a.remove"   : "removeCondition",
+      "keypress .input"  : "addConditionOnEnter",
+      "click .label-makers"     : "setConditionFocus",
+      "dblclick .actor-initiative" : "editInitiative",
+      "keypress .actor-initiative input" : "updateInitiative",
+      "blur .actor-initiative input"     : "hideInitiative"
     },
 
     initialize: function() {
@@ -77,9 +83,11 @@ $(function(){
 
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
-      this.$el.toggleClass('done', this.model.get('done'));
       this.$el.toggleClass('active', this.model.get('active'));
       this.input = this.$('.edit');
+      this.newCondition = this.$('.editable .editor');
+      f = this.editInitiative = this.$('.actor-initiative .edit-form');
+      this.showInitiative = this.$('.actor-initiative .show');
       return this;
     },
 
@@ -90,6 +98,25 @@ $(function(){
     edit: function() {
       this.$el.addClass("editing");
       this.input.focus();
+    },
+
+    editInitiative: function() {
+      this.showInitiative.hide();
+      this.editInitiative.show();
+      this.editInitiative.focus();
+    },
+
+    updateInitiative: function(e) {
+      if (e.keyCode == 13) {
+        var value = this.$('.actor-initiative .edit-form input').val() || 0;
+        this.model.save({order: value});
+        this.hideInitiative();
+      }
+    },
+
+    hideInitiative: function() {
+      this.showInitiative.show();
+      this.editInitiative.hide();
     },
 
     close: function() {
@@ -106,6 +133,19 @@ $(function(){
       if (e.keyCode == 13) this.close();
     },
 
+    setConditionFocus: function(e) {
+      console.log("focus?");
+      this.newCondition.focus();
+    },
+
+    addConditionOnEnter: function(e) {
+      if (e.keyCode == 13) {
+        var target_id = $(e.target).parent().attr('id');
+        var condition = this.newCondition.val();
+        this.model.addCondition(condition);
+      }
+    },
+
     clear: function() {
       this.model.destroy();
     },
@@ -114,6 +154,7 @@ $(function(){
       var target_id = $(e.target).parent().attr('id');
       var condition = target_id.replace(/-/g , " ");
       this.model.removeCondition(condition);
+      return false;
     }
 
   });
@@ -135,7 +176,7 @@ $(function(){
 
       this.listenTo(Actors, 'add', this.addAll);
       this.listenTo(Actors, 'reset', this.addAll);
-      this.listenTo(Actors, 'change:title', this.forceSort);
+      this.listenTo(Actors, 'change:order', this.forceSort);
       this.listenTo(Actors, 'sort', this.reset);
 
       this.footer = this.$('footer');
@@ -150,7 +191,6 @@ $(function(){
     },
 
     render: function() {
-      var done = Actors.done().length;
       var remaining = Actors.remaining().length;
 
       this.main.show();

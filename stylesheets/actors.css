@@ -31,20 +31,19 @@ body {
 }
 
 #actorapp .head {
-  font-size: 36px;
+  font-size: 18px;
   font-weight: bold;
   text-align: center;
   margin: 10px 0 10px 0;
 }
 
-#actorapp input[type="text"] {
+.actor-name .edit-form input[type="text"],
+#actor-form input[type="text"] {
   width: 436px;
   font-size: 24px;
   font-family: inherit;
-  line-height: 1.4em;
   border: 0;
   outline: none;
-  padding: 6px;
   border: 1px solid #999999;
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
@@ -77,9 +76,15 @@ body {
 
 #actor-list li.actor-item {
   padding: 18px 10px 18px 0px;
-  width: 466px;
+  width: 480px;
   position: relative;
   font-size: 24px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  overflow: auto;
   /*border-bottom: 1px solid #cccccc;*/
 }
 
@@ -114,7 +119,7 @@ li:hover .destroy, li:hover .activate {
     background-position: 0 -20px;
 }
 
-#actor-list li .actor {
+#actor-list li .actor-name {
   padding: 0 8px 0 8px;
   height: auto;
 }
@@ -129,22 +134,22 @@ li:hover .destroy, li:hover .activate {
   margin-bottom: -1px;
 }
 
-#actor-list li.editing .edit {
+#actor-list li.editing .actor-name .edit-form {
   display: block;
   width: 444px;
-  padding: 13px 15px 14px 20px;
-  margin: 0;
+  padding: 0px;
+  margin: 10px 0 0 0;
 }
 
-#actor-list li.editing .actor {
+#actor-list li.editing .actor-name .show {
   display: none;
 }
 
-#actor-list li .actor label {
+#actor-list li .actor-name label {
   word-break: break-word;
 }
 
-#actor-list li .edit {
+#actor-list li .edit-form {
   display: none;
 }
 
@@ -162,6 +167,29 @@ li:hover .destroy, li:hover .activate {
   -ms-border-radius: 0 0 5px 5px;
   -o-border-radius: 0 0 5px 5px;
   border-radius: 0 0 5px 5px;
+}
+
+.actor-initiative {
+  clear: both;
+  display: inline-block;
+  float: left;
+  height: 30px;
+  width: 40px;
+  margin-top: 5px;
+  text-align: center;
+  padding: 10px 0 0 3px;
+  color: #666;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.actor-initiative .show {
+  text-align: center;
+}
+
+.actor-initiative .edit-form input[type="text"] {
+  display: inline-block;
+  width: 28px;
 }
 
 #clear-completed {
@@ -248,6 +276,25 @@ li:hover .destroy, li:hover .activate {
   text-align: center;
   vertical-align: middle;
   display: block;
-  background-color: #393;
+  background-color: #555;
+  color: white;
   cursor: pointer;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+  -ms-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+  -o-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+  font-weight: bold;
+  font-size: 24px;
+  padding: 16px 0 0 0;
+  margin-bottom: 20px;
+}
+#activate-next:hover {
+  background-color: #888;
+  color: white;
 }

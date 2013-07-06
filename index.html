@@ -11,16 +11,16 @@
 
   <div id="actorapp">
     <div id="control-panel">
+      <div id="activate-next">
+        NEXT &raquo;
+      </div>
       <div id="actor-form">
         <input id="new-actor" type="text" placeholder="New actor name..">
-      </div>
-      <div id="activate-next">
-        NEXT
       </div>
     </div>
     <section id="main" style="display: block;">
       <header>
-        <p class='head'>Action Order</p>
+        <p class='head'>ACTION ORDER</p>
       </header>
       <ul id="actor-list"></ul>
     </section>
@@ -41,10 +41,21 @@
   <!-- Templates -->
 
   <script type="text/template" id="item-template">
-    <div class="actor">
-      <a class="activate" alt="activate"></a>
-      <a class="destroy" alt="destroy"></a>
-      <label><%- title %></label>
+    <div class="actor-name">
+      <div class="show">
+        <a class="activate" alt="activate"></a>
+        <a class="destroy" alt="destroy"></a>
+        <label><%- title %></label>
+      </div>
+      <div class="edit-form">
+        <input class="edit" type="text" value="<%- title %>" />
+      </div>
+    </div>
+    <div class="actor-initiative">
+      <div class="show"><%- order %></div>
+      <div class="edit-form">
+        <input type="text" value="<%- order %>"/>
+      </div>
     </div>
     <div class='labels'>
       <div class='labels-maker'>
@@ -55,10 +66,16 @@
               <a href="#" class="remove"></a>
             </li>
           <% }); %>
+          <li class="input label">
+            <div class="editable">
+              <div class="resizer tracker_markup"> </div>
+              <textarea id="" class="editor tracker_markup search" name="condition"></textarea>
+              <div class="resize handle"></div>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
-    <input class="edit" type="text" value="<%- title %>" />
   </script>
 
   <script type="text/template" id="stats-template">
