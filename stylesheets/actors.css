@@ -9,7 +9,7 @@ body {
   line-height: 1.4em;
   background: #666;
   color: #333333;
-  width: 1020px;
+  width: 567px;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
 }
@@ -39,6 +39,7 @@ body {
 
 .actor-name .edit-form input[type="text"],
 #actor-form input[type="text"] {
+  background-color: white;
   width: 436px;
   font-size: 24px;
   font-family: inherit;
@@ -52,15 +53,21 @@ body {
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
 }
 
+#actor-form input[type="text"] {
+  width: 200px;
+}
+
 #actorapp input::-webkit-input-placeholder {
   font-style: italic;
 }
 
 #main {
-  background: #eeeeee;
+  background: #eee;
   color: #333333;
-  width: 520px;
-  float: left;
+  width: 100%;
+  padding-bottom: 15px;
+  clear: both;
+  overflow: auto;
 }
 
 #actor-list {
@@ -85,16 +92,21 @@ body {
   -o-border-radius: 5px;
   border-radius: 5px;
   overflow: auto;
-  /*border-bottom: 1px solid #cccccc;*/
+  margin-bottom: 10px;
 }
 
-#actor-list li.actor-item:last-child {
-  border-bottom: none;
+li.actor-item.active {
+  background-color: #fff;
+  color: black;
 }
 
-#actor-list li.actor-item.done label {
-  color: #777777;
-  text-decoration: line-through;
+#arrow {
+  width: 300px;
+  z-index: 3;
+}
+
+#arrow img {
+  width: 300px;
 }
 
 .destroy, .activate {
@@ -158,8 +170,7 @@ li:hover .destroy, li:hover .activate {
   margin: 0 -20px -20px -20px;
   overflow: hidden;
   color: #555555;
-  background: #f4fce8;
-  border-top: 1px solid #ededed;
+  background: white;
   padding: 0 20px;
   line-height: 37px;
   -webkit-border-radius: 0 0 5px 5px;
@@ -244,12 +255,6 @@ li:hover .destroy, li:hover .activate {
   color: #336699;
 }
 
-.active {
-  background-color: #0a0;
-  color: white;
-  font-weight: bold;
-}
-
 #credits {
   margin: 30px auto;
   color: #999;
@@ -262,16 +267,19 @@ li:hover .destroy, li:hover .activate {
 }
 
 #control-panel {
-  float: right;
+  width: 100%;
   display: block;
+  margin-top: 15px;
 }
 
 #actor-form {
   display: block;
+  float: left;
 }
 
 #activate-next {
-  width: 450px;
+  float: right;
+  width: 250px;
   height: 40px;
   text-align: center;
   vertical-align: middle;

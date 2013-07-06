@@ -70,7 +70,7 @@ $(function(){
       "blur .edit"      : "close",
       "click a.remove"   : "removeCondition",
       "keypress .input"  : "addConditionOnEnter",
-      "click .label-makers"     : "setConditionFocus",
+      "click .labels"     : "setConditionFocus",
       "dblclick .actor-initiative" : "editInitiative",
       "keypress .actor-initiative input" : "updateInitiative",
       "blur .actor-initiative input"     : "hideInitiative"
@@ -88,7 +88,20 @@ $(function(){
       this.newCondition = this.$('.editable .editor');
       f = this.editInitiative = this.$('.actor-initiative .edit-form');
       this.showInitiative = this.$('.actor-initiative .show');
+      if (this.model.get('active')) {
+        this.moveArrow();
+      }
+
       return this;
+    },
+
+    moveArrow: function() {
+      $("#arrow").position({
+        my:        "right+5% center",
+        at:        "left center-10%",
+        of:        this.$el,
+        collision: "none"
+      });
     },
 
     activate: function() {
@@ -134,15 +147,16 @@ $(function(){
     },
 
     setConditionFocus: function(e) {
-      console.log("focus?");
+      this.newCondition.val(null);
       this.newCondition.focus();
     },
 
     addConditionOnEnter: function(e) {
       if (e.keyCode == 13) {
         var target_id = $(e.target).parent().attr('id');
-        var condition = this.newCondition.val();
+        var condition = this.newCondition.val().replace(/^\s+|\s+$/g,'');
         this.model.addCondition(condition);
+        this.setConditionFocus();
       }
     },
 
@@ -167,7 +181,8 @@ $(function(){
 
     events: {
       "keypress #new-actor":  "createOnEnter",
-      "click #activate-next": "activateNext"
+      "click #activate-next": "activateNext",
+      "keypress body": "activateNextOnKeypress"
     },
 
     initialize: function() {
@@ -219,6 +234,13 @@ $(function(){
       candidate_index  = current_index + 1;
       target_index = candidate_index == Actors.length ? 0 : candidate_index;
       Actors.setActive(Actors.at(target_index));
+    },
+
+    activateNextOnKeypress: function(e) {
+      if (e.ctrlKey || e.metaKey && (e.keyCode == 65)) {
+        console.log("Advancing active on keypress");
+        this.activateNext();
+      }
     },
 
     // If you hit return in the main input field, create new **Actor** model,

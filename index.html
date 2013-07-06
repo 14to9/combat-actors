@@ -10,14 +10,6 @@
 <body>
 
   <div id="actorapp">
-    <div id="control-panel">
-      <div id="activate-next">
-        NEXT &raquo;
-      </div>
-      <div id="actor-form">
-        <input id="new-actor" type="text" placeholder="New actor name..">
-      </div>
-    </div>
     <section id="main" style="display: block;">
       <header>
         <p class='head'>ACTION ORDER</p>
@@ -25,11 +17,24 @@
       <ul id="actor-list"></ul>
     </section>
 
+    <div id="control-panel">
+      <div id="actor-form">
+        <input id="new-actor" type="text" placeholder="New actor name..">
+      </div>
+      <div id="activate-next">
+        NEXT &raquo;
+      </div>
+    </div>
+
     <footer style="display: block;">
 
-    <div class="actor-count"><b>0</b> items left</div>
+    <div class="actor-count">&nbsp;</div>
   </footer>
 
+  </div>
+
+  <div id="arrow">
+    <img src="images/transparent-arrow-hi.png" alt='TURN >>'/>
   </div>
 
   <script src="javascript/jquery.js"></script>
@@ -37,6 +42,7 @@
   <script src="javascript/backbone.js"></script>
   <script src="javascript/backbone.localStorage.js"></script>
   <script src="javascript/actors.js"></script>
+  <script src="javascript/jquery-ui.js"></script>
 
   <!-- Templates -->
 
