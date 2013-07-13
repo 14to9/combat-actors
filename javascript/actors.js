@@ -26,7 +26,7 @@ $(function(){
       this.save({
         'conditions': newConditions
       });
-    },
+    }
   });
 
   var ActorList = Backbone.Collection.extend({
@@ -86,7 +86,7 @@ $(function(){
       this.$el.toggleClass('active', this.model.get('active'));
       this.input = this.$('.edit');
       this.newCondition = this.$('.editable .editor');
-      f = this.editInitiative = this.$('.actor-initiative .edit-form');
+      this.initiativeForm = this.$('.actor-initiative .edit-form');
       this.showInitiative = this.$('.actor-initiative .show');
       if (this.model.get('active')) {
         this.moveArrow();
@@ -115,7 +115,7 @@ $(function(){
 
     editInitiative: function() {
       this.showInitiative.hide();
-      this.editInitiative.show();
+      this.initiativeForm.show();
       this.$('.actor-initiative .edit-form input').focus();
     },
 
@@ -129,7 +129,7 @@ $(function(){
 
     hideInitiative: function() {
       this.showInitiative.show();
-      this.editInitiative.hide();
+      this.initiativeForm.hide();
     },
 
     close: function() {
@@ -220,6 +220,7 @@ $(function(){
     // appending its element to the `<ul>`.
     addOne: function(actor) {
       var view = new ActorView({model: actor});
+      actor.view = view;
       this.orderList.append(view.render().el);
     },
 
@@ -242,6 +243,7 @@ $(function(){
     },
 
     actorUp: function() {
+      console.log("actorUp");
       current_index = Actors.indexOf(this.currentActor()) || 0;
       candidate_index  = current_index - 1;
       target_index = candidate_index < 0 ? 0 : candidate_index;
@@ -252,6 +254,7 @@ $(function(){
     },
 
     actorDown: function() {
+      console.log("actorDown");
       current_index = Actors.indexOf(this.currentActor()) || 0;
       candidate_index  = current_index + 1;
       target_index = candidate_index == Actors.length ? Actors.length - 1 : candidate_index;
@@ -272,11 +275,17 @@ $(function(){
     commandStroke: function(e) {
       if (!$(e.target).is('input, textarea')) {
         switch (e.keyCode) {
+          case 100:  // 'x'
+            this.removeLastConditionFromActive(); break;
           case 112:  // 'p'
             this.activatePrevious(); break;
           case 110:  // 'n'
           case 13:   // Enter
             this.activateNext(); break;
+          case 105:  // 'i'
+            this.editActiveInitiative(e); break;
+          case 97:  // 'a'
+            this.addActiveCondition(e); break;
           case 62:  // '>'
             this.actorUp(); break;
           case 60:  // '<'
@@ -305,7 +314,24 @@ $(function(){
 
       Actors.create({title: this.input.val()});
       this.input.val('');
+    },
+
+    editActiveInitiative: function(e) {
+      this.currentActor().view.editInitiative();
+      e.preventDefault();
+    },
+
+    addActiveCondition: function(e) {
+      this.currentActor().view.setConditionFocus();
+      e.preventDefault();
+    },
+
+    removeLastConditionFromActive: function(e) {
+      actor = this.currentActor();
+      target = _.last(actor.get('conditions'));
+      actor.removeCondition(target);
     }
+
 
   });
 
