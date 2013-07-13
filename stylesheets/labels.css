@@ -12,7 +12,7 @@
   border-left: 1px solid #e00;
 }
 
-.active .selected.labels li.stance  a {
+.active .selected.labels li.stance a {
   background-color: #80a;
 }
 .active .selected.labels li.stance a.remove:before {
@@ -51,8 +51,8 @@
   position: relative;
   float: left;
   font-family: Helvetica,Arial,Verdana,sans-serif;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 24px;
+  line-height: 24px;
   margin: 8px 0 0 0;
   padding: 2px 4px 1px 4px;
   width: 437px;
@@ -91,8 +91,8 @@
   float: left;
   margin: 2px 3px 2px 0;
   position: relative;
-  font-size: 16px;
-  line-height: 18px;
+  font-size: 24px;
+  line-height: 31px;
   z-index: 1;
 }
 
@@ -108,7 +108,7 @@
   border-radius: 0 11px 11px 0;
   color: #e0e0e0;
   padding: 0;
-  width: 20px;
+  width: 25px;
 }
 
 .active .selected.labels li a {
@@ -118,7 +118,7 @@
 .selected.labels li a {
   background-color: #999;
   color: #fff;
-  padding: 2px 4px 2px 6px;
+  padding: 2px 6px 2px 7px;
   text-decoration: none;
 }
 
@@ -130,7 +130,7 @@
   -ms-border-radius: 4px 0 0 4px;
   -o-border-radius: 4px 0 0 4px;
   border-radius: 4px 0 0 4px;
-  margin-right: 20px;
+  margin-right: 25px;
 }
 
 .active .selected.labels li a.remove:before {
@@ -140,8 +140,8 @@
   border-left: 1px solid #bbb;
   content: "";
   float: left;
-  margin: 3px 0 0;
-  height: 16px;
+  margin: 5px 0 0;
+  height: 24px;
 }
 .selected.labels li a.remove:after {
   float: left;
@@ -161,8 +161,8 @@
   position: relative;
   width: auto;
   font-family: Helvetica,Arial,Verdana,sans-serif;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 24px;
+  line-height: 24px;
   margin: 0;
   padding: 2px 4px 1px 4px;
   width: 100%;
@@ -178,7 +178,8 @@
   background-color: #eee;
 }
 .labels-maker .selected.labels li.input .editable .search {
-  font-size: 16px;
+  font-size: 24px;
+  line-height: 24px;
   border: 0;
   float: left;
   margin: 0;
@@ -217,7 +218,8 @@
   padding-right: 2px;
   min-width: 50px;
   width: 150px;
-  font-size: 13px;
+  font-size: 24px;
+  line-height: 24px;
 }
 .editable textarea {
   outline: none;

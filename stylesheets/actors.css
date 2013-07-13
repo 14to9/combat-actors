@@ -85,7 +85,7 @@ body {
   padding: 18px 10px 18px 0px;
   width: 480px;
   position: relative;
-  font-size: 24px;
+  font-size: 40px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -140,8 +140,8 @@ li:hover .destroy, li:hover .activate {
 }
 
 #actor-list li .actor-name {
-  padding: 0 8px 0 8px;
-  height: auto;
+  padding: 0 0 0 8px;
+  height: 40px;
 }
 
 #actor-list li.editing {
@@ -194,7 +194,6 @@ li:hover .destroy, li:hover .activate {
   float: left;
   height: 30px;
   width: 40px;
-  margin-top: 5px;
   text-align: center;
   padding: 10px 0 0 3px;
   color: #666;

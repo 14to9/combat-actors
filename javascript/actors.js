@@ -97,9 +97,9 @@ $(function(){
 
     moveArrow: function() {
       $("#arrow").position({
-        my:        "right+5% center",
-        at:        "left center-10%",
-        of:        this.$el,
+        my:        "right center",
+        at:        "left center-30%",
+        of:        this.$('.actor-name'),
         collision: "none"
       });
     },
@@ -116,7 +116,7 @@ $(function(){
     editInitiative: function() {
       this.showInitiative.hide();
       this.editInitiative.show();
-      this.editInitiative.focus();
+      this.$('.actor-initiative .edit-form input').focus();
     },
 
     updateInitiative: function(e) {
@@ -179,8 +179,7 @@ $(function(){
 
     events: {
       "keypress #new-actor":  "createOnEnter",
-      "click #activate-next": "activateNext",
-      "keypress body": "activateNextOnKeypress"
+      "click #activate-next": "activateNext"
     },
 
     initialize: function() {
@@ -195,6 +194,9 @@ $(function(){
       this.footer = this.$('footer');
       this.main = $('#main');
       this.orderList = $("#actor-list");
+
+      _.bindAll(this);
+      $(document).on('keypress', this.commandStroke);
 
       Actors.fetch();
     },
@@ -235,10 +237,18 @@ $(function(){
     },
 
     activateNextOnKeypress: function(e) {
-      if (e.ctrlKey || e.metaKey && (e.keyCode == 65)) {
-        console.log("Advancing active on keypress");
-        this.activateNext();
-      }
+      console.log("Advancing active on keypress");
+      this.activateNext();
+    },
+
+    commandStroke: function(e) {
+      if (!$(e.target).is('input, textarea')) {
+        console.log('Command key: ' + e.keyCode);
+        switch (e.keyCode) {
+          case 110:  // next
+            this.activateNext();
+          }
+       }
     },
 
     // If you hit return in the main input field, create new **Actor** model,
