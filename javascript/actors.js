@@ -6,7 +6,7 @@ $(function(){
     defaults: function() {
       return {
         title: "empty actor...",
-        order: '0',
+        order: 0,
         active: false,
         conditions: []
       };
@@ -36,7 +36,7 @@ $(function(){
     localStorage: new Backbone.LocalStorage("actors-backbone"),
 
     comparator: function(x){
-      return - parseInt(x.get('order'),10);
+      return - parseInt(x.get('order'));
     },
 
     setActive: function(actor){
@@ -122,7 +122,7 @@ $(function(){
     updateInitiative: function(e) {
       if (e.keyCode == 13) {
         var value = this.$('.actor-initiative .edit-form input').val() || 0;
-        this.model.save({order: value});
+        this.model.save({order: parseInt(value)});
         this.hideInitiative();
       }
     },
@@ -230,25 +230,71 @@ $(function(){
     },
 
     activateNext: function() {
-      current_index = Actors.indexOf(Actors.where({active:true})[0]) || 0;
-      candidate_index  = current_index + 1;
+      candidate_index = this.currentIndex() + 1;
       target_index = candidate_index == Actors.length ? 0 : candidate_index;
       Actors.setActive(Actors.at(target_index));
     },
 
-    activateNextOnKeypress: function(e) {
-      console.log("Advancing active on keypress");
-      this.activateNext();
+    activatePrevious: function() {
+      candidate_index  = this.currentIndex() - 1;
+      target_index = candidate_index < 0 ? Actors.length - 1 : candidate_index;
+      Actors.setActive(Actors.at(target_index));
+    },
+
+    actorUp: function() {
+      current_index = Actors.indexOf(this.currentActor()) || 0;
+      candidate_index  = current_index - 1;
+      target_index = candidate_index < 0 ? 0 : candidate_index;
+      if (target_index != current_index) {
+        target_initiative = parseInt(Actors.at(target_index).get('order')) + 1;
+        Actors.at(current_index).save({'order': target_initiative});
+      }
+    },
+
+    actorDown: function() {
+      current_index = Actors.indexOf(this.currentActor()) || 0;
+      candidate_index  = current_index + 1;
+      target_index = candidate_index == Actors.length ? Actors.length - 1 : candidate_index;
+      if (target_index != current_index) {
+        candidate_initiative = parseInt(Actors.at(target_index).get('order')) - 1;
+        target_initiative = candidate_initiative < 0 ? 0 : candidate_initiative;
+        Actors.at(current_index).save({'order': target_initiative});
+      }
+    },
+
+    renderCurrent: function() {
+      console.log("renderCurrent");
+      if (this.currentActor()) {
+        Actors.setActive(this.currentActor());
+      }
     },
 
     commandStroke: function(e) {
       if (!$(e.target).is('input, textarea')) {
-        console.log('Command key: ' + e.keyCode);
         switch (e.keyCode) {
-          case 110:  // next
-            this.activateNext();
+          case 112:  // 'p'
+            this.activatePrevious(); break;
+          case 110:  // 'n'
+          case 13:   // Enter
+            this.activateNext(); break;
+          case 62:  // '>'
+            this.actorUp(); break;
+          case 60:  // '<'
+            this.actorDown(); break;
+          case 99:  // 'c'
+            this.renderCurrent(); break;
+          default:
+            console.log('Command key: ' + e.keyCode);
           }
        }
+    },
+
+    currentActor: function() {
+      return(Actors.where({active:true})[0] || Actors.at(0));
+    },
+
+    currentIndex: function() {
+      return Actors.indexOf(this.currentActor()) || 0
     },
 
     // If you hit return in the main input field, create new **Actor** model,
