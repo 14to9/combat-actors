@@ -286,9 +286,9 @@ $(function(){
             this.editActiveInitiative(e); break;
           case 97:  // 'a'
             this.addActiveCondition(e); break;
-          case 62:  // '>'
-            this.actorUp(); break;
           case 60:  // '<'
+            this.actorUp(); break;
+          case 62:  // '>'
             this.actorDown(); break;
           case 99:  // 'c'
             this.renderCurrent(); break;
