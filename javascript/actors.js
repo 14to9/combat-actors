@@ -13,19 +13,29 @@ $(function(){
     },
 
     addCondition: function(condition){
-      newConditions = _.union(this.get('conditions'), [condition]);
+      var newConditions = _.union(this.get('conditions'), [condition]);
       this.save({
         'conditions': newConditions
       });
     },
 
     removeCondition: function(condition){
-      newConditions = _.reject(this.get('conditions'), function(existing_condition){
+      var newConditions = _.reject(this.get('conditions'), function(existing_condition){
         return existing_condition === condition;
       });
       this.save({
         'conditions': newConditions
       });
+    },
+
+    removeAllConditions: function() {
+      this.save({'conditions':[]});
+    },
+
+    rotateConditions: function() {
+      var c = this.get('conditions');
+      c.push(c.shift());
+      this.save({'conditions': c});
     }
   });
 
@@ -156,7 +166,6 @@ $(function(){
         var target_id = $(e.target).parent().attr('id');
         var condition = this.newCondition.val().replace(/^\s+|\s+$/g,'');
         this.model.addCondition(condition);
-        this.setConditionFocus();
       }
     },
 
@@ -216,15 +225,12 @@ $(function(){
       Actors.sort();
     },
 
-    // Add a single actor item to the list by creating a view for it, and
-    // appending its element to the `<ul>`.
     addOne: function(actor) {
       var view = new ActorView({model: actor});
       actor.view = view;
       this.orderList.append(view.render().el);
     },
 
-    // Add all items in the **Actors** collection at once.
     addAll: function() {
       this.orderList.empty();
       Actors.each(this.addOne, this);
@@ -243,7 +249,6 @@ $(function(){
     },
 
     actorUp: function() {
-      console.log("actorUp");
       current_index = Actors.indexOf(this.currentActor()) || 0;
       candidate_index  = current_index - 1;
       target_index = candidate_index < 0 ? 0 : candidate_index;
@@ -254,7 +259,6 @@ $(function(){
     },
 
     actorDown: function() {
-      console.log("actorDown");
       current_index = Actors.indexOf(this.currentActor()) || 0;
       candidate_index  = current_index + 1;
       target_index = candidate_index == Actors.length ? Actors.length - 1 : candidate_index;
@@ -266,7 +270,6 @@ $(function(){
     },
 
     renderCurrent: function() {
-      console.log("renderCurrent");
       if (this.currentActor()) {
         Actors.setActive(this.currentActor());
       }
@@ -276,9 +279,11 @@ $(function(){
       if (!$(e.target).is('input, textarea')) {
         switch (e.keyCode) {
           case 100:  // 'x'
-            this.removeLastConditionFromActive(); break;
+            this.removeFirstConditionFromActive(); break;
           case 112:  // 'p'
             this.activatePrevious(); break;
+          case 114:  // 'r'
+            this.rotateActiveConditions(); break;
           case 110:  // 'n'
           case 13:   // Enter
             this.activateNext(); break;
@@ -286,6 +291,8 @@ $(function(){
             this.editActiveInitiative(e); break;
           case 97:  // 'a'
             this.addActiveCondition(e); break;
+          case 68:  // 'D'
+            this.removeAllActiveConditions(); break;
           case 60:  // '<'
             this.actorUp(); break;
           case 62:  // '>'
@@ -306,8 +313,6 @@ $(function(){
       return Actors.indexOf(this.currentActor()) || 0
     },
 
-    // If you hit return in the main input field, create new **Actor** model,
-    // persisting it to *localStorage*.
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
       if (!this.input.val()) return;
@@ -326,12 +331,21 @@ $(function(){
       e.preventDefault();
     },
 
-    removeLastConditionFromActive: function(e) {
-      actor = this.currentActor();
-      target = _.last(actor.get('conditions'));
-      actor.removeCondition(target);
-    }
+    rotateActiveConditions: function(e) {
+      this.currentActor().rotateConditions();
+      this.renderCurrent();
+    },
 
+    removeFirstConditionFromActive: function(e) {
+      actor = this.currentActor();
+      target = _.first(actor.get('conditions'));
+      actor.removeCondition(target);
+    },
+
+    removeAllActiveConditions: function() {
+      actor = this.currentActor();
+      actor.removeAllConditions();
+    }
 
   });
 
