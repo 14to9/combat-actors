@@ -297,6 +297,12 @@ $(function(){
       }
     },
 
+    renderSelected: function(model) {
+      if (this.selectedActor()) {
+        Actors.setSelected(this.selectedActor());
+      }
+    },
+
     commandStroke: function(e) {
       if (!$(e.target).is('input, textarea')) {
         switch (e.keyCode) {
@@ -367,7 +373,7 @@ $(function(){
 
     rotateActiveConditions: function(e) {
       this.selectedActor().rotateConditions();
-      this.renderCurrent();
+      this.renderSelected();
     },
 
     removeFirstConditionFromActive: function(e) {
