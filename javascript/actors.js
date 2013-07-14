@@ -8,6 +8,7 @@ $(function(){
         title: "empty actor...",
         order: 0,
         active: false,
+        selected: false,
         conditions: []
       };
     },
@@ -54,8 +55,14 @@ $(function(){
         previous.save({active: false});
       });
       actor.save({active: true});
-    }
+    },
 
+    setSelected: function(actor){
+      this.where({selected: true}).forEach(function(previous) {
+        previous.save({selected: false});
+      });
+      actor.save({selected: true});
+    }
   });
 
   var Actors = new ActorList;
@@ -94,6 +101,7 @@ $(function(){
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
       this.$el.toggleClass('active', this.model.get('active'));
+      this.$el.toggleClass('selected', this.model.get('selected'));
       this.input = this.$('.edit');
       this.newCondition = this.$('.editable .editor');
       this.initiativeForm = this.$('.actor-initiative .edit-form');
@@ -237,29 +245,42 @@ $(function(){
     },
 
     activateNext: function() {
-      candidate_index = this.currentIndex() + 1;
+      candidate_index = this.activeIndex() + 1;
       target_index = candidate_index == Actors.length ? 0 : candidate_index;
       Actors.setActive(Actors.at(target_index));
     },
 
     activatePrevious: function() {
-      candidate_index  = this.currentIndex() - 1;
+      candidate_index  = this.activeIndex() - 1;
       target_index = candidate_index < 0 ? Actors.length - 1 : candidate_index;
       Actors.setActive(Actors.at(target_index));
     },
 
+    upSelect: function() {
+      candidate_index = this.selectedIndex() + 1;
+      target_index = candidate_index == Actors.length ? 0 : candidate_index;
+      Actors.setSelected(Actors.at(target_index));
+    },
+
+    downSelect: function() {
+      candidate_index  = this.selectedIndex() - 1;
+      target_index = candidate_index < 0 ? Actors.length - 1 : candidate_index;
+      Actors.setSelected(Actors.at(target_index));
+    },
+
     actorUp: function() {
-      current_index = Actors.indexOf(this.currentActor()) || 0;
+      current_index = Actors.indexOf(this.selectedActor()) || 0;
       candidate_index  = current_index - 1;
       target_index = candidate_index < 0 ? 0 : candidate_index;
       if (target_index != current_index) {
         target_initiative = parseInt(Actors.at(target_index).get('order')) + 1;
         Actors.at(current_index).save({'order': target_initiative});
       }
+      this.renderCurrent();
     },
 
     actorDown: function() {
-      current_index = Actors.indexOf(this.currentActor()) || 0;
+      current_index = Actors.indexOf(this.selectedActor()) || 0;
       candidate_index  = current_index + 1;
       target_index = candidate_index == Actors.length ? Actors.length - 1 : candidate_index;
       if (target_index != current_index) {
@@ -267,9 +288,10 @@ $(function(){
         target_initiative = candidate_initiative < 0 ? 0 : candidate_initiative;
         Actors.at(current_index).save({'order': target_initiative});
       }
+      this.renderCurrent();
     },
 
-    renderCurrent: function() {
+    renderCurrent: function(model) {
       if (this.currentActor()) {
         Actors.setActive(this.currentActor());
       }
@@ -287,6 +309,10 @@ $(function(){
           case 110:  // 'n'
           case 13:   // Enter
             this.activateNext(); break;
+          case 107:  // 'j'
+            this.downSelect(); break;
+          case 106:  // 'k'
+            this.upSelect(); break;
           case 105:  // 'i'
             this.editActiveInitiative(e); break;
           case 97:  // 'a'
@@ -309,8 +335,16 @@ $(function(){
       return(Actors.where({active:true})[0] || Actors.at(0));
     },
 
-    currentIndex: function() {
+    selectedActor: function() {
+      return(Actors.where({selected:true})[0] || Actors.at(0));
+    },
+
+    activeIndex: function() {
       return Actors.indexOf(this.currentActor()) || 0
+    },
+
+    selectedIndex: function() {
+      return Actors.indexOf(this.selectedActor()) || 0
     },
 
     createOnEnter: function(e) {
@@ -322,28 +356,28 @@ $(function(){
     },
 
     editActiveInitiative: function(e) {
-      this.currentActor().view.editInitiative();
+      this.selectedActor().view.editInitiative();
       e.preventDefault();
     },
 
     addActiveCondition: function(e) {
-      this.currentActor().view.setConditionFocus();
+      this.selectedActor().view.setConditionFocus();
       e.preventDefault();
     },
 
     rotateActiveConditions: function(e) {
-      this.currentActor().rotateConditions();
+      this.selectedActor().rotateConditions();
       this.renderCurrent();
     },
 
     removeFirstConditionFromActive: function(e) {
-      actor = this.currentActor();
+      actor = this.selectedActor();
       target = _.first(actor.get('conditions'));
       actor.removeCondition(target);
     },
 
     removeAllActiveConditions: function() {
-      actor = this.currentActor();
+      actor = this.selectedActor();
       actor.removeAllConditions();
     }
 

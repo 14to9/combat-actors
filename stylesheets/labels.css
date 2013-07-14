@@ -27,6 +27,7 @@
 }
 
 /* Negative effects */
+.active .selected.labels li.granting a,
 .active .selected.labels li.dominated a,
 .active .selected.labels li.slowed a,
 .active .selected.labels li.immobilized a,
@@ -35,6 +36,7 @@
   background-color: #b40;
 }
 
+.active .selected.labels li.granting a.remove:before,
 .active .selected.labels li.dominated a.remove:before,
 .active .selected.labels li.slowed a.remove:before,
 .active .selected.labels li.immobilized a.remove:before,
