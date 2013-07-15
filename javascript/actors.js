@@ -306,8 +306,8 @@ $(function(){
     commandStroke: function(e) {
       if (!$(e.target).is('input, textarea')) {
         switch (e.keyCode) {
-          case 100:  // 'x'
-            this.removeFirstConditionFromActive(); break;
+          case 120:  // 'x'
+            this.deleteSelectedActor(); break;
           case 112:  // 'p'
             this.activatePrevious(); break;
           case 114:  // 'r'
@@ -315,6 +315,8 @@ $(function(){
           case 110:  // 'n'
           case 13:   // Enter
             this.activateNext(); break;
+          case 100:  // 'd'
+            this.removeFirstConditionFromActive(); break;
           case 107:  // 'j'
             this.downSelect(); break;
           case 106:  // 'k'
@@ -385,6 +387,11 @@ $(function(){
     removeAllActiveConditions: function() {
       actor = this.selectedActor();
       actor.removeAllConditions();
+    },
+
+    deleteSelectedActor: function() {
+      actor = this.selectedActor();
+      actor.destroy();
     }
 
   });
