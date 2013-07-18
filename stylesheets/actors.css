@@ -57,6 +57,10 @@ body {
   width: 200px;
 }
 
+#actor-form input[type="text"].number {
+  width: 50px;
+}
+
 #actorapp input::-webkit-input-placeholder {
   font-style: italic;
 }
