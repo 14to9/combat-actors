@@ -55,6 +55,7 @@ $(function(){
         previous.save({active: false});
       });
       actor.save({active: true});
+      this.setSelected(actor);
     },
 
     setSelected: function(actor){
@@ -131,7 +132,6 @@ $(function(){
     events: {
       "dblclick label"  : "edit",
       "click a.destroy" : "clear",
-      "click a.activate" : "activate",
       "keypress .edit"  : "updateOnEnter",
       "blur .edit"      : "close",
       "click a.remove"   : "removeCondition",
@@ -169,10 +169,6 @@ $(function(){
         of:        this.$('.actor-name'),
         collision: "none"
       });
-    },
-
-    activate: function() {
-      Actors.setActive(this.model);
     },
 
     edit: function() {
@@ -223,6 +219,7 @@ $(function(){
         var target_id = $(e.target).parent().attr('id');
         var condition = this.newCondition.val().replace(/^\s+|\s+$/g,'');
         this.model.addCondition(condition);
+        this.newCondition.blur();
       }
     },
 
@@ -270,6 +267,45 @@ $(function(){
       $(document).on('keypress', this.commandStroke);
 
       Actors.fetch();
+    },
+
+    commandStroke: function(e) {
+      if (!$(e.target).is('input, textarea')) {
+        switch (e.keyCode) {
+          case 120:  // 'x'
+            this.removeFirstConditionFromActive(); break;
+          case 114:  // 'r'
+            this.rotateConditions(Actors.selectedActor()); break;
+          case 112:  // 'p'
+            Actors.activatePrevious(); break;
+          case 110:  // 'n'
+          case 13:   // Enter
+            Actors.activateNext(); break;
+          case 106:  // 'j'
+            Actors.downSelect(); break;
+          case 107:  // 'k'
+            Actors.upSelect(); break;
+          case 73:  // 'I'
+            this.editInitiative(Actors.selectedActor(), e); break;
+          case 99:  // 'c'
+            this.selectCurrent(Actors.activeActor()); break;
+          case 105:  // 'i'
+          case 97:  // 'a'
+            this.addCondition(Actors.selectedActor(), e); break;
+          case 88:  // 'X'
+            this.removeAllActiveConditions(); break;
+          case 68:  // 'D'
+            this.deleteSelectedActor(); break;
+          case 65:  // 'A'
+            this.addActor(e); break;
+          case 60:  // '<'
+            this.actorUp(); break;
+          case 62:  // '>'
+            this.actorDown(); break;
+          default:
+            console.log('Command key: ' + e.keyCode);
+          }
+       }
     },
 
     reset: function(){
@@ -321,56 +357,22 @@ $(function(){
       this.renderCurrent();
     },
 
+    selectCurrent: function(model) {
+      if (model) { Actors.setSelected(model); }
+    },
+
     renderCurrent: function(model) {
       actor = Actors.activeActor();
       if (actor) { Actors.setActive(actor); }
     },
 
     renderSelected: function(model) {
-      actor = Actors.activeActor();
+      actor = Actors.selectedActor();
       if (actor) { Actors.setSelected(actor); }
     },
 
     activateNext: function() {
       Actors.activateNext();
-    },
-
-    commandStroke: function(e) {
-      if (!$(e.target).is('input, textarea')) {
-        switch (e.keyCode) {
-          case 120:  // 'x'
-            this.removeFirstConditionFromActive(); break;
-          case 112:  // 'p'
-            Actors.activatePrevious(); break;
-          case 114:  // 'r'
-            this.rotateActiveConditions(); break;
-          case 110:  // 'n'
-          case 13:   // Enter
-            Actors.activateNext(); break;
-          case 106:  // 'j'
-            Actors.downSelect(); break;
-          case 107:  // 'k'
-            Actors.upSelect(); break;
-          case 105:  // 'i'
-            this.editActiveInitiative(e); break;
-          case 97:  // 'a'
-            this.addActiveCondition(e); break;
-          case 88:  // 'X'
-            this.removeAllActiveConditions(); break;
-          case 68:  // 'D'
-            this.deleteSelectedActor(); break;
-          case 65:  // 'A'
-            this.addActor(e); break;
-          case 60:  // '<'
-            this.actorUp(); break;
-          case 62:  // '>'
-            this.actorDown(); break;
-          case 99:  // 'c'
-            this.renderCurrent(); break;
-          default:
-            console.log('Command key: ' + e.keyCode);
-          }
-       }
     },
 
     createOnEnter: function(e) {
@@ -388,13 +390,13 @@ $(function(){
       this.exitTextFocus();
     },
 
-    editActiveInitiative: function(e) {
-      Actors.selectedActor().view.editInitiative();
+    editInitiative: function(model, e) {
+      model.view.editInitiative();
       e.preventDefault();
     },
 
-    addActiveCondition: function(e) {
-      Actors.selectedActor().view.setConditionFocus();
+    addCondition: function(model, e) {
+      model.view.setConditionFocus();
       e.preventDefault();
     },
 
@@ -403,10 +405,9 @@ $(function(){
       e.preventDefault();
     },
 
-    rotateActiveConditions: function(e) {
-      console.log("rotate app");
-      Actors.selectedActor().rotateConditions();
-      this.renderSelected();
+    rotateConditions: function(model) {
+      model.rotateConditions();
+      model.view.render();
     },
 
     removeFirstConditionFromActive: function(e) {

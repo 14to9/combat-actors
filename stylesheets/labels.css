@@ -1,47 +1,47 @@
-.active .selected.labels li.failed  a {
+.active .conditions.labels li.failed  a {
   background-color: black;
 }
-.active .selected.labels li.failed a.remove:before {
+.active .conditions.labels li.failed a.remove:before {
   border-left: 1px solid #999;
 }
 
-.active .selected.labels li.ongoing  a {
+.active .conditions.labels li.ongoing  a {
   background-color: red;
 }
-.active .selected.labels li.ongoing a.remove:before {
+.active .conditions.labels li.ongoing a.remove:before {
   border-left: 1px solid #e00;
 }
 
-.active .selected.labels li.stance a {
+.active .conditions.labels li.stance a {
   background-color: #80a;
 }
-.active .selected.labels li.stance a.remove:before {
+.active .conditions.labels li.stance a.remove:before {
   border-left: 1px solid #c0e;
 }
 
-.selected.labels li.ready  a {
+.conditions.labels li.ready  a {
   background-color: #0a0;
 }
-.selected.labels li.ready a.remove:before {
+.conditions.labels li.ready a.remove:before {
   border-left: 1px solid #0d0;
 }
 
 /* Negative effects */
-.active .selected.labels li.granting a,
-.active .selected.labels li.dominated a,
-.active .selected.labels li.slowed a,
-.active .selected.labels li.immobilized a,
-.active .selected.labels li.dazed a,
-.active .selected.labels li.stunned a {
+.active .conditions.labels li.granting a,
+.active .conditions.labels li.dominated a,
+.active .conditions.labels li.slowed a,
+.active .conditions.labels li.immobilized a,
+.active .conditions.labels li.dazed a,
+.active .conditions.labels li.stunned a {
   background-color: #b40;
 }
 
-.active .selected.labels li.granting a.remove:before,
-.active .selected.labels li.dominated a.remove:before,
-.active .selected.labels li.slowed a.remove:before,
-.active .selected.labels li.immobilized a.remove:before,
-.active .selected.labels li.dazed a.remove:before,
-.active .selected.labels li.stunned a.remove:before {
+.active .conditions.labels li.granting a.remove:before,
+.active .conditions.labels li.dominated a.remove:before,
+.active .conditions.labels li.slowed a.remove:before,
+.active .conditions.labels li.immobilized a.remove:before,
+.active .conditions.labels li.dazed a.remove:before,
+.active .conditions.labels li.stunned a.remove:before {
   border-left: 1px solid #c60;
 }
 
@@ -78,7 +78,7 @@
   -o-box-shadow: #ADB0B7 0 2px 6px 0;
   box-shadow: #ADB0B7 0 2px 6px 0;
 }
-.active .labels-maker {
+.selected .labels-maker {
   background-color: white;
 }
 
@@ -87,13 +87,13 @@
   padding: 0;
 
 }
-.labels-maker .selected.labels:after {
+.labels-maker .conditions.labels:after {
   content: "";
   display: table;
   clear: both;
 }
 
-.labels-maker .selected.labels li {
+.labels-maker .conditions.labels li {
   float: left;
   margin: 2px 3px 2px 0;
   position: relative;
@@ -102,7 +102,7 @@
   z-index: 1;
 }
 
-.labels-maker .selected.labels li a.remove {
+.labels-maker .conditions.labels li a.remove {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -117,18 +117,18 @@
   width: 25px;
 }
 
-.active .selected.labels li a {
+.active .conditions.labels li a {
   background-color: #00f;
 }
 
-.selected.labels li a {
+.conditions.labels li a {
   background-color: #999;
   color: #fff;
   padding: 2px 6px 2px 7px;
   text-decoration: none;
 }
 
-.selected.labels li a.name {
+.conditions.labels li a.name {
   font-weight: bold;
   float: left;
   -webkit-border-radius: 4px 0 0 4px;
@@ -139,25 +139,25 @@
   margin-right: 25px;
 }
 
-.active .selected.labels li a.remove:before {
+.active .conditions.labels li a.remove:before {
   border-left: 1px solid #009;
 }
-.selected.labels li a.remove:before {
+.conditions.labels li a.remove:before {
   border-left: 1px solid #bbb;
   content: "";
   float: left;
   margin: 5px 0 0;
   height: 24px;
 }
-.selected.labels li a.remove:after {
+.conditions.labels li a.remove:after {
   float: left;
   content: "×";
   margin: 1px 0 0 3px;
 }
-.labels-maker .selected.labels {
+.labels-maker .conditions.labels {
   cursor: text;
 }
-.labels-maker .selected.labels li.input {
+.labels-maker .conditions.labels li.input {
   min-width: 20px;
   max-width: 100%;
   overflow: hidden;
@@ -183,7 +183,7 @@
   resize: none;
   background-color: #eee;
 }
-.labels-maker .selected.labels li.input .editable .search {
+.labels-maker .conditions.labels li.input .editable .search {
   font-size: 24px;
   line-height: 24px;
   border: 0;
@@ -220,7 +220,7 @@
   width: 14px;
   height: 14px;
 }
-.labels-maker .selected.labels li.input .editable .resizer {
+.labels-maker .conditions.labels li.input .editable .resizer {
   padding-right: 2px;
   min-width: 50px;
   width: 150px;
@@ -228,8 +228,9 @@
   line-height: 24px;
 }
 .editable textarea {
+  background-color: #eee;
   outline: none;
 }
-.active .editable textarea {
-  background-color: white;
+.selected .editable textarea {
+  background-color: #fff;
 }

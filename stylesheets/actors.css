@@ -100,7 +100,6 @@ body {
 }
 
 li.actor-item.active {
-  background-color: #fff;
   color: black;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
@@ -110,6 +109,7 @@ li.actor-item.active {
 }
 
 li.actor-item.selected {
+  background-color: white;
   -webkit-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
   -moz-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
   -ms-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;

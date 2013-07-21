@@ -50,7 +50,6 @@
   <script type="text/template" id="item-template">
     <div class="actor-name">
       <div class="show">
-        <a class="activate" alt="activate"></a>
         <a class="destroy" alt="destroy"></a>
         <label><%- title %></label>
       </div>
@@ -66,7 +65,7 @@
     </div>
     <div class='labels'>
       <div class='labels-maker'>
-        <ul class="selected labels">
+        <ul class="conditions labels">
           <% _.each(conditions, function(i) { %>
             <% if (i) { %>
               <li class="label <%- i %>" id = <%- i.replace(/\s/g , "-") %>>
