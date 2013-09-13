@@ -1,13 +1,18 @@
+.active .conditions.labels li.dying  a,
 .active .conditions.labels li.failed  a {
   background-color: black;
 }
+.active .conditions.labels li.dying  a.remove:before,
 .active .conditions.labels li.failed a.remove:before {
   border-left: 1px solid #999;
 }
 
-.active .conditions.labels li.ongoing  a {
+.active .conditions.labels li.bloodied a,
+.active .conditions.labels li.ongoing a {
   background-color: red;
 }
+
+.active .conditions.labels li.bloodied a.remove:before,
 .active .conditions.labels li.ongoing a.remove:before {
   border-left: 1px solid #e00;
 }

@@ -1,44 +1,4 @@
-// Derived from example Backbone application 'Actors'
 $(function(){
-
-  var Actor = Backbone.Model.extend({
-
-    defaults: function() {
-      return {
-        title: "empty actor...",
-        order: 0,
-        active: false,
-        selected: false,
-        conditions: []
-      };
-    },
-
-    addCondition: function(condition){
-      var newConditions = _.union(this.get('conditions'), [condition]);
-      this.save({
-        'conditions': newConditions
-      });
-    },
-
-    removeCondition: function(condition){
-      var newConditions = _.reject(this.get('conditions'), function(existing_condition){
-        return existing_condition === condition;
-      });
-      this.save({
-        'conditions': newConditions
-      });
-    },
-
-    removeAllConditions: function() {
-      this.save({'conditions':[]});
-    },
-
-    rotateConditions: function() {
-      var c = this.get('conditions') || [];
-      c.push(c.shift());
-      this.save({'conditions': c});
-    }
-  });
 
   var ActorList = Backbone.Collection.extend({
 
@@ -292,6 +252,10 @@ $(function(){
           case 105:  // 'i'
           case 97:  // 'a'
             this.addCondition(Actors.selectedActor(), e); break;
+          case 98:  // 'b'
+            this.toggleFeature(Actors.selectedActor(), 'bloodied'); break;
+          case 100:  // 'd'
+            this.toggleFeature(Actors.selectedActor(), 'dying'); break;
           case 88:  // 'X'
             this.removeAllActiveConditions(); break;
           case 68:  // 'D'
@@ -408,6 +372,10 @@ $(function(){
     rotateConditions: function(model) {
       model.rotateConditions();
       model.view.render();
+    },
+
+    toggleFeature: function(model, condition) {
+      model.toggleFeature(condition);
     },
 
     removeFirstConditionFromActive: function(e) {

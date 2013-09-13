@@ -126,23 +126,27 @@ li.actor-item.selected {
   width: 300px;
 }
 
-.destroy, .activate {
+.bloodied-icon, .dying-icon {
   position: absolute;
   right: 10px;
   top: 20px;
   display: block;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
-}
-.destroy {
-  background: url(../images/destroy.png) no-repeat;
+  width: 35px;
+  height: 35px;
 }
 
-.activate {
-  right: 35px;
-  background: url(../images/activate.png) no-repeat;
+.bloodied-icon {
+  background: url(../images/blood-drop.png) no-repeat;
+  background-size: 35px 35px;
 }
+
+.dying-icon {
+  right: 50px;
+  background: url(../images/skull.png) no-repeat;
+  background-size: 35px 35px;
+}
+
 li:hover .destroy, li:hover .activate {
     display: block;
 }
