@@ -1,6 +1,7 @@
 `combat-actors` is a tool for tracking initiative sequence in miniatures games.
 
 ![Screenshot](http://dl.dropboxusercontent.com/u/20835199/combat-actors-preview.png)
+![Help Text Screenshot](https://dl.dropboxusercontent.com/u/20835199/combat-actors-help.png)
 
 Features
 --------

@@ -276,3 +276,14 @@ li:hover .destroy, li:hover .activate {
   width: 100%;
   display: inline-block;
 }
+#help {
+  padding: 0px 20px 10px 20px;
+}
+#help th {
+  text-align: left;
+  background-color: #8bf;
+  min-width: 100px;
+}
+#help th, #help td {
+  padding: 3px 5px 3px 5px;
+}

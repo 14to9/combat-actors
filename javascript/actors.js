@@ -266,6 +266,8 @@ $(function(){
             this.actorUp(); break;
           case 62:  // '>'
             this.actorDown(); break;
+          case 104:
+            $.colorbox({inline:true,href:'#help'}); break;
           default:
             console.log('Command key: ' + e.keyCode);
           }
