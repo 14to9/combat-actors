@@ -113,7 +113,7 @@ li.actor-item.active {
 li.actor-item.selected {
   z-index: 80;
   background-color: rgba(255,255,255,0.9);
-  -webkit-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
+  -webkit-box-shadow: rgba(255, 255, 0, 0.3) 0px 0px 3px 3px;
   -moz-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
   -ms-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
   -o-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;

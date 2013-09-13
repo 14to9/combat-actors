@@ -125,7 +125,7 @@ $(function(){
     moveArrow: function() {
       $("#arrow").position({
         my:        "right top",
-        at:        "left+50% bottom-350%",
+        at:        "left+44% bottom-350%",
         of:        this.$('.actor-name'),
         collision: "none"
       });
@@ -227,6 +227,8 @@ $(function(){
       $(document).on('keypress', this.commandStroke);
 
       Actors.fetch();
+
+      this.selectCurrent(Actors.activeActor());
     },
 
     commandStroke: function(e) {
