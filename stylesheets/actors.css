@@ -118,12 +118,12 @@ li.actor-item.selected {
 }
 
 #arrow {
-  width: 300px;
+  width: 500px;
   z-index: 3;
 }
 
 #arrow img {
-  width: 300px;
+  width: 500px;
 }
 
 .bloodied-icon, .dying-icon {
