@@ -7,7 +7,7 @@ body {
 body {
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.4em;
-  background: #666;
+  background: url(../images/valley-background.jpg) no-repeat;
   color: #333333;
   width: 567px;
   margin: 0 auto;
