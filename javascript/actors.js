@@ -124,8 +124,8 @@ $(function(){
 
     moveArrow: function() {
       $("#arrow").position({
-        my:        "right center",
-        at:        "left+30% center+60%",
+        my:        "right top",
+        at:        "left+50% bottom-200%",
         of:        this.$('.actor-name'),
         collision: "none"
       });

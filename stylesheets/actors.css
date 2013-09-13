@@ -100,6 +100,7 @@ body {
 }
 
 li.actor-item.active {
+  z-index: 80;
   color: black;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
