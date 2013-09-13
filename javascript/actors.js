@@ -1,44 +1,4 @@
-// Derived from example Backbone application 'Actors'
 $(function(){
-
-  var Actor = Backbone.Model.extend({
-
-    defaults: function() {
-      return {
-        title: "empty actor...",
-        order: 0,
-        active: false,
-        selected: false,
-        conditions: []
-      };
-    },
-
-    addCondition: function(condition){
-      var newConditions = _.union(this.get('conditions'), [condition]);
-      this.save({
-        'conditions': newConditions
-      });
-    },
-
-    removeCondition: function(condition){
-      var newConditions = _.reject(this.get('conditions'), function(existing_condition){
-        return existing_condition === condition;
-      });
-      this.save({
-        'conditions': newConditions
-      });
-    },
-
-    removeAllConditions: function() {
-      this.save({'conditions':[]});
-    },
-
-    rotateConditions: function() {
-      var c = this.get('conditions');
-      c.push(c.shift());
-      this.save({'conditions': c});
-    }
-  });
 
   var ActorList = Backbone.Collection.extend({
 
@@ -55,6 +15,7 @@ $(function(){
         previous.save({active: false});
       });
       actor.save({active: true});
+      this.setSelected(actor);
     },
 
     setSelected: function(actor){
@@ -62,7 +23,56 @@ $(function(){
         previous.save({selected: false});
       });
       actor.save({selected: true});
-    }
+    },
+
+    activeActor: function(){
+      return this.where({active: true})[0];
+    },
+
+    activeIndex: function(){
+      return this.indexOf(this.activeActor());
+    },
+
+    selectedActor: function(){
+      return this.where({selected: true})[0];
+    },
+
+    selectedIndex: function() {
+      return this.indexOf(this.selectedActor()) || 0
+    },
+
+    nextActiveIndex: function() {
+      return this.activeIndex() + 1
+    },
+
+    nextSelectedIndex: function() {
+      return this.selectedIndex() + 1
+    },
+
+    downSelect: function() {
+      candidate_index = this.nextSelectedIndex();
+      target_index = candidate_index == this.length ? 0 : candidate_index;
+      this.setSelected(this.at(target_index));
+    },
+
+    upSelect: function() {
+      candidate_index  = this.selectedIndex() - 1;
+      target_index = candidate_index < 0 ? this.length - 1 : candidate_index;
+      this.setSelected(this.at(target_index));
+    },
+
+    activateNext: function() {
+      candidate_index = this.nextActiveIndex();
+      target_index = candidate_index == this.length ? 0 : candidate_index;
+      this.setActive(this.at(target_index));
+    },
+
+    activatePrevious: function() {
+      candidate_index  = this.activeIndex() - 1;
+      target_index = candidate_index < 0 ? this.length - 1 : candidate_index;
+      this.setActive(this.at(target_index));
+    },
+
   });
 
   var Actors = new ActorList;
@@ -82,7 +92,6 @@ $(function(){
     events: {
       "dblclick label"  : "edit",
       "click a.destroy" : "clear",
-      "click a.activate" : "activate",
       "keypress .edit"  : "updateOnEnter",
       "blur .edit"      : "close",
       "click a.remove"   : "removeCondition",
@@ -120,10 +129,6 @@ $(function(){
         of:        this.$('.actor-name'),
         collision: "none"
       });
-    },
-
-    activate: function() {
-      Actors.setActive(this.model);
     },
 
     edit: function() {
@@ -174,10 +179,14 @@ $(function(){
         var target_id = $(e.target).parent().attr('id');
         var condition = this.newCondition.val().replace(/^\s+|\s+$/g,'');
         this.model.addCondition(condition);
+        this.newCondition.blur();
       }
     },
 
     clear: function() {
+      if (this.model.get('selected')) {
+        Actors.downSelect();
+      }
       this.model.destroy();
     },
 
@@ -195,13 +204,15 @@ $(function(){
     el: $("#actorapp"),
 
     events: {
-      "keypress #new-actor":  "createOnEnter",
-      "click #activate-next": "activateNext"
+      "keypress #new-actor":       "createOnEnter",
+      "keypress #new-actor-init":  "createOnEnter",
+      "click #activate-next":      "activateNext"
     },
 
     initialize: function() {
 
-      this.input = this.$("#new-actor");
+      this.actorInput      = this.$("#new-actor");
+      this.actorOrderInput = this.$("#new-actor-init");
 
       this.listenTo(Actors, 'add', this.addAll);
       this.listenTo(Actors, 'reset', this.addAll);
@@ -216,6 +227,51 @@ $(function(){
       $(document).on('keypress', this.commandStroke);
 
       Actors.fetch();
+    },
+
+    commandStroke: function(e) {
+      if (!$(e.target).is('input, textarea')) {
+        switch (e.keyCode) {
+          case 120:  // 'x'
+            this.removeFirstConditionFromActive(); break;
+          case 114:  // 'r'
+            this.rotateConditions(Actors.selectedActor()); break;
+          case 112:  // 'p'
+            Actors.activatePrevious(); break;
+          case 110:  // 'n'
+          case 13:   // Enter
+            Actors.activateNext(); break;
+          case 106:  // 'j'
+            Actors.downSelect(); break;
+          case 107:  // 'k'
+            Actors.upSelect(); break;
+          case 73:  // 'I'
+            this.editInitiative(Actors.selectedActor(), e); break;
+          case 99:  // 'c'
+            this.selectCurrent(Actors.activeActor()); break;
+          case 105:  // 'i'
+          case 97:  // 'a'
+            this.addCondition(Actors.selectedActor(), e); break;
+          case 98:  // 'b'
+            this.toggleFeature(Actors.selectedActor(), 'bloodied'); break;
+          case 100:  // 'd'
+            this.toggleFeature(Actors.selectedActor(), 'dying'); break;
+          case 88:  // 'X'
+            this.removeAllActiveConditions(); break;
+          case 68:  // 'D'
+            this.deleteSelectedActor(); break;
+          case 65:  // 'A'
+            this.addActor(e); break;
+          case 60:  // '<'
+            this.actorUp(); break;
+          case 62:  // '>'
+            this.actorDown(); break;
+          case 104:
+            $.colorbox({inline:true,href:'#help'}); break;
+          default:
+            console.log('Command key: ' + e.keyCode);
+          }
+       }
     },
 
     reset: function(){
@@ -244,32 +300,8 @@ $(function(){
       Actors.each(this.addOne, this);
     },
 
-    activateNext: function() {
-      candidate_index = this.activeIndex() + 1;
-      target_index = candidate_index == Actors.length ? 0 : candidate_index;
-      Actors.setActive(Actors.at(target_index));
-    },
-
-    activatePrevious: function() {
-      candidate_index  = this.activeIndex() - 1;
-      target_index = candidate_index < 0 ? Actors.length - 1 : candidate_index;
-      Actors.setActive(Actors.at(target_index));
-    },
-
-    upSelect: function() {
-      candidate_index = this.selectedIndex() + 1;
-      target_index = candidate_index == Actors.length ? 0 : candidate_index;
-      Actors.setSelected(Actors.at(target_index));
-    },
-
-    downSelect: function() {
-      candidate_index  = this.selectedIndex() - 1;
-      target_index = candidate_index < 0 ? Actors.length - 1 : candidate_index;
-      Actors.setSelected(Actors.at(target_index));
-    },
-
     actorUp: function() {
-      current_index = Actors.indexOf(this.selectedActor()) || 0;
+      current_index = Actors.selectedIndex();
       candidate_index  = current_index - 1;
       target_index = candidate_index < 0 ? 0 : candidate_index;
       if (target_index != current_index) {
@@ -280,7 +312,7 @@ $(function(){
     },
 
     actorDown: function() {
-      current_index = Actors.indexOf(this.selectedActor()) || 0;
+      current_index = Actors.selectedIndex();
       candidate_index  = current_index + 1;
       target_index = candidate_index == Actors.length ? Actors.length - 1 : candidate_index;
       if (target_index != current_index) {
@@ -291,100 +323,80 @@ $(function(){
       this.renderCurrent();
     },
 
+    selectCurrent: function(model) {
+      if (model) { Actors.setSelected(model); }
+    },
+
     renderCurrent: function(model) {
-      if (this.currentActor()) {
-        Actors.setActive(this.currentActor());
-      }
+      actor = Actors.activeActor();
+      if (actor) { Actors.setActive(actor); }
     },
 
     renderSelected: function(model) {
-      if (this.selectedActor()) {
-        Actors.setSelected(this.selectedActor());
-      }
+      actor = Actors.selectedActor();
+      if (actor) { Actors.setSelected(actor); }
     },
 
-    commandStroke: function(e) {
-      if (!$(e.target).is('input, textarea')) {
-        switch (e.keyCode) {
-          case 100:  // 'x'
-            this.removeFirstConditionFromActive(); break;
-          case 112:  // 'p'
-            this.activatePrevious(); break;
-          case 114:  // 'r'
-            this.rotateActiveConditions(); break;
-          case 110:  // 'n'
-          case 13:   // Enter
-            this.activateNext(); break;
-          case 107:  // 'j'
-            this.downSelect(); break;
-          case 106:  // 'k'
-            this.upSelect(); break;
-          case 105:  // 'i'
-            this.editActiveInitiative(e); break;
-          case 97:  // 'a'
-            this.addActiveCondition(e); break;
-          case 68:  // 'D'
-            this.removeAllActiveConditions(); break;
-          case 60:  // '<'
-            this.actorUp(); break;
-          case 62:  // '>'
-            this.actorDown(); break;
-          case 99:  // 'c'
-            this.renderCurrent(); break;
-          default:
-            console.log('Command key: ' + e.keyCode);
-          }
-       }
-    },
-
-    currentActor: function() {
-      return(Actors.where({active:true})[0] || Actors.at(0));
-    },
-
-    selectedActor: function() {
-      return(Actors.where({selected:true})[0] || Actors.at(0));
-    },
-
-    activeIndex: function() {
-      return Actors.indexOf(this.currentActor()) || 0
-    },
-
-    selectedIndex: function() {
-      return Actors.indexOf(this.selectedActor()) || 0
+    activateNext: function() {
+      Actors.activateNext();
     },
 
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
-      if (!this.input.val()) return;
+      if (!this.actorInput.val()) return;
 
-      Actors.create({title: this.input.val()});
-      this.input.val('');
+      var newModel = Actors.create({
+        title: this.actorInput.val(),
+        order: this.actorOrderInput.val()
+      });
+
+      Actors.setSelected(newModel);
+      this.actorInput.val('');
+      this.actorOrderInput.val('');
+      this.exitTextFocus();
     },
 
-    editActiveInitiative: function(e) {
-      this.selectedActor().view.editInitiative();
+    editInitiative: function(model, e) {
+      model.view.editInitiative();
       e.preventDefault();
     },
 
-    addActiveCondition: function(e) {
-      this.selectedActor().view.setConditionFocus();
+    addCondition: function(model, e) {
+      model.view.setConditionFocus();
       e.preventDefault();
     },
 
-    rotateActiveConditions: function(e) {
-      this.selectedActor().rotateConditions();
-      this.renderSelected();
+    addActor: function(e) {
+      this.actorInput.focus();
+      e.preventDefault();
+    },
+
+    rotateConditions: function(model) {
+      model.rotateConditions();
+      model.view.render();
+    },
+
+    toggleFeature: function(model, condition) {
+      model.toggleFeature(condition);
     },
 
     removeFirstConditionFromActive: function(e) {
-      actor = this.selectedActor();
+      actor = Actors.selectedActor();
       target = _.first(actor.get('conditions'));
       actor.removeCondition(target);
     },
 
     removeAllActiveConditions: function() {
-      actor = this.selectedActor();
-      actor.removeAllConditions();
+      Actors.selectedActor().removeAllConditions();
+    },
+
+    deleteSelectedActor: function() {
+      Actors.selectedActor().destroy();
+    },
+
+    exitTextFocus: function() {
+      this.actorInput.blur();
+      this.actorOrderInput.blur();
     }
 
   });

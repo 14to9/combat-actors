@@ -57,6 +57,10 @@ body {
   width: 200px;
 }
 
+#actor-form input[type="text"].number {
+  width: 50px;
+}
+
 #actorapp input::-webkit-input-placeholder {
   font-style: italic;
 }
@@ -96,7 +100,6 @@ body {
 }
 
 li.actor-item.active {
-  background-color: #fff;
   color: black;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
@@ -106,6 +109,7 @@ li.actor-item.active {
 }
 
 li.actor-item.selected {
+  background-color: white;
   -webkit-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
   -moz-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
   -ms-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
@@ -122,23 +126,27 @@ li.actor-item.selected {
   width: 300px;
 }
 
-.destroy, .activate {
+.bloodied-icon, .dying-icon {
   position: absolute;
   right: 10px;
   top: 20px;
   display: block;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
-}
-.destroy {
-  background: url(../images/destroy.png) no-repeat;
+  width: 35px;
+  height: 35px;
 }
 
-.activate {
-  right: 35px;
-  background: url(../images/activate.png) no-repeat;
+.bloodied-icon {
+  background: url(../images/blood-drop.png) no-repeat;
+  background-size: 35px 35px;
 }
+
+.dying-icon {
+  right: 50px;
+  background: url(../images/skull.png) no-repeat;
+  background-size: 35px 35px;
+}
+
 li:hover .destroy, li:hover .activate {
     display: block;
 }
@@ -267,4 +275,15 @@ li:hover .destroy, li:hover .activate {
   text-decoration: none;
   width: 100%;
   display: inline-block;
+}
+#help {
+  padding: 0px 20px 10px 20px;
+}
+#help th {
+  text-align: left;
+  background-color: #8bf;
+  min-width: 100px;
+}
+#help th, #help td {
+  padding: 3px 5px 3px 5px;
 }

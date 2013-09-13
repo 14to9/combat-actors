@@ -5,6 +5,7 @@
   <title>Backbone.js Actors</title>
   <link rel="stylesheet" href="stylesheets/actors.css">
   <link rel="stylesheet" href="stylesheets/labels.css">
+  <link rel="stylesheet" href="stylesheets/colorbox.css">
 </head>
 
 <body>
@@ -20,6 +21,7 @@
     <div id="control-panel">
       <div id="actor-form">
         <input id="new-actor" type="text" placeholder=" new actor..">
+        <input class="number" id="new-actor-init" type="text" placeholder="0">
       </div>
       <div id="activate-next">
         <a href="#">NEXT &raquo;</a>
@@ -41,16 +43,23 @@
   <script src="javascript/underscore.js"></script>
   <script src="javascript/backbone.js"></script>
   <script src="javascript/backbone.localStorage.js"></script>
-  <script src="javascript/actors.js"></script>
   <script src="javascript/jquery-ui.js"></script>
+  <script src="javascript/jquery.colorbox-min.js"></script>
+  <script src="javascript/actor.js"></script>
+  <script src="javascript/actors.js"></script>
+  <script src="javascript/actor-view.js"></script>
 
   <!-- Templates -->
 
   <script type="text/template" id="item-template">
     <div class="actor-name">
       <div class="show">
-        <a class="activate" alt="activate"></a>
-        <a class="destroy" alt="destroy"></a>
+        <% if (this.model.isBloodied()) { %>
+          <div class='bloodied-icon'/>
+        <% } %>
+        <% if (this.model.isDying()) { %>
+          <div class='dying-icon'/>
+        <% } %>
         <label><%- title %></label>
       </div>
       <div class="edit-form">
@@ -65,12 +74,14 @@
     </div>
     <div class='labels'>
       <div class='labels-maker'>
-        <ul class="selected labels">
+        <ul class="conditions labels">
           <% _.each(conditions, function(i) { %>
-            <li class="label <%- i %>" id = <%- i.replace(/\s/g , "-") %>>
-              <a href="#" class="label name"><%- i %></a>
-              <a href="#" class="remove"></a>
-            </li>
+            <% if (i) { %>
+              <li class="label <%- i %>" id = <%- i.replace(/\s/g , "-") %>>
+                <a href="#" class="label name"><%- i %></a>
+                <a href="#" class="remove"></a>
+              </li>
+            <% } %>
           <% }); %>
           <li class="input label">
             <div class="editable">
@@ -82,6 +93,41 @@
         </ul>
       </div>
     </div>
+  </script>
+
+    <!-- This contains the hidden content for inline calls -->
+  <div style='display:none'>
+    <div id='help'>
+    <h2>Command Keys</h2>
+    <table>
+      <tr><th>Key</th><th>Generic Action</th></tr>
+
+      <tr><td><b>a</b> or <b>i</b></td><td>Insert condition</td></tr>
+      <tr><td><b>b</b></td><td>Toggle bloodied</td></tr>
+      <tr><td><b>c</b></td><td>Select active actor</td></tr>
+      <tr><td><b>d</b></td><td>Toggle dying</td></tr>
+      <tr><td><b>h</b></td><td>Show command key help</td></tr>
+      <tr><td><b>j</b>, <b>k</b></td><td>Select actor</td></tr>
+      <tr><td><b>n</b> or <b>Enter</b></td><td>Activate next actor</td></tr>
+      <tr><td><b>p</b></td><td>Activate previous actor</td></tr>
+      <tr><td><b>x</b></td><td>Remove (first) condition</td></tr>
+      <tr><td><b>r</b></td><td>Rotate conditions</td></tr>
+
+      <tr><td><b>A</b></td><td>Add an actor</td></tr>
+      <tr><td><b>D</b></td><td>Delete actor</td></tr>
+      <tr><td><b>I</b></td><td>Set initiative</td></tr>
+      <tr><td><b>X</b></td><td>Remove (all) conditions</td></tr>
+
+      <tr><td><b>&lt;</b>, <b>&gt;</b></td><td>Move active actor</td></tr>
+
+    </table>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+      $(".head").colorbox({inline:true,href:'#help'});
+    });
   </script>
 
 </body></html>
