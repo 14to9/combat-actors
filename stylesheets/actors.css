@@ -15,7 +15,7 @@ body {
 }
 
 #actorapp {
-  background: #fff;
+  background-color: rgba(255,255,255,0.8);
   padding: 20px;
   margin-bottom: 40px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px 0;
@@ -100,9 +100,9 @@ body {
 }
 
 li.actor-item.active {
-  color: black;
   z-index: 60;
-  background-color: rgba(238,238,238,0.5);
+  background-color: rgba(238,238,238,0.75);
+  color: black;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
   -ms-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
@@ -112,7 +112,7 @@ li.actor-item.active {
 
 li.actor-item.selected {
   z-index: 80;
-  background-color: white;
+  background-color: rgba(255,255,255,0.9);
   -webkit-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
   -moz-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
   -ms-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
@@ -197,7 +197,6 @@ li:hover .destroy, li:hover .activate {
   margin: 0 -20px -20px -20px;
   overflow: hidden;
   color: #555555;
-  background: white;
   padding: 0 20px;
   line-height: 37px;
   -webkit-border-radius: 0 0 5px 5px;
