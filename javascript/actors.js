@@ -79,6 +79,29 @@ $(function(){
   // make available in console for testing
   actors = Actors;
 
+  var MarqueeView = Backbone.View.extend({
+    tagName:   "div",
+
+    attributes:  {
+      'class' : 'cell'
+    },
+
+    template: _.template($('#marquee-template').html()),
+
+    initialize: function() {
+      this.listenTo(this.collection, 'change', this.render);
+    },
+
+    render: function() {
+      var activeActor = this.collection.activeActor();
+      if (activeActor) {
+        this.$el.html(this.template(activeActor.toJSON()));
+      }
+      return this;
+    },
+
+  });
+
   var ActorView = Backbone.View.extend({
 
     tagName:  "li",
@@ -268,7 +291,7 @@ $(function(){
             this.actorUp(); break;
           case 62:  // '>'
             this.actorDown(); break;
-          case 104:
+          case 63:
             $.colorbox({inline:true,href:'#help'}); break;
           default:
             console.log('Command key: ' + e.keyCode);
@@ -356,6 +379,7 @@ $(function(){
       this.actorInput.val('');
       this.actorOrderInput.val('');
       this.exitTextFocus();
+      $('#actor-form').hide();
     },
 
     editInitiative: function(model, e) {
@@ -369,13 +393,18 @@ $(function(){
     },
 
     addActor: function(e) {
+      $('#actor-form').show();
       this.actorInput.focus();
       e.preventDefault();
     },
 
     rotateConditions: function(model) {
       model.rotateConditions();
+
+      // both of these are super ghetto
+      // why isn't the save firing a change, triggering render?
       model.view.render();
+      mqv.render();
     },
 
     toggleFeature: function(model, condition) {
@@ -404,5 +433,8 @@ $(function(){
   });
 
   var App = new AppView;
+  var Marquee = new MarqueeView({collection: actors});
+  mqv = Marquee;
+  $('.marquee').append(mqv.render().el);
 
 });

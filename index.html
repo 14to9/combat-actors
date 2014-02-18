@@ -3,17 +3,22 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
   <title>Action Order</title>
-  <link rel="stylesheet" href="stylesheets/actors.css">
   <link rel="stylesheet" href="stylesheets/labels.css">
   <link rel="stylesheet" href="stylesheets/colorbox.css">
+  <link rel="stylesheet" href="stylesheets/marquee.css">
 </head>
 
 <body>
+  <div class='marquee'>
+  </div>
 
   <div id="actorapp">
     <section id="main" style="display: block;">
       <header>
-        <p class='head'>ACTION ORDER</p>
+        <p class='head'>
+           ACTION ORDER<br/>
+           <span class='help-message'><i>Press '?' for help</i></span>
+        </p>
       </header>
       <ul id="actor-list"></ul>
     </section>
@@ -22,19 +27,11 @@
       <div id="actor-form">
         <input id="new-actor" type="text" placeholder=" actor name">
         <input class="number" id="new-actor-init" type="text" placeholder="0">
-        <div class="actor-count"><i>Press 'h' for help</i></div>
-      </div>
-      <div id="activate-next">
-        <a href="#">NEXT &raquo;</a>
       </div>
     </div>
 
     <footer style="display: block;"/>
 
-  </div>
-
-  <div id="arrow">
-    <img src="images/small-red-angel.png" alt='TURN >>'/>
   </div>
 
   <script src="javascript/jquery.js"></script>
@@ -49,6 +46,12 @@
   <!-- Templates -->
 
   <script type="text/template" id="item-template">
+    <div class="actor-initiative">
+      <div class="show"><%- order %></div>
+      <div class="edit-form">
+        <input type="text" value="<%- order %>"/>
+      </div>
+    </div>
     <div class="actor-name">
       <div class="show">
         <% if (this.model.isBloodied()) { %>
@@ -61,12 +64,6 @@
       </div>
       <div class="edit-form">
         <input class="edit" type="text" value="<%- title %>" />
-      </div>
-    </div>
-    <div class="actor-initiative">
-      <div class="show"><%- order %></div>
-      <div class="edit-form">
-        <input type="text" value="<%- order %>"/>
       </div>
     </div>
     <div class='labels'>
@@ -91,6 +88,26 @@
       </div>
     </div>
   </script>
+
+  <script type="text/template" id="marquee-template">
+    <div class="marquee-name">
+      <div class="show">
+        <label><%- title %></label>
+      </div>
+    </div>
+    <div class='active labels'>
+        <ul class="conditions labels">
+          <% _.each(conditions, function(i) { %>
+            <% if (i) { %>
+              <li class="label <%- i %>" id = <%- i.replace(/\s/g , "-") %>>
+                <a href="#" class="label name"><%- i %></a>
+              </li>
+            <% } %>
+          <% }); %>
+        </ul>
+    </div>
+  </script>
+
 
     <!-- This contains the hidden content for inline calls -->
   <div style='display:none'>
