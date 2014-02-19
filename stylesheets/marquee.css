@@ -131,25 +131,40 @@ li.actor-item.selected {
 }
 
 .bloodied-icon, .dying-icon {
-  position: absolute;
-  right: 10px;
-  top: 20px;
-  display: block;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+.marquee .bloodied-icon, .marquee .dying-icon {
+  margin-right: -10px;
+  position: relative;
+  display: inline-block;
   cursor: pointer;
   width: 35px;
-  height: 35px;
+  height: 45px;
 }
 
 .bloodied-icon {
   background: url(../images/blood-drop.png) no-repeat;
-  background-size: 35px 35px;
+  background-size: 15px 15px;
 }
 
 .dying-icon {
-  right: 50px;
   background: url(../images/skull.png) no-repeat;
+  background-size: 15px 15px;
+}
+
+.marquee .bloodied-icon {
   background-size: 35px 35px;
 }
+
+.marquee .dying-icon {
+  background-size: 35px 35px;
+}
+
 
 li:hover .destroy, li:hover .activate {
     display: block;
@@ -300,7 +315,7 @@ li:hover .destroy, li:hover .activate {
   margin: 40px 10px 0 40px;
   float: left;
   background-color: white;
-  width: 600px;
+  width: 700px;
   overflow: auto;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;

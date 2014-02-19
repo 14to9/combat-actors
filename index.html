@@ -92,7 +92,15 @@
   <script type="text/template" id="marquee-template">
     <div class="marquee-name">
       <div class="show">
-        <label><%- title %></label>
+        <% if (this.collection.activeActor().isBloodied()) { %>
+          <div class='bloodied-icon'/>
+        <% } %>
+        <% if (this.collection.activeActor().isDying()) { %>
+          <div class='dying-icon'/>
+        <% } %>
+        <label>
+          <%- title %>
+        </label>
       </div>
     </div>
     <div class='active labels'>
