@@ -55,10 +55,10 @@
     <div class="actor-name">
       <div class="show">
         <% if (this.model.isBloodied()) { %>
-          <div class='bloodied-icon'/>
+          <div class='bloodied feature-icon'/>
         <% } %>
         <% if (this.model.isDying()) { %>
-          <div class='dying-icon'/>
+          <div class='dying feature-icon'/>
         <% } %>
         <label><%- title %></label>
       </div>
@@ -93,10 +93,10 @@
     <div class="marquee-name">
       <div class="show">
         <% if (this.collection.activeActor().isBloodied()) { %>
-          <div class='bloodied-icon'/>
+          <div class='bloodied feature-icon'/>
         <% } %>
         <% if (this.collection.activeActor().isDying()) { %>
-          <div class='dying-icon'/>
+          <div class='dying feature-icon'/>
         <% } %>
         <label>
           <%- title %>

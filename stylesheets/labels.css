@@ -25,11 +25,18 @@
 }
 
 .active .conditions.labels li.ready a,
-.conditions.labels li.ready  a {
+.conditions.labels li.ready  a,
+.active .conditions.labels li.delay a,
+.conditions.labels li.delay  a
+{
   background-color: #0a0;
 }
+
 .active .conditions.labels li.ready a.remove:before,
-.conditions.labels li.ready a.remove:before {
+.conditions.labels li.ready a.remove:before,
+.active .conditions.labels li.delay a.remove:before,
+.conditions.labels li.delay a.remove:before
+{
   border-left: 1px solid #0c0;
 }
 
