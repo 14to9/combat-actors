@@ -9,9 +9,6 @@
 </head>
 
 <body>
-  <div class='marquee'>
-  </div>
-
   <div id="actorapp">
     <section id="main" style="display: block;">
       <header>
@@ -22,16 +19,20 @@
       </header>
       <ul id="actor-list"></ul>
     </section>
-
     <div id="control-panel">
       <div id="actor-form">
         <input id="new-actor" type="text" placeholder=" actor name">
         <input class="number" id="new-actor-init" type="text" placeholder="0">
       </div>
     </div>
-
     <footer style="display: block;"/>
 
+  </div>
+
+  <div class='marquee primary' id="marquee-primary">
+  </div>
+  <div class='marquee next'>
+     <p style="margin: 8px 0 0 24px;">NEXT TO ACT</p>
   </div>
 
   <script src="javascript/jquery.js"></script>
@@ -116,6 +117,26 @@
     </div>
   </script>
 
+  <script type="text/template" id="marquee-next-template">
+    <div class="marquee-name">
+      <div class="show">
+        <label>
+          <%- title %>
+        </label>
+      </div>
+    </div>
+    <div class='active labels'>
+        <ul class="conditions labels">
+          <% _.each(conditions, function(i) { %>
+            <% if (i) { %>
+              <li class="label <%- i %>" id = <%- i.replace(/\s/g , "-") %>>
+                <a href="#" class="label name"><%- i %></a>
+              </li>
+            <% } %>
+          <% }); %>
+        </ul>
+    </div>
+  </script>
 
     <!-- This contains the hidden content for inline calls -->
   <div style='display:none'>

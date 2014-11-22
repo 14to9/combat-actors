@@ -127,6 +127,13 @@ ul.conditions {
   line-height: 36px;
 }
 
+.marquee.next .conditions.labels li {
+  float: left;
+  margin: 4px 3px 13px 0;
+  font-size: 12px;
+  line-height: 16px;
+}
+
 .conditions.labels li a.remove {
   position: absolute;
   top: 0;
@@ -143,6 +150,11 @@ ul.conditions {
 }
 
 .marquee .conditions.labels li a {
+  background-color: #00f;
+  padding: 6px 10px 6px 10px;
+}
+
+.marquee.next .conditions.labels li a {
   background-color: #00f;
   padding: 6px 10px 6px 10px;
 }
@@ -276,3 +288,9 @@ ul.conditions {
 .selected .editable textarea {
   background-color: #fff;
 }
+
+.marquee.next .conditions.labels li a
+{
+  background-color: #666;
+}
+

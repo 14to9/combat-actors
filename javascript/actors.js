@@ -29,6 +29,12 @@ $(function(){
       return this.where({active: true})[0];
     },
 
+    nextActor: function(){
+      candidate_index = this.nextActiveIndex();
+      target_index = candidate_index == this.length ? 0 : candidate_index;
+      return this.at(target_index);
+    },
+
     activeIndex: function(){
       return this.indexOf(this.activeActor());
     },
@@ -53,6 +59,7 @@ $(function(){
       candidate_index = this.nextSelectedIndex();
       target_index = candidate_index == this.length ? 0 : candidate_index;
       this.setSelected(this.at(target_index));
+      window.document.getElementById("actorapp").scrollIntoView();
     },
 
     upSelect: function() {
@@ -102,6 +109,29 @@ $(function(){
 
   });
 
+  var MarqueeNextView = Backbone.View.extend({
+    tagName:   "div",
+
+    attributes:  {
+      'class' : 'cell'
+    },
+
+    template: _.template($('#marquee-next-template').html()),
+
+    initialize: function() {
+      this.listenTo(this.collection, 'change', this.render);
+    },
+
+    render: function() {
+      var nextActor = this.collection.nextActor();
+      if (nextActor) {
+        this.$el.html(this.template(nextActor.toJSON()));
+      }
+      return this;
+    },
+
+  });
+
   var ActorView = Backbone.View.extend({
 
     tagName:  "li",
@@ -114,7 +144,6 @@ $(function(){
 
     events: {
       "dblclick label"  : "edit",
-      "click a.destroy" : "clear",
       "keypress .edit"  : "updateOnEnter",
       "blur .edit"      : "close",
       "click a.remove"   : "removeCondition",
@@ -206,13 +235,6 @@ $(function(){
       }
     },
 
-    clear: function() {
-      if (this.model.get('selected')) {
-        Actors.downSelect();
-      }
-      this.model.destroy();
-    },
-
     removeCondition: function(e) {
       var target_id = $(e.target).parent().attr('id');
       var condition = target_id.replace(/-/g , " ");
@@ -294,6 +316,7 @@ $(function(){
           case 63:
             $.colorbox({inline:true,href:'#help'}); break;
           default:
+            window.document.getElementById("actorapp").scrollIntoView();
             console.log('Command key: ' + e.keyCode);
           }
        }
@@ -422,7 +445,12 @@ $(function(){
     },
 
     deleteSelectedActor: function() {
-      Actors.selectedActor().destroy();
+      var target = Actors.selectedActor()
+      Actors.downSelect();
+      if (target.get('active')) {
+        Actors.activateNext();
+      }
+      target.destroy();
     },
 
     exitTextFocus: function() {
@@ -434,7 +462,9 @@ $(function(){
 
   var App = new AppView;
   var Marquee = new MarqueeView({collection: actors});
-  mqv = Marquee;
-  $('.marquee').append(mqv.render().el);
+  $('.marquee.primary').append(Marquee.render().el);
+
+  var MarqueeNext = new MarqueeNextView({collection: actors});
+  $('.marquee.next').append(MarqueeNext.render().el);
 
 });
