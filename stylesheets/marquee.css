@@ -74,6 +74,10 @@ body {
   overflow: auto;
 }
 
+.panel.fixed {
+	position: fixed;
+}
+
 #actor-list {
   padding: 0 12px 0 12px;
   list-style: none;
