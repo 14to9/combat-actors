@@ -59,7 +59,6 @@ $(function(){
       candidate_index = this.nextSelectedIndex();
       target_index = candidate_index == this.length ? 0 : candidate_index;
       this.setSelected(this.at(target_index));
-      window.document.getElementById("actorapp").scrollIntoView();
     },
 
     upSelect: function() {
@@ -192,6 +191,7 @@ $(function(){
       this.showInitiative.hide();
       this.initiativeForm.show();
       this.$('.actor-initiative .edit-form input').focus();
+      this.$('.actor-initiative .edit-form input').val("");
     },
 
     updateInitiative: function(e) {
@@ -316,7 +316,6 @@ $(function(){
           case 63:
             $.colorbox({inline:true,href:'#help'}); break;
           default:
-            window.document.getElementById("actorapp").scrollIntoView();
             console.log('Command key: ' + e.keyCode);
           }
        }
