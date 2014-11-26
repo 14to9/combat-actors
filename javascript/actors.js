@@ -356,7 +356,6 @@ $(function(){
         target_initiative = parseInt(Actors.at(target_index).get('order')) + 1;
         Actors.at(current_index).save({'order': target_initiative});
       }
-      this.renderCurrent();
     },
 
     actorDown: function() {
@@ -368,7 +367,6 @@ $(function(){
         target_initiative = candidate_initiative < 0 ? 0 : candidate_initiative;
         Actors.at(current_index).save({'order': target_initiative});
       }
-      this.renderCurrent();
     },
 
     selectCurrent: function(model) {
