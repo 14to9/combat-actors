@@ -72,4 +72,5 @@ var Actor = Backbone.Model.extend({
   isDying: function() {
     return this.hasFeature('dying');
   }
+  
 });
