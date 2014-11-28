@@ -79,6 +79,10 @@ $(function(){
       this.setActive(this.at(target_index));
     },
 
+    isFocusedAway: function() {
+      return (this.selectedActor() != this.activeActor())
+    }
+
   });
 
   var Actors = new ActorList;
@@ -97,7 +101,10 @@ $(function(){
     events: {
       "dblclick .actor-initiative" : "editInitiative",
       "keypress .actor-initiative input" : "updateInitiative",
-      "blur .actor-initiative input"     : "hideInitiative"
+      "blur .actor-initiative input"     : "hideInitiative",
+      "click a.remove"   : "removeCondition",
+      "keypress .input"  : "addConditionOnEnter",
+      "click .labels"     : "setConditionFocus",
     },
 
     initialize: function() {
@@ -124,18 +131,50 @@ $(function(){
       this.initiativeForm.hide();
     },
 
-    render: function() {
-      var activeActor = this.collection.selectedActor();
+    setConditionFocus: function(e) {
+      this.newCondition.val(null);
+      this.newCondition.focus();
+    },
 
-      window.b = this;
-      if (activeActor) {
-        this.$el.html(this.template(activeActor.toJSON()));
+    addConditionOnEnter: function(e) {
+      if (e.keyCode == 13) {
+        var target_id = $(e.target).parent().attr('id');
+        var condition = this.newCondition.val().replace(/^\s+|\s+$/g,'');
+        this.collection.selectedActor().addCondition(condition);
+        this.newCondition.blur();
+      }
+    },
+
+    removeCondition: function(e) {
+      var target_id = $(e.target).parent().attr('id');
+      var condition = target_id.replace(/-/g , " ");
+      this.collection.selectedActor().removeCondition(condition);
+      return false;
+    },
+
+    render: function() {
+      var selectedActor = this.collection.selectedActor();
+      if (selectedActor) {
+        this.$el.html(this.template(selectedActor.toJSON()));
         this.initiativeForm = this.$('.actor-initiative .edit-form');
         this.showInitiative = this.$('.actor-initiative .show');
+        this.newCondition = this.$('.editable .editor');
+        if (this.collection.isFocusedAway()) {
+          this.away();
+        } else { this.notAway(); }
       }
       return this;
     },
 
+    away: function() {
+      this.$el.parent().addClass("away");
+      this.$('.return-msg').show();
+    },
+
+    notAway: function() {
+      this.$el.parent().removeClass("away");
+      this.$('.return-msg').hide();
+    },
   });
 
   var MarqueeNextView = Backbone.View.extend({
@@ -155,8 +194,19 @@ $(function(){
       var nextActor = this.collection.nextActor();
       if (nextActor) {
         this.$el.html(this.template(nextActor.toJSON()));
+        if (this.collection.isFocusedAway()) {
+          this.away();
+        } else { this.notAway(); }
       }
       return this;
+    },
+
+    away: function() {
+      this.$el.parent().hide();
+    },
+
+    notAway: function() {
+      this.$el.parent().show();
     },
 
   });
@@ -175,9 +225,6 @@ $(function(){
       "dblclick label"  : "edit",
       "keypress .edit"  : "updateOnEnter",
       "blur .edit"      : "close",
-      "click a.remove"   : "removeCondition",
-      "keypress .input"  : "addConditionOnEnter",
-      "click .labels"     : "setConditionFocus",
     },
 
     initialize: function() {
@@ -190,21 +237,7 @@ $(function(){
       this.$el.toggleClass('active', this.model.get('active'));
       this.$el.toggleClass('selected', this.model.get('selected'));
       this.input = this.$('.edit');
-      this.newCondition = this.$('.editable .editor');
-      if (this.model.get('active')) {
-        this.moveArrow();
-      }
-
       return this;
-    },
-
-    moveArrow: function() {
-      $("#arrow").position({
-        my:        "right top",
-        at:        "left+44% bottom-350%",
-        of:        this.$('.actor-name'),
-        collision: "none"
-      });
     },
 
     edit: function() {
@@ -225,27 +258,6 @@ $(function(){
     updateOnEnter: function(e) {
       if (e.keyCode == 13) this.close();
     },
-
-    setConditionFocus: function(e) {
-      this.newCondition.val(null);
-      this.newCondition.focus();
-    },
-
-    addConditionOnEnter: function(e) {
-      if (e.keyCode == 13) {
-        var target_id = $(e.target).parent().attr('id');
-        var condition = this.newCondition.val().replace(/^\s+|\s+$/g,'');
-        this.model.addCondition(condition);
-        this.newCondition.blur();
-      }
-    },
-
-    removeCondition: function(e) {
-      var target_id = $(e.target).parent().attr('id');
-      var condition = target_id.replace(/-/g , " ");
-      this.model.removeCondition(condition);
-      return false;
-    }
 
   });
 
@@ -292,7 +304,11 @@ $(function(){
             Actors.activatePrevious(); break;
           case 110:  // 'n'
           case 13:   // Enter
-            Actors.activateNext(); break;
+            if (Actors.isFocusedAway()) {
+              this.selectCurrent(Actors.activeActor()); break;
+            } else {
+              Actors.activateNext(); break;
+            }
           case 106:  // 'j'
             Actors.downSelect(); break;
           case 107:  // 'k'
@@ -413,7 +429,7 @@ $(function(){
     },
 
     addCondition: function(model, e) {
-      model.view.setConditionFocus();
+      this.marquee.setConditionFocus();
       e.preventDefault();
     },
 
@@ -429,7 +445,7 @@ $(function(){
       // both of these are super ghetto
       // why isn't the save firing a change, triggering render?
       model.view.render();
-      mqv.render();
+      this.marquee.render();
     },
 
     toggleFeature: function(model, condition) {

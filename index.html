@@ -33,7 +33,7 @@
 	  <div class='marquee primary' id="marquee-primary">
   </div>
 	  <div class='marquee next'>
-     <p style="margin: 8px 0 0 24px;">NEXT TO ACT</p>
+     <p style="margin: 8px 0 0 22px;">NEXT TO ACT</p>
   </div>
   </div>
 
@@ -69,30 +69,11 @@
         <input class="edit" type="text" value="<%- title %>" />
       </div>
     </div>
-    <div class='labels'>
-      <div class='labels-maker'>
-        <ul class="conditions labels">
-          <% _.each(conditions, function(i) { %>
-            <% if (i) { %>
-              <li class="label <%- i %>" id = <%- i.replace(/\s/g , "-") %>>
-                <a href="#" class="label name"><%- i %></a>
-                <a href="#" class="remove"></a>
-              </li>
-            <% } %>
-          <% }); %>
-          <li class="input label">
-            <div class="editable">
-              <div class="resizer tracker_markup"> </div>
-              <textarea id="" class="editor tracker_markup search" name="condition"></textarea>
-              <div class="resize handle"></div>
-            </div>
-          </li>
-        </ul>
-      </div>
     </div>
   </script>
 
   <script type="text/template" id="marquee-template">
+    <p class='return-msg' style="margin: 8px 0 0 12px; display: none;">EDITING</p>
     <div class="actor-initiative">
       <div class="show"><%- order %></div>
       <div class="edit-form">
@@ -113,15 +94,25 @@
       </div>
     </div>
     <div class='active labels'>
+      <div class='labels-maker'>
         <ul class="conditions labels">
           <% _.each(conditions, function(i) { %>
             <% if (i) { %>
               <li class="label <%- i %>" id = <%- i.replace(/\s/g , "-") %>>
                 <a href="#" class="label name"><%- i %></a>
+                <a href="#" class="remove"></a>
               </li>
             <% } %>
           <% }); %>
+          <li class="input label">
+            <div class="editable">
+              <div class="resizer tracker_markup"> </div>
+              <textarea id="" class="editor tracker_markup search" name="condition"></textarea>
+              <div class="resize handle"></div>
+            </div>
+          </li>
         </ul>
+      </div>
     </div>
   </script>
 

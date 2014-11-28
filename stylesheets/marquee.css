@@ -18,16 +18,6 @@ body {
   width: 267px;
   padding: 0px;
   margin: 0 20px 0 10px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px 0;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px 0;
-  -ms-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px 0;
-  -o-box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px 0;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 6px 0;
-  -webkit-border-radius: 0 0 5px 5px;
-  -moz-border-radius: 0 0 5px 5px;
-  -ms-border-radius: 0 0 5px 5px;
-  -o-border-radius: 0 0 5px 5px;
-  border-radius: 0 0 5px 5px;
 }
 
 #actorapp .head {
@@ -89,7 +79,7 @@ body {
   list-style: none;
 }
 
-#actor-list li.actor-item {
+li.actor-item {
   padding: 4px 2px 4px 0px;
   width: 240px;
   position: relative;
@@ -102,27 +92,33 @@ body {
   border: solid 1px #666;
   overflow: auto;
   margin-bottom: 10px;
+  background-color: #bbb;
 }
 
 li.actor-item.active {
   z-index: 60;
   background-color: rgba(238,255,238,0.85);
   color: black;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
-  -ms-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
-  -o-box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
-  box-shadow: rgba(0, 0, 0, 0.3) 0 3px 3px 0;
 }
 
 li.actor-item.selected {
   z-index: 80;
-  background-color: rgba(255,255,255,0.9);
-  -webkit-box-shadow: rgba(255, 255, 0, 0.3) 0px 0px 3px 3px;
-  -moz-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
-  -ms-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
-  -o-box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
-  box-shadow: rgba(0, 220, 0, 0.3) 0px 0px 3px 3px;
+  background-color: rgba(240,240,200,0.9);
+  -webkit-box-shadow: yellow 0px 0px 3px 3px;
+  -moz-box-shadow: yellow 0px 0px 3px 3px;
+  -ms-box-shadow: yellow 0px 0px 3px 3px;
+  -o-box-shadow: yellow 0px 0px 3px 3px;
+  box-shadow: yellow 0px 0px 3px 3px;
+}
+
+li.actor-item.active {
+  z-index: 80;
+  background-color: white;
+  -webkit-box-shadow: #aaa 0px 0px 3px 3px;
+  -moz-box-shadow: #aaa 0px 0px 3px 3px;
+  -ms-box-shadow: #aaa 0px 0px 3px 3px;
+  -o-box-shadow: #aaa 0px 0px 3px 3px;
+  box-shadow: #aaa 0px 0px 3px 3px;
 }
 
 #arrow {
@@ -261,41 +257,6 @@ li:hover .destroy, li:hover .activate {
   float: left;
 }
 
-#activate-next {
-  float: right;
-  width: 250px;
-  height: 40px;
-  text-align: center;
-  vertical-align: middle;
-  display: block;
-  background-color: #555;
-  color: white;
-  cursor: pointer;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  -ms-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  -o-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  font-weight: bold;
-  font-size: 24px;
-  padding: 16px 0 0 0;
-  margin-bottom: 20px;
-}
-#activate-next:hover {
-  background-color: #888;
-  color: white;
-}
-#activate-next a {
-  color: white;
-  text-decoration: none;
-  width: 100%;
-  display: inline-block;
-}
 #help {
   padding: 0px 20px 10px 20px;
 }
@@ -312,24 +273,29 @@ li:hover .destroy, li:hover .activate {
   margin: 40px 10px 0 40px;
   float: left;
   background-color: white;
-  width: 700px;
+  width: 800px;
   overflow: auto;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   border-radius: 10px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  -ms-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  -o-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
+  -webkit-box-shadow: white 0px 0px 3px 3px;
+  -moz-box-shadow: white 0px 0px 3px 3px;
+  -ms-box-shadow: white 0px 0px 3px 3px;
+  -o-box-shadow: white 0px 0px 3px 3px;
+  box-shadow: white 0px 0px 3px 3px;
 }
 
 .marquee.next {
   margin: 40px 10px 0 150px;
   width: 590px;
-  background-color: #999;
+  background-color: #aaa;
+  -webkit-box-shadow: #aaa 0px 0px 3px 3px;
+  -moz-box-shadow: #aaa 0px 0px 3px 3px;
+  -ms-box-shadow: #aaa 0px 0px 3px 3px;
+  -o-box-shadow: #aaa 0px 0px 3px 3px;
+  box-shadow: #aaa 0px 0px 3px 3px;
 }
 
 .marquee .cell {
@@ -348,4 +314,20 @@ li:hover .destroy, li:hover .activate {
   margin: 10px;
   line-height: 28px;
   font-weight: bold;
+}
+.return-msg {
+  text-transform: uppercase;
+}
+
+.away,
+.away .editable .editor {
+  background-color: #ffb;
+}
+
+.marquee.primary.away {
+  -webkit-box-shadow: yellow 0px 0px 3px 3px;
+  -moz-box-shadow: yellow 0px 0px 3px 3px;
+  -ms-box-shadow: yellow 0px 0px 3px 3px;
+  -o-box-shadow: yellow 0px 0px 3px 3px;
+  box-shadow: yellow 0px 0px 3px 3px;
 }
