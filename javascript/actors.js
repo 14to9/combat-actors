@@ -94,14 +94,44 @@ $(function(){
 
     template: _.template($('#marquee-template').html()),
 
+    events: {
+      "dblclick .actor-initiative" : "editInitiative",
+      "keypress .actor-initiative input" : "updateInitiative",
+      "blur .actor-initiative input"     : "hideInitiative"
+    },
+
     initialize: function() {
       this.listenTo(this.collection, 'change', this.render);
     },
 
+    editInitiative: function() {
+      this.showInitiative.hide();
+      this.initiativeForm.show();
+      this.$('.actor-initiative .edit-form input').focus();
+      this.$('.actor-initiative .edit-form input').val("");
+    },
+
+    updateInitiative: function(e) {
+      if (e.keyCode == 13) {
+        var value = this.$('.actor-initiative .edit-form input').val() || 0;
+        this.collection.selectedActor().save({order: parseInt(value)});
+        this.hideInitiative();
+      }
+    },
+
+    hideInitiative: function() {
+      this.showInitiative.show();
+      this.initiativeForm.hide();
+    },
+
     render: function() {
-      var activeActor = this.collection.activeActor();
+      var activeActor = this.collection.selectedActor();
+
+      window.b = this;
       if (activeActor) {
         this.$el.html(this.template(activeActor.toJSON()));
+        this.initiativeForm = this.$('.actor-initiative .edit-form');
+        this.showInitiative = this.$('.actor-initiative .show');
       }
       return this;
     },
@@ -148,9 +178,6 @@ $(function(){
       "click a.remove"   : "removeCondition",
       "keypress .input"  : "addConditionOnEnter",
       "click .labels"     : "setConditionFocus",
-      "dblclick .actor-initiative" : "editInitiative",
-      "keypress .actor-initiative input" : "updateInitiative",
-      "blur .actor-initiative input"     : "hideInitiative"
     },
 
     initialize: function() {
@@ -164,8 +191,6 @@ $(function(){
       this.$el.toggleClass('selected', this.model.get('selected'));
       this.input = this.$('.edit');
       this.newCondition = this.$('.editable .editor');
-      this.initiativeForm = this.$('.actor-initiative .edit-form');
-      this.showInitiative = this.$('.actor-initiative .show');
       if (this.model.get('active')) {
         this.moveArrow();
       }
@@ -185,26 +210,6 @@ $(function(){
     edit: function() {
       this.$el.addClass("editing");
       this.input.focus();
-    },
-
-    editInitiative: function() {
-      this.showInitiative.hide();
-      this.initiativeForm.show();
-      this.$('.actor-initiative .edit-form input').focus();
-      this.$('.actor-initiative .edit-form input').val("");
-    },
-
-    updateInitiative: function(e) {
-      if (e.keyCode == 13) {
-        var value = this.$('.actor-initiative .edit-form input').val() || 0;
-        this.model.save({order: parseInt(value)});
-        this.hideInitiative();
-      }
-    },
-
-    hideInitiative: function() {
-      this.showInitiative.show();
-      this.initiativeForm.hide();
     },
 
     close: function() {
@@ -403,7 +408,7 @@ $(function(){
     },
 
     editInitiative: function(model, e) {
-      model.view.editInitiative();
+      this.marquee.editInitiative();
       e.preventDefault();
     },
 
@@ -458,10 +463,12 @@ $(function(){
   });
 
   var App = new AppView;
-  var Marquee = new MarqueeView({collection: actors});
+  var Marquee = new MarqueeView({collection: Actors});
   $('.marquee.primary').append(Marquee.render().el);
 
-  var MarqueeNext = new MarqueeNextView({collection: actors});
+  var MarqueeNext = new MarqueeNextView({collection: Actors});
   $('.marquee.next').append(MarqueeNext.render().el);
+
+  App.marquee = Marquee
 
 });

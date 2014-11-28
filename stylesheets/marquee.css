@@ -171,41 +171,41 @@ li:hover .destroy, li:hover .activate {
     background-position: 0 -20px;
 }
 
-#actor-list li .actor-name {
+.actor-name {
   padding: 0 0 0 8px;
   margin: 0;
 }
 
-#actor-list li .actor-name .show {
+.actor-name .show {
   width: 200px;
 }
 
-#actor-list li.editing {
+.editing {
   border-bottom: none;
   margin-top: -1px;
   padding: 0;
 }
 
-#actor-list li.editing:last-child {
+.editing:last-child {
   margin-bottom: -1px;
 }
 
-#actor-list li.editing .actor-name .edit-form {
+.editing .actor-name .edit-form {
   display: block;
   width: 444px;
   padding: 0px;
   margin: 10px 0 0 0;
 }
 
-#actor-list li.editing .actor-name .show {
+.editing .actor-name .show {
   display: none;
 }
 
-#actor-list li .actor-name label {
+.actor-name label {
   word-break: break-word;
 }
 
-#actor-list li .edit-form {
+.edit-form {
   display: none;
 }
 

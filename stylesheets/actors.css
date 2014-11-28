@@ -180,7 +180,7 @@ li:hover .destroy, li:hover .activate {
   margin: 10px 0 0 0;
 }
 
-#actor-list li.editing .actor-name .show {
+.editing .actor-name .show {
   display: none;
 }
 
@@ -188,7 +188,7 @@ li:hover .destroy, li:hover .activate {
   word-break: break-word;
 }
 
-#actor-list li .edit-form {
+.edit-form {
   display: none;
 }
 

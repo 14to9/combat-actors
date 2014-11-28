@@ -93,12 +93,18 @@
   </script>
 
   <script type="text/template" id="marquee-template">
+    <div class="actor-initiative">
+      <div class="show"><%- order %></div>
+      <div class="edit-form">
+        <input type="text" value="<%- order %>"/>
+      </div>
+    </div>
     <div class="marquee-name">
       <div class="show">
-        <% if (this.collection.activeActor().isBloodied()) { %>
+        <% if (_.include(features, "bloodied")) { %>
           <div class='bloodied feature-icon'/>
         <% } %>
-        <% if (this.collection.activeActor().isDying()) { %>
+        <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
         <% } %>
         <label>
