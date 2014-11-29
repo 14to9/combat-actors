@@ -63,14 +63,5 @@ var Actor = Backbone.Model.extend({
     } else {
       this.addFeature(feature);
     }
-  },
-
-  isBloodied: function() {
-    return this.hasFeature('bloodied');
-  },
-
-  isDying: function() {
-    return this.hasFeature('dying');
   }
-  
 });

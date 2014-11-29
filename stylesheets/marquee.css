@@ -81,6 +81,7 @@ body {
 li.actor-item {
   padding: 4px 2px 4px 0px;
   width: 240px;
+  height: 27px;
   position: relative;
   font-size: 18px;
   -webkit-border-radius: 5px;
@@ -90,7 +91,7 @@ li.actor-item {
   border-radius: 5px;
   border: solid 1px #666;
   overflow: auto;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   background-color: #bbb;
 }
 
@@ -224,10 +225,25 @@ li:hover .destroy, li:hover .activate {
   float: right;
   width: 20px;
   text-align: center;
-  padding: 0 4px 0 0;
+  height: 21px;
+  padding: 2px 3px 0px 2px;
+  margin: 1px 4px 0 0;
   color: #666;
   font-weight: normal;
   font-size: 16px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  border: none;
+}
+
+.persistent .actor-initiative {
+  border: solid 1px gray;
+  padding: 1px 2px 0px 2px;
+  background-color: #66a;
+  color: white;
 }
 
 .actor-initiative .show {

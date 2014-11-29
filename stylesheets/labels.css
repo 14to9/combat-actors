@@ -217,17 +217,14 @@ ul.conditions {
 .selected .editable textarea {
   background-color: #fff;
 }
-.conditions.labels li.dying  a,
 .conditions.labels li.failed  a {
-  background-color: black;
+  background-color: #72f;
 }
-.conditions.labels li.dying  a.remove:before,
 .conditions.labels li.failed a.remove:before {
-  border-left: 1px solid #999;
+  border-left: 1px solid #629;
 }
-.conditions.labels li.dying  a.remove:after,
 .conditions.labels li.failed a.remove:after {
-  color: #999;
+  color: #629;
 }
 .conditions.labels li.bloodied a,
 .conditions.labels li.ongoing a {

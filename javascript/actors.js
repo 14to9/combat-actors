@@ -252,6 +252,7 @@ $(function(){
 
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
+      this.$el.toggleClass('persistent', _.include(this.model.get('features'), 'persistent'));
       this.$el.toggleClass('active', this.model.get('active'));
       this.$el.toggleClass('selected', this.model.get('selected'));
       return this;
@@ -281,8 +282,9 @@ $(function(){
       this.main = $('#main');
       this.orderList = $("#actor-list");
 
-      _.bindAll(this);
-      $(document).on('keypress', this.commandStroke);
+      window.v = this;
+      _.bindAll(this, 'commandStroke');
+      $(document).bind('keypress', this.commandStroke);
 
       Actors.fetch();
 
@@ -321,15 +323,19 @@ $(function(){
           case 100:  // 'd'
             this.toggleFeature(Actors.selectedActor(), 'dying'); break;
           case 88:  // 'X'
-            this.removeAllActiveConditions(); break;
+            this.removeConditionsFromActor(Actors.selectedActor()); break;
+          case 82:  // 'R'
+            this.resetEverything(); break;
           case 78:  // 'N'
             this.editActorName(Actors.selectedActor(), e); break;
           case 68:  // 'D'
-            this.deleteSelectedActor(); break;
+            this.deleteActor(Actors.selectedActor()); break;
           case 65:  // 'A'
             this.addActor(e); break;
           case 60:  // '<'
             this.actorUp(); break;
+          case 61:  // '='
+            this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
           case 62:  // '>'
             this.actorDown(); break;
           case 63:
@@ -451,8 +457,8 @@ $(function(){
       this.marquee.render();
     },
 
-    toggleFeature: function(model, condition) {
-      model.toggleFeature(condition);
+    toggleFeature: function(model, feature) {
+      model.toggleFeature(feature);
     },
 
     removeFirstConditionFromActive: function(e) {
@@ -461,12 +467,41 @@ $(function(){
       actor.removeCondition(target);
     },
 
-    removeAllActiveConditions: function() {
-      Actors.selectedActor().removeAllConditions();
+    removeConditionsFromActor: function(actor) {
+      actor.removeAllConditions();
     },
 
-    deleteSelectedActor: function() {
-      var target = Actors.selectedActor()
+    removeAllActorConditions: function() {
+      Actors.each(this.removeConditionsFromActor, this);
+    },
+
+    resetActorFeatures: function(actor) {
+      actor.removeFeature("bloodied");
+      actor.removeFeature("dying");
+    },
+
+    resetAllActorFeatures: function() {
+      Actors.each(this.resetActorFeatures, this);
+    },
+
+    resetEverything: function() {
+      var reset = window.confirm("Reset the list?  This will remove non-permanent actors and all actor conditions.");
+      if (reset) {
+        this.deleteActorsWithoutFeature('persistent');
+        this.removeAllActorConditions();
+        this.resetAllActorFeatures();
+      } else { return }
+    },
+
+    deleteActorsWithoutFeature: function( filterFeature ) {
+      var notFeatured = function(a) {
+        return !a.hasFeature(filterFeature);
+      }
+      var deleteTargets = Actors.filter(notFeatured, this);
+      _.each(deleteTargets, this.deleteActor, this);
+    },
+
+    deleteActor: function(target) {
       Actors.downSelect();
       if (target.get('active')) {
         Actors.activateNext();

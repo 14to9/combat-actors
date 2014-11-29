@@ -54,10 +54,10 @@
     </div>
     <div class="actor-name">
       <div class="show">
-        <% if (this.model.isBloodied()) { %>
+        <% if (_.include(features, "bloodied")) { %>
           <div class='bloodied feature-icon'/>
         <% } %>
-        <% if (this.model.isDying()) { %>
+        <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
         <% } %>
         <label><%- title %></label>
@@ -156,13 +156,16 @@
       <tr><td><b>p</b></td><td>Activate previous actor</td></tr>
       <tr><td><b>x</b></td><td>Remove (first) condition</td></tr>
       <tr><td><b>r</b></td><td>Rotate conditions</td></tr>
+      <tr><td><b>=</b></td><td>Toggle permanence</td></tr>
 
       <tr><td><b>A</b></td><td>Add an actor</td></tr>
       <tr><td><b>D</b></td><td>Delete actor</td></tr>
       <tr><td><b>I</b></td><td>Set initiative</td></tr>
-      <tr><td><b>X</b></td><td>Remove (all) conditions</td></tr>
+      <tr><td><b>N</b></td><td>Rename actor</td></tr>
+      <tr><td><b>R</b></td><td>Reset!</td></tr>
+      <tr><td><b>X</b></td><td>Remove (all) conditions on selected</td></tr>
 
-      <tr><td><b>&lt;</b>, <b>&gt;</b></td><td>Move active actor</td></tr>
+      <tr><td><b>&lt;</b>, <b>&gt;</b></td><td>Move selected actor</td></tr>
 
     </table>
     </div>
