@@ -225,7 +225,10 @@ ul.conditions {
 .conditions.labels li.failed a.remove:before {
   border-left: 1px solid #999;
 }
-
+.conditions.labels li.dying  a.remove:after,
+.conditions.labels li.failed a.remove:after {
+  color: #999;
+}
 .conditions.labels li.bloodied a,
 .conditions.labels li.ongoing a {
   background-color: red;
@@ -234,6 +237,10 @@ ul.conditions {
 .conditions.labels li.bloodied a.remove:before,
 .conditions.labels li.ongoing a.remove:before {
   border-left: 1px solid #e00;
+}
+.conditions.labels li.bloodied a.remove:after,
+.conditions.labels li.ongoing a.remove:after {
+  color: #e00;
 }
 
 .conditions.labels li.stance a {
@@ -259,8 +266,25 @@ ul.conditions {
   border-left: 1px solid #0c0;
 }
 
+.active .conditions.labels li.ready a.remove:after,
+.conditions.labels li.ready a.remove:after,
+.active .conditions.labels li.delay a.remove:after,
+.conditions.labels li.delay a.remove:after
+{
+  color: #0c0;
+}
+
 /* Negative effects */
 .conditions.labels li.granting a,
+.conditions.labels li.blinded a,
+.conditions.labels li.deafened a,
+.conditions.labels li.charmed a,
+.conditions.labels li.frightened a,
+.conditions.labels li.incapacitated a,
+.conditions.labels li.prone a,
+.conditions.labels li.restrained a,
+.conditions.labels li.exhausted a,
+.conditions.labels li.poisoned a,
 .conditions.labels li.dominated a,
 .conditions.labels li.slowed a,
 .conditions.labels li.immobilized a,
@@ -270,12 +294,39 @@ ul.conditions {
 }
 
 .conditions.labels li.granting a.remove:before,
+.conditions.labels li.blinded a.remove:before,
+.conditions.labels li.deafened a.remove:before,
+.conditions.labels li.charmed a.remove:before,
+.conditions.labels li.frightened a.remove:before,
+.conditions.labels li.incapacitated a.remove:before,
+.conditions.labels li.prone a.remove:before,
+.conditions.labels li.restrained a.remove:before,
+.conditions.labels li.exhausted a.remove:before,
 .conditions.labels li.dominated a.remove:before,
+.conditions.labels li.poisoned a.remove:before,
 .conditions.labels li.slowed a.remove:before,
 .conditions.labels li.immobilized a.remove:before,
 .conditions.labels li.dazed a.remove:before,
 .conditions.labels li.stunned a.remove:before {
   border-left: 1px solid #c60;
+}
+
+.conditions.labels li.granting a.remove:after,
+.conditions.labels li.dominated a.remove:after,
+.conditions.labels li.blinded a.remove:after,
+.conditions.labels li.deafened a.remove:after,
+.conditions.labels li.charmed a.remove:after,
+.conditions.labels li.frightened a.remove:after,
+.conditions.labels li.incapacitated a.remove:after,
+.conditions.labels li.prone a.remove:after,
+.conditions.labels li.restrained a.remove:after,
+.conditions.labels li.exhausted a.remove:after,
+.conditions.labels li.poisoned a.remove:after,
+.conditions.labels li.slowed a.remove:after,
+.conditions.labels li.immobilized a.remove:after,
+.conditions.labels li.dazed a.remove:after,
+.conditions.labels li.stunned a.remove:after {
+  color: #c60;
 }
 
 .marquee.next .conditions.labels li a

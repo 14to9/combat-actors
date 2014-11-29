@@ -104,7 +104,10 @@ $(function(){
       "blur .actor-initiative input"     : "hideInitiative",
       "click a.remove"   : "removeCondition",
       "keypress .input"  : "addConditionOnEnter",
-      "click .labels"     : "setConditionFocus",
+      "click .labels"    : "setConditionFocus",
+      "dblclick label"   : "editName",
+      "keypress .edit"   : "updateOnEnter",
+      "blur .edit"       : "close",
     },
 
     initialize: function() {
@@ -152,6 +155,25 @@ $(function(){
       return false;
     },
 
+    editName: function() {
+      this.$el.addClass("editing");
+      this.input.focus();
+    },
+
+    close: function() {
+      var value = this.input.val();
+      if (!value) {
+        this.clear();
+      } else {
+        this.collection.selectedActor().save({title: value});
+        this.$el.removeClass("editing");
+      }
+    },
+
+    updateOnEnter: function(e) {
+      if (e.keyCode == 13) this.close();
+    },
+
     render: function() {
       var selectedActor = this.collection.selectedActor();
       if (selectedActor) {
@@ -159,6 +181,7 @@ $(function(){
         this.initiativeForm = this.$('.actor-initiative .edit-form');
         this.showInitiative = this.$('.actor-initiative .show');
         this.newCondition = this.$('.editable .editor');
+        this.input = this.$('.edit');
         if (this.collection.isFocusedAway()) {
           this.away();
         } else { this.notAway(); }
@@ -221,12 +244,6 @@ $(function(){
 
     template: _.template($('#item-template').html()),
 
-    events: {
-      "dblclick label"  : "edit",
-      "keypress .edit"  : "updateOnEnter",
-      "blur .edit"      : "close",
-    },
-
     initialize: function() {
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.model, 'destroy', this.remove);
@@ -236,29 +253,8 @@ $(function(){
       this.$el.html(this.template(this.model.toJSON()));
       this.$el.toggleClass('active', this.model.get('active'));
       this.$el.toggleClass('selected', this.model.get('selected'));
-      this.input = this.$('.edit');
       return this;
-    },
-
-    edit: function() {
-      this.$el.addClass("editing");
-      this.input.focus();
-    },
-
-    close: function() {
-      var value = this.input.val();
-      if (!value) {
-        this.clear();
-      } else {
-        this.model.save({title: value});
-        this.$el.removeClass("editing");
-      }
-    },
-
-    updateOnEnter: function(e) {
-      if (e.keyCode == 13) this.close();
-    },
-
+    }
   });
 
   var AppView = Backbone.View.extend({
@@ -267,8 +263,7 @@ $(function(){
 
     events: {
       "keypress #new-actor":       "createOnEnter",
-      "keypress #new-actor-init":  "createOnEnter",
-      "click #activate-next":      "activateNext"
+      "keypress #new-actor-init":  "createOnEnter"
     },
 
     initialize: function() {
@@ -487,4 +482,6 @@ $(function(){
 
   App.marquee = Marquee
 
+  // console debugging
+  window.Marquee = Marquee
 });

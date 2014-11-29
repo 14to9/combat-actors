@@ -27,12 +27,10 @@ body {
   margin: 10px 0 10px 0;
 }
 
-.actor-name .edit-form input[type="text"],
-#actor-form input[type="text"] {
+.actor-name .edit-form input[type="text"] {
   background-color: white;
-  width: 200px;
-  font-size: 18px;
-  font-family: inherit;
+  width: 700px;
+  font: 72px "Helvetica Neue", Helvetica, Arial, sans-serif;
   border: 0;
   outline: none;
   border: 1px solid #999999;
@@ -41,6 +39,9 @@ body {
   -ms-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
   -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+}
+.marquee-name .edit-form input[type="text"] {
+    font: 72px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #actor-form input[type="text"] {
@@ -151,11 +152,11 @@ li.actor-item.active {
   background-repeat: no-repeat;
 }
 
-.bloodied {
+.feature-icon.bloodied {
   background-image: url(../images/blood-drop.png);
 }
 
-.dying {
+.feature-icon.dying {
   background-image: url(../images/skull.png);
 }
 
@@ -186,14 +187,14 @@ li:hover .destroy, li:hover .activate {
   margin-bottom: -1px;
 }
 
-.editing .actor-name .edit-form {
+.editing .marquee-name .edit-form {
   display: block;
-  width: 444px;
+  width: 700px;
   padding: 0px;
   margin: 10px 0 0 0;
 }
 
-.editing .actor-name .show {
+.editing .marquee-name .show {
   display: none;
 }
 

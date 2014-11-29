@@ -51,9 +51,6 @@
   <script type="text/template" id="item-template">
     <div class="actor-initiative">
       <div class="show"><%- order %></div>
-      <div class="edit-form">
-        <input type="text" value="<%- order %>"/>
-      </div>
     </div>
     <div class="actor-name">
       <div class="show">
@@ -65,10 +62,6 @@
         <% } %>
         <label><%- title %></label>
       </div>
-      <div class="edit-form">
-        <input class="edit" type="text" value="<%- title %>" />
-      </div>
-    </div>
     </div>
   </script>
 
@@ -91,6 +84,9 @@
         <label>
           <%- title %>
         </label>
+      </div>
+      <div class="edit-form">
+        <input class="edit" type="text" value="<%- title %>" />
       </div>
     </div>
     <div class='active labels'>
