@@ -294,8 +294,10 @@ $(function(){
     commandStroke: function(e) {
       if (!$(e.target).is('input, textarea')) {
         switch (e.keyCode) {
+          case 122:  // 'z'
+            this.removeFirstConditionFromActor(Actors.selectedActor()); break;
           case 120:  // 'x'
-            this.removeFirstConditionFromActive(); break;
+            this.removeLastConditionFromActor(Actors.selectedActor()); break;
           case 114:  // 'r'
             this.rotateConditions(Actors.selectedActor()); break;
           case 112:  // 'p'
@@ -311,35 +313,35 @@ $(function(){
             Actors.downSelect(); break;
           case 107:  // 'k'
             Actors.upSelect(); break;
-          case 73:  // 'I'
-            this.editInitiative(Actors.selectedActor(), e); break;
           case 99:  // 'c'
             this.selectCurrent(Actors.activeActor()); break;
           case 105:  // 'i'
           case 97:  // 'a'
             this.addCondition(Actors.selectedActor(), e); break;
-          case 98:  // 'b'
-            this.toggleFeature(Actors.selectedActor(), 'bloodied'); break;
-          case 100:  // 'd'
-            this.toggleFeature(Actors.selectedActor(), 'dying'); break;
           case 88:  // 'X'
             this.removeConditionsFromActor(Actors.selectedActor()); break;
           case 82:  // 'R'
             this.resetEverything(); break;
           case 78:  // 'N'
             this.editActorName(Actors.selectedActor(), e); break;
+          case 73:  // 'I'
+            this.editInitiative(Actors.selectedActor(), e); break;
           case 68:  // 'D'
             this.deleteActor(Actors.selectedActor()); break;
           case 65:  // 'A'
             this.addActor(e); break;
-          case 60:  // '<'
-            this.actorUp(); break;
-          case 61:  // '='
-            this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
-          case 62:  // '>'
-            this.actorDown(); break;
           case 63:
             $.colorbox({inline:true,href:'#help'}); break;
+          case 62:  // '>'
+            this.actorDown(); break;
+          case 60:  // '<'
+            this.actorUp(); break;
+          case 51:  // '3'
+            this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
+          case 50:  // '2'
+            this.toggleFeature(Actors.selectedActor(), 'dying'); break;
+          case 49:  // '1'
+            this.toggleFeature(Actors.selectedActor(), 'bloodied'); break;
           default:
             console.log('Command key: ' + e.keyCode);
           }
@@ -450,10 +452,7 @@ $(function(){
 
     rotateConditions: function(model) {
       model.rotateConditions();
-
-      // both of these are super ghetto
       // why isn't the save firing a change, triggering render?
-      model.view.render();
       this.marquee.render();
     },
 
@@ -461,9 +460,13 @@ $(function(){
       model.toggleFeature(feature);
     },
 
-    removeFirstConditionFromActive: function(e) {
-      actor = Actors.selectedActor();
+    removeFirstConditionFromActor: function(actor, e) {
       target = _.first(actor.get('conditions'));
+      actor.removeCondition(target);
+    },
+
+    removeLastConditionFromActor: function(actor, e) {
+      target = _.last(actor.get('conditions'));
       actor.removeCondition(target);
     },
 
