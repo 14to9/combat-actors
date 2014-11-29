@@ -336,12 +336,12 @@ $(function(){
             this.actorDown(); break;
           case 60:  // '<'
             this.actorUp(); break;
-          case 51:  // '3'
-            this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
           case 50:  // '2'
             this.toggleFeature(Actors.selectedActor(), 'dying'); break;
           case 49:  // '1'
             this.toggleFeature(Actors.selectedActor(), 'bloodied'); break;
+          case 48:  // '0'
+            this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
           default:
             console.log('Command key: ' + e.keyCode);
           }
