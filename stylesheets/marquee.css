@@ -27,10 +27,11 @@ body {
   margin: 10px 0 10px 0;
 }
 
-.actor-name .edit-form input[type="text"] {
+.marquee-name .edit-form input[type="text"] {
   background-color: white;
-  width: 700px;
+  width: 550px;
   font: 72px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
   border: 0;
   outline: none;
   border: 1px solid #999999;
@@ -39,9 +40,6 @@ body {
   -ms-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
   -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
-}
-.marquee-name .edit-form input[type="text"] {
-    font: 72px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #actor-form input[type="text"] {
@@ -157,7 +155,7 @@ li.actor-item.active {
 }
 
 .feature-icon.dying {
-  background-image: url(../images/skull.png);
+  background-image: url(../images/purple-skull.png);
 }
 
 li:hover .destroy, li:hover .activate {
@@ -289,7 +287,7 @@ li:hover .destroy, li:hover .activate {
 }
 
 .marquee.next {
-  margin: 40px 10px 0 150px;
+  margin: 28px 10px 0 250px;
   width: 590px;
   background-color: #aaa;
   -webkit-box-shadow: #aaa 0px 0px 3px 3px;

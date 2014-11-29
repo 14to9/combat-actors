@@ -86,6 +86,12 @@
         </label>
       </div>
       <div class="edit-form">
+        <% if (_.include(features, "bloodied")) { %>
+          <div class='bloodied feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "dying")) { %>
+          <div class='dying feature-icon'/>
+        <% } %>
         <input class="edit" type="text" value="<%- title %>" />
       </div>
     </div>

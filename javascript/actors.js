@@ -165,8 +165,9 @@ $(function(){
       if (!value) {
         this.clear();
       } else {
-        this.collection.selectedActor().save({title: value});
         this.$el.removeClass("editing");
+        this.collection.selectedActor().save({title: value});
+        this.render();
       }
     },
 
@@ -321,6 +322,8 @@ $(function(){
             this.toggleFeature(Actors.selectedActor(), 'dying'); break;
           case 88:  // 'X'
             this.removeAllActiveConditions(); break;
+          case 78:  // 'N'
+            this.editActorName(Actors.selectedActor(), e); break;
           case 68:  // 'D'
             this.deleteSelectedActor(); break;
           case 65:  // 'A'
@@ -416,6 +419,11 @@ $(function(){
       this.actorOrderInput.val('');
       this.exitTextFocus();
       $('#actor-form').hide();
+    },
+
+    editActorName: function(model, e) {
+      this.marquee.editName();
+      e.preventDefault();
     },
 
     editInitiative: function(model, e) {
