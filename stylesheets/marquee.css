@@ -114,11 +114,11 @@ li.actor-item.selected {
 li.actor-item.active {
   z-index: 80;
   background-color: white;
-  -webkit-box-shadow: #aaa 0px 0px 3px 3px;
-  -moz-box-shadow: #aaa 0px 0px 3px 3px;
-  -ms-box-shadow: #aaa 0px 0px 3px 3px;
-  -o-box-shadow: #aaa 0px 0px 3px 3px;
-  box-shadow: #aaa 0px 0px 3px 3px;
+  -webkit-box-shadow: #6af 0px 0px 3px 3px;
+  -moz-box-shadow: #6af 0px 0px 3px 3px;
+  -ms-box-shadow: #6af 0px 0px 3px 3px;
+  -o-box-shadow: #6af 0px 0px 3px 3px;
+  box-shadow: #6af 0px 0px 3px 3px;
 }
 
 #arrow {
