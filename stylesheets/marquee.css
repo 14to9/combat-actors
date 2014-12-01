@@ -120,6 +120,13 @@ li.actor-item.active {
   -o-box-shadow: #6af 0px 0px 3px 3px;
   box-shadow: #6af 0px 0px 3px 3px;
 }
+.away li.actor-item.active {
+  -webkit-box-shadow: #6a9 0px 0px 3px 3px;
+  -moz-box-shadow: #6a9 0px 0px 3px 3px;
+  -ms-box-shadow: #6a9 0px 0px 3px 3px;
+  -o-box-shadow: #6a9 0px 0px 3px 3px;
+  box-shadow: #6a9 0px 0px 3px 3px;
+}
 
 #arrow {
   width: 50px;

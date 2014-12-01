@@ -277,6 +277,7 @@ $(function(){
       this.listenTo(Actors, 'reset', this.addAll);
       this.listenTo(Actors, 'change:order', this.forceSort);
       this.listenTo(Actors, 'sort', this.reset);
+      this.listenTo(Actors, 'change', this.render);
 
       this.footer = this.$('footer');
       this.main = $('#main');
@@ -353,10 +354,20 @@ $(function(){
     },
 
     render: function() {
-      var remaining = Actors.remaining().length;
-
       this.main.show();
       this.footer.show();
+      if (Actors.isFocusedAway()) {
+          this.away();
+        } else { this.notAway(); }
+      return this;
+    },
+
+    away: function() {
+      this.$el.addClass("away");
+    },
+
+    notAway: function() {
+      this.$el.removeClass("away");
     },
 
     forceSort: function(actor) {
