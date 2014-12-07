@@ -8,7 +8,7 @@ Features
 * Browser-based persistence
 * Dynamic addition of new actors.  They're just sorted right in.
 * Tag-style condition tracking
-* Special iconified treatment for bloodied and dying conditions
+* Special iconified treatment for bloodied, dying, and readied (action) conditions
 * Semi-permanance for selected actors, useful with 'R'eset command
 * Dynamic condition coloring based on name (try 'dominated' or 'failed first death save')
 * Full keyboard interaction.  See command key help by pressing '?'

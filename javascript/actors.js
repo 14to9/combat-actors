@@ -337,6 +337,8 @@ $(function(){
             this.actorDown(); break;
           case 60:  // '<'
             this.actorUp(); break;
+          case 51:  // '3'
+            this.toggleFeature(Actors.selectedActor(), 'readied'); break;
           case 50:  // '2'
             this.toggleFeature(Actors.selectedActor(), 'dying'); break;
           case 49:  // '1'
@@ -496,6 +498,7 @@ $(function(){
     resetActorFeatures: function(actor) {
       actor.removeFeature("bloodied");
       actor.removeFeature("dying");
+      actor.removeFeature("readied");
     },
 
     resetAllActorFeatures: function() {

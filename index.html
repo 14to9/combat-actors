@@ -60,6 +60,9 @@
         <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
         <% } %>
+        <% if (_.include(features, "readied")) { %>
+          <div class='readied feature-icon'/>
+        <% } %>
         <label><%- title %></label>
       </div>
     </div>
@@ -80,6 +83,9 @@
         <% } %>
         <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "readied")) { %>
+          <div class='readied feature-icon'/>
         <% } %>
         <label>
           <%- title %>
@@ -158,6 +164,7 @@
 
       <tr><td><b>1</b></td><td>Toggle bloodied</td></tr>
       <tr><td><b>2</b></td><td>Toggle dying</td></tr>
+      <tr><td><b>3</b></td><td>Toggle readied action</td></tr>
       <tr><td><b>0</b></td><td>Toggle permanence</td></tr>
 
       <tr><td><b>A</b></td><td>Add an actor</td></tr>
