@@ -343,6 +343,8 @@ $(function(){
             this.toggleFeature(Actors.selectedActor(), 'bloodied'); break;
           case 48:  // '0'
             this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
+          case 710: // 'Shift-Option-I'
+          	this.selectNextAndEditInitiative(e); break;
           default:
             console.log('Command key: ' + e.keyCode);
           }
@@ -505,6 +507,11 @@ $(function(){
         this.removeAllActorConditions();
         this.resetAllActorFeatures();
       } else { return }
+    },
+    
+    selectNextAndEditInitiative: function(e) {
+	    Actors.downSelect();
+	    this.editInitiative(Actors.selectedActor(), e);
     },
 
     deleteActorsWithoutFeature: function( filterFeature ) {
