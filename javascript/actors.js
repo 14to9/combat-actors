@@ -520,9 +520,25 @@ $(function(){
 	    }, this);
     },
     
+    selectNextActorWithoutInitiative: function() {
+	    var suchExists = false
+	    Actors.each(function(actor) {
+		    var currentOrder = Actors.selectedActor().get("order");
+		    if (currentOrder === '' || currentOrder == null) {
+			    suchExists = true;
+		    }
+		    else {
+			    Actors.downSelect();
+		    }
+	    })
+	    return suchExists;
+    },
+    
     selectNextAndEditInitiative: function(e) {
-	    Actors.downSelect();
-	    this.editInitiative(Actors.selectedActor(), e);
+	    var result = this.selectNextActorWithoutInitiative()
+	    if (result) { 
+		    this.editInitiative(Actors.selectedActor(), e);
+	    }
     },
 
     deleteActorsWithoutFeature: function( filterFeature ) {
