@@ -348,9 +348,9 @@ $(function(){
           case 48:  // '0'
             this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
           case 710: // 'Shift-Option-I'
-          	this.selectNextAndEditInitiative(e); break;
+            this.selectNextAndEditInitiative(e); break;
           case 206: // 'Shift-Option-D'
-          	this.resetAllInitiatives(e); break;
+            this.resetAllInitiatives(e); break;
           default:
             console.log('Command key: ' + e.keyCode);
           }
@@ -513,16 +513,16 @@ $(function(){
         this.deleteActorsWithoutFeature('persistent');
         this.removeAllActorConditions();
         this.resetAllActorFeatures();
+        this.resetAllInitiatives();
       } else { return }
     },
-    
+
     resetAllInitiatives: function(e) {
-	    Actors.each(function(actor) {
-			actor.save({order: ''});  
-	    }, this);
+      Actors.each(function(actor) { actor.save({order: ''}); }, this);
     },
-    
+
     selectNextActorWithoutInitiative: function() {
+<<<<<<< HEAD
 		var target = _.find(  Actors.models, function(actor) { 
 			return actor.hasNoInitiative() 
 		}) ;
@@ -538,6 +538,26 @@ $(function(){
 	    if (this.selectNextActorWithoutInitiative()) { 
 		    this.editInitiative(Actors.selectedActor(), e);
 	    }
+=======
+      var suchExists = false
+      Actors.each(function(actor) {
+        var currentOrder = Actors.selectedActor().get("order");
+        if (currentOrder === '' || currentOrder == null) {
+          suchExists = true;
+        }
+        else {
+          Actors.downSelect();
+        }
+      })
+      return suchExists;
+    },
+
+    selectNextAndEditInitiative: function(e) {
+      var result = this.selectNextActorWithoutInitiative()
+      if (result) {
+        this.editInitiative(Actors.selectedActor(), e);
+      }
+>>>>>>> bf57a5f67d1ed7cfcb82e2ab5ed4849def5237a5
     },
 
     deleteActorsWithoutFeature: function( filterFeature ) {
