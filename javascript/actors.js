@@ -337,12 +337,18 @@ $(function(){
             this.actorDown(); break;
           case 60:  // '<'
             this.actorUp(); break;
-          case 50:  // '2'
-            this.toggleFeature(Actors.selectedActor(), 'dying'); break;
           case 49:  // '1'
+            this.toggleFeature(Actors.selectedActor(), 'readied'); break;
+          case 50:  // '2'
             this.toggleFeature(Actors.selectedActor(), 'bloodied'); break;
+          case 57:  // '9'
+            this.toggleFeature(Actors.selectedActor(), 'dying'); break;
           case 48:  // '0'
             this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
+          case 710: // 'Shift-Option-I'
+          	this.selectNextAndEditInitiative(e); break;
+          case 206: // 'Shift-Option-D'
+          	this.resetAllInitiatives(e); break;
           default:
             console.log('Command key: ' + e.keyCode);
           }
@@ -492,6 +498,7 @@ $(function(){
     resetActorFeatures: function(actor) {
       actor.removeFeature("bloodied");
       actor.removeFeature("dying");
+      actor.removeFeature("readied");
     },
 
     resetAllActorFeatures: function() {
@@ -505,6 +512,33 @@ $(function(){
         this.removeAllActorConditions();
         this.resetAllActorFeatures();
       } else { return }
+    },
+    
+    resetAllInitiatives: function(e) {
+	    Actors.each(function(actor) {
+			actor.save({order: ''});  
+	    }, this);
+    },
+    
+    selectNextActorWithoutInitiative: function() {
+	    var suchExists = false
+	    Actors.each(function(actor) {
+		    var currentOrder = Actors.selectedActor().get("order");
+		    if (currentOrder === '' || currentOrder == null) {
+			    suchExists = true;
+		    }
+		    else {
+			    Actors.downSelect();
+		    }
+	    })
+	    return suchExists;
+    },
+    
+    selectNextAndEditInitiative: function(e) {
+	    var result = this.selectNextActorWithoutInitiative()
+	    if (result) { 
+		    this.editInitiative(Actors.selectedActor(), e);
+	    }
     },
 
     deleteActorsWithoutFeature: function( filterFeature ) {

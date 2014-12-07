@@ -166,6 +166,10 @@ li.actor-item.active {
   background-image: url(../images/purple-skull.png);
 }
 
+.feature-icon.readied {
+  background-image: url(../images/readied.png);
+}
+
 li:hover .destroy, li:hover .activate {
     display: block;
 }

@@ -60,6 +60,9 @@
         <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
         <% } %>
+        <% if (_.include(features, "readied")) { %>
+          <div class='readied feature-icon'/>
+        <% } %>
         <label><%- title %></label>
       </div>
     </div>
@@ -80,6 +83,9 @@
         <% } %>
         <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "readied")) { %>
+          <div class='readied feature-icon'/>
         <% } %>
         <label>
           <%- title %>
@@ -156,8 +162,9 @@
       <tr><td><b>z</b></td><td>Remove (first) condition</td></tr>
       <tr><td><b>r</b></td><td>Rotate conditions</td></tr>
 
-      <tr><td><b>1</b></td><td>Toggle bloodied</td></tr>
-      <tr><td><b>2</b></td><td>Toggle dying</td></tr>
+      <tr><td><b>1</b></td><td>Toggle readied action</td></tr>
+      <tr><td><b>2</b></td><td>Toggle bloodied</td></tr>
+      <tr><td><b>9</b></td><td>Toggle dying</td></tr>
       <tr><td><b>0</b></td><td>Toggle permanence</td></tr>
 
       <tr><td><b>A</b></td><td>Add an actor</td></tr>
@@ -168,6 +175,10 @@
       <tr><td><b>X</b></td><td>Remove (all) conditions on selected</td></tr>
 
       <tr><td><b>&lt;</b>, <b>&gt;</b></td><td>Move selected actor</td></tr>
+      
+      <tr><td><b>Shift-Option-I</b></td><td>Edit next actor without initiative</td></tr>
+      <tr><td><b>Shift-Option-D</b></td><td>Clear all initiative values</td></tr>
+      
 
     </table>
     </div>
