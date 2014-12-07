@@ -337,12 +337,12 @@ $(function(){
             this.actorDown(); break;
           case 60:  // '<'
             this.actorUp(); break;
-          case 51:  // '3'
+          case 49:  // '1'
             this.toggleFeature(Actors.selectedActor(), 'readied'); break;
           case 50:  // '2'
-            this.toggleFeature(Actors.selectedActor(), 'dying'); break;
-          case 49:  // '1'
             this.toggleFeature(Actors.selectedActor(), 'bloodied'); break;
+          case 57:  // '9'
+            this.toggleFeature(Actors.selectedActor(), 'dying'); break;
           case 48:  // '0'
             this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
           case 710: // 'Shift-Option-I'
