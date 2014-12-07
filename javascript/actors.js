@@ -345,6 +345,8 @@ $(function(){
             this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
           case 710: // 'Shift-Option-I'
           	this.selectNextAndEditInitiative(e); break;
+          case 206: // 'Shift-Option-D'
+          	this.resetAllInitiatives(e); break;
           default:
             console.log('Command key: ' + e.keyCode);
           }
@@ -507,6 +509,12 @@ $(function(){
         this.removeAllActorConditions();
         this.resetAllActorFeatures();
       } else { return }
+    },
+    
+    resetAllInitiatives: function(e) {
+	    Actors.each(function(actor) {
+			actor.save({order: ''});  
+	    }, this);
     },
     
     selectNextAndEditInitiative: function(e) {
