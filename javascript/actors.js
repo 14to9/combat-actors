@@ -19,11 +19,11 @@ $(function(){
     },
 
     setSelected: function(actor){
-	  if (actor != undefined) {
-		this.where({selected: true}).forEach(function(previous) {
-	      previous.save({selected: false});
-	    });
-	    actor.save({selected: true});
+    if (actor != undefined) {
+    this.where({selected: true}).forEach(function(previous) {
+        previous.save({selected: false});
+      });
+      actor.save({selected: true});
       }
     },
 
@@ -522,42 +522,17 @@ $(function(){
     },
 
     selectNextActorWithoutInitiative: function() {
-<<<<<<< HEAD
-		var target = _.find(  Actors.models, function(actor) { 
-			return actor.hasNoInitiative() 
-		}) ;
-		Actors.setSelected(target);
-		if (target != undefined) {
-			return true;
-		}else {
-			return false;
-		}
-    },
-    
-    selectNextAndEditInitiative: function(e) {
-	    if (this.selectNextActorWithoutInitiative()) { 
-		    this.editInitiative(Actors.selectedActor(), e);
-	    }
-=======
-      var suchExists = false
-      Actors.each(function(actor) {
-        var currentOrder = Actors.selectedActor().get("order");
-        if (currentOrder === '' || currentOrder == null) {
-          suchExists = true;
-        }
-        else {
-          Actors.downSelect();
-        }
-      })
-      return suchExists;
+      var target = _.find(  Actors.models, function(actor) {
+       return actor.hasNoInitiative();
+      });
+      Actors.setSelected( target );
     },
 
     selectNextAndEditInitiative: function(e) {
-      var result = this.selectNextActorWithoutInitiative()
-      if (result) {
+      this.selectNextActorWithoutInitiative();
+      if (Actors.selectedActor().hasNoInitiative()) {
         this.editInitiative(Actors.selectedActor(), e);
-      }
->>>>>>> bf57a5f67d1ed7cfcb82e2ab5ed4849def5237a5
+      };
     },
 
     deleteActorsWithoutFeature: function( filterFeature ) {
