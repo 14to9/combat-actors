@@ -19,10 +19,12 @@ $(function(){
     },
 
     setSelected: function(actor){
-      this.where({selected: true}).forEach(function(previous) {
-        previous.save({selected: false});
-      });
-      actor.save({selected: true});
+	  if (actor != undefined) {
+		this.where({selected: true}).forEach(function(previous) {
+	      previous.save({selected: false});
+	    });
+	    actor.save({selected: true});
+      }
     },
 
     activeActor: function(){
@@ -520,6 +522,23 @@ $(function(){
     },
 
     selectNextActorWithoutInitiative: function() {
+<<<<<<< HEAD
+		var target = _.find(  Actors.models, function(actor) { 
+			return actor.hasNoInitiative() 
+		}) ;
+		Actors.setSelected(target);
+		if (target != undefined) {
+			return true;
+		}else {
+			return false;
+		}
+    },
+    
+    selectNextAndEditInitiative: function(e) {
+	    if (this.selectNextActorWithoutInitiative()) { 
+		    this.editInitiative(Actors.selectedActor(), e);
+	    }
+=======
       var suchExists = false
       Actors.each(function(actor) {
         var currentOrder = Actors.selectedActor().get("order");
@@ -538,6 +557,7 @@ $(function(){
       if (result) {
         this.editInitiative(Actors.selectedActor(), e);
       }
+>>>>>>> bf57a5f67d1ed7cfcb82e2ab5ed4849def5237a5
     },
 
     deleteActorsWithoutFeature: function( filterFeature ) {

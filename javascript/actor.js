@@ -10,6 +10,16 @@ var Actor = Backbone.Model.extend({
       features: []
     };
   },
+  
+  hasNoInitiative: function() {
+	var order = this.get("order");
+	if (order === '' || order == null) {
+		return true;
+	}  
+	else {
+		return false;
+	}
+  },
 
   addCondition: function(condition){
     var newConditions = _.union(this.get('conditions'), [condition]);

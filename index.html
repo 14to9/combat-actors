@@ -54,14 +54,14 @@
     </div>
     <div class="actor-name">
       <div class="show">
+        <% if (_.include(features, "readied")) { %>
+          <div class='readied feature-icon'/>
+        <% } %>
         <% if (_.include(features, "bloodied")) { %>
           <div class='bloodied feature-icon'/>
         <% } %>
         <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
-        <% } %>
-        <% if (_.include(features, "readied")) { %>
-          <div class='readied feature-icon'/>
         <% } %>
         <label><%- title %></label>
       </div>
@@ -78,14 +78,14 @@
     </div>
     <div class="marquee-name">
       <div class="show">
+	    <% if (_.include(features, "readied")) { %>
+          <div class='readied feature-icon'/>
+        <% } %>
         <% if (_.include(features, "bloodied")) { %>
           <div class='bloodied feature-icon'/>
         <% } %>
         <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
-        <% } %>
-        <% if (_.include(features, "readied")) { %>
-          <div class='readied feature-icon'/>
         <% } %>
         <label>
           <%- title %>
