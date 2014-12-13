@@ -4,7 +4,7 @@ var ActorEnvironment = Backbone.Model.extend({
 
   defaults: function() {
     return {
-      aspects: ['raining'],
+      aspects: [],
     };
   },
 
