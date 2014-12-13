@@ -390,7 +390,7 @@ $(function(){
           case 60:  // '<'
             this.actorUp(); break;
           case 49:  // '1'
-            this.toggleFeature(Actors.selectedActor(), 'readied'); break;
+            this.toggleReadied(Actors.selectedActor()); break;
           case 50:  // '2'
             this.toggleFeature(Actors.selectedActor(), 'bloodied'); break;
           case 57:  // '9'
@@ -534,6 +534,16 @@ $(function(){
       model.toggleFeature(feature);
     },
 
+    toggleReadied: function( model ) {
+      model.toggleFeature('readied' );
+      var readyString = model.get('title') + " ready"
+      if (model.hasFeature('readied')) {
+        Environment.addAspect(readyString);
+      } else {
+        Environment.removeAspect(readyString);
+      }
+    },
+
     removeFirstConditionFromActor: function(actor, e) {
       target = _.first(actor.get('conditions'));
       actor.removeCondition(target);
@@ -569,6 +579,7 @@ $(function(){
         this.removeAllActorConditions();
         this.resetAllActorFeatures();
         this.resetAllInitiatives();
+        Environment.resetAllAspects();
       } else { return }
     },
 

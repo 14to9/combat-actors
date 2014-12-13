@@ -16,13 +16,20 @@ var ActorEnvironment = Backbone.Model.extend({
   },
 
   removeAspect: function(a){
-    console.log("removing" + a);
     var newAspects = _.reject(this.get('aspects'), function(existing_a){
       return existing_a === a;
     });
     this.save({
       'aspects': newAspects
     });
+  },
+
+  hasAspect: function(feature) {
+    return (this.get('aspects').indexOf(feature) >= 0);
+  },
+
+  resetAllAspects: function() {
+    this.save({'aspects':[]});
   }
 
 });
