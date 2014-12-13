@@ -58,7 +58,8 @@ ul.conditions {
   z-index: 1;
 }
 
-.marquee .conditions.labels li {
+.marquee .conditions.labels li,
+.environment .conditions.labels li {
   float: left;
   margin: 0px 7px 9px 0;
   font-size: 32px;
@@ -87,11 +88,14 @@ ul.conditions {
   width: 27px;
 }
 
-.marquee .conditions.labels li a {
+.marquee .conditions.labels li a,
+.environment .conditions.labels li a {
   background-color: #00f;
   padding: 6px 10px 6px 10px;
 }
-
+.environment .conditions.labels li a {
+  background-color: #666;
+}
 .marquee.next .conditions.labels li a {
   background-color: #00f;
   padding: 6px 10px 6px 10px;
@@ -340,4 +344,22 @@ ul.conditions {
 }
 .away .conditions.labels li a.remove:after {
   color: #660;
+}
+.environment .labels-maker {
+  margin: 9px 0 0 0;
+}
+.environment .conditions.labels li a.remove:after {
+  color: #333;
+}
+.environment .conditions.labels li a.remove:before {
+  border-color: #333;
+}
+.environment .labels-maker .conditions.labels li.input .editable .resizer {
+  min-width: 100px;
+  width: 100px;
+}
+
+.environment .labels-maker,
+.environment .editable .editor {
+  background-color: #aaa;
 }

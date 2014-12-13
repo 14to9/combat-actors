@@ -29,10 +29,10 @@
 
   </div>
 
-  <div class="panel fixed">
-	  <div class='marquee primary' id="marquee-primary">
+  <div class="panel fixed" id="fixed-panel">
+    <div class='marquee primary' id="marquee-primary">
   </div>
-	  <div class='marquee next'>
+    <div class='marquee next'>
      <p style="margin: 8px 0 0 22px;">NEXT TO ACT</p>
   </div>
   </div>
@@ -44,6 +44,7 @@
   <script src="javascript/jquery-ui.js"></script>
   <script src="javascript/jquery.colorbox-min.js"></script>
   <script src="javascript/actor.js"></script>
+  <script src="javascript/actor-environment.js"></script>
   <script src="javascript/actors.js"></script>
 
   <!-- Templates -->
@@ -78,7 +79,7 @@
     </div>
     <div class="marquee-name">
       <div class="show">
-	    <% if (_.include(features, "readied")) { %>
+      <% if (_.include(features, "readied")) { %>
           <div class='readied feature-icon'/>
         <% } %>
         <% if (_.include(features, "bloodied")) { %>
@@ -145,6 +146,30 @@
     </div>
   </script>
 
+  <script type="text/template" id="environment-list">
+    <div class='active labels'>
+      <div class='labels-maker'>
+        <ul class="conditions labels">
+          <% _.each(aspects, function(i) { %>
+            <% if (i) { %>
+              <li class="label <%- i %>" id = <%- i.replace(/\s/g , "__") %>>
+                <a href="#" class="label name"><%- i %></a>
+                <a href="#" class="remove"></a>
+              </li>
+            <% } %>
+          <% }); %>
+          <li class="input label">
+            <div class="editable">
+              <div class="resizer tracker_markup"> </div>
+              <textarea id="" class="editor tracker_markup search" name="condition"></textarea>
+              <div class="resize handle"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </script>
+
     <!-- This contains the hidden content for inline calls -->
   <div style='display:none'>
     <div id='help'>
@@ -175,10 +200,10 @@
       <tr><td><b>X</b></td><td>Remove (all) conditions on selected</td></tr>
 
       <tr><td><b>&lt;</b>, <b>&gt;</b></td><td>Move selected actor</td></tr>
-      
+
       <tr><td><b>Shift-Option-I</b></td><td>Edit next actor without initiative</td></tr>
       <tr><td><b>Shift-Option-D</b></td><td>Clear all initiative values</td></tr>
-      
+
 
     </table>
     </div>

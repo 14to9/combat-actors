@@ -87,9 +87,12 @@ $(function(){
 
   });
 
+  var Environment = new ActorEnvironment;
   var Actors = new ActorList;
+
   // make available in console for testing
   actors = Actors;
+  env    = Environment;
 
   var MarqueeView = Backbone.View.extend({
     tagName:   "div",
@@ -237,6 +240,49 @@ $(function(){
 
   });
 
+  var EnvironmentView = Backbone.View.extend({
+    tagName: "div",
+    attributes: { 'class' : 'environment' },
+    template: _.template($('#environment-list').html()),
+
+    events: {
+      "click a.remove"   : "removeAspect",
+      "keypress .input"  : "addAspectOnEnter",
+      "click .labels"    : "setAspectFocus"
+    },
+
+    initialize: function() {
+      this.listenTo( Environment, 'change', this.render);
+      window.ev = this;
+    },
+
+    render: function() {
+      this.$el.html(this.template(Environment.toJSON()));
+      this.newAspect = this.$('.editable .editor');
+      return this;
+    },
+
+    addAspectOnEnter: function(e) {
+      if (e.keyCode == 13) {
+        var aspect = this.newAspect.val().replace(/^\s+|\s+$/g,'');
+        Environment.addAspect(aspect);
+        this.newAspect.blur();
+      }
+    },
+
+    removeAspect: function(e) {
+      var target_id = $(e.target).parent().attr('id');
+      var aspect    = target_id.replace(/__/g , " ");
+      Environment.removeAspect(aspect);
+      return false;
+    },
+
+    setAspectFocus: function(e) {
+      this.newAspect.val(null);
+      this.newAspect.focus();
+    }
+  });
+
   var ActorView = Backbone.View.extend({
 
     tagName:  "li",
@@ -274,6 +320,8 @@ $(function(){
 
       this.actorInput      = this.$("#new-actor");
       this.actorOrderInput = this.$("#new-actor-init");
+      this.envView = new EnvironmentView({ model: Environment });
+      $('#fixed-panel').prepend(this.envView.render().el);
 
       this.listenTo(Actors, 'add', this.addAll);
       this.listenTo(Actors, 'reset', this.addAll);
@@ -329,6 +377,8 @@ $(function(){
             this.editActorName(Actors.selectedActor(), e); break;
           case 73:  // 'I'
             this.editInitiative(Actors.selectedActor(), e); break;
+          case 69:  // 'E'
+            this.addEnvironmentAspect(e); break;
           case 68:  // 'D'
             this.deleteActor(Actors.selectedActor()); break;
           case 65:  // 'A'
@@ -460,6 +510,11 @@ $(function(){
 
     addCondition: function(model, e) {
       this.marquee.setConditionFocus();
+      e.preventDefault();
+    },
+
+    addEnvironmentAspect: function(e) {
+      this.envView.setAspectFocus();
       e.preventDefault();
     },
 

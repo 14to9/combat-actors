@@ -295,7 +295,7 @@ li:hover .destroy, li:hover .activate {
   padding: 3px 5px 3px 5px;
 }
 
-.marquee {
+.marquee, .environment {
   margin: 40px 10px 0 40px;
   float: left;
   background-color: white;
@@ -311,6 +311,15 @@ li:hover .destroy, li:hover .activate {
   -ms-box-shadow: white 0px 0px 3px 3px;
   -o-box-shadow: white 0px 0px 3px 3px;
   box-shadow: white 0px 0px 3px 3px;
+}
+
+.environment {
+  background-color: #aaa;
+  -webkit-box-shadow: #aaa 0px 0px 3px 3px;
+  -moz-box-shadow: #aaa 0px 0px 3px 3px;
+  -ms-box-shadow: #aaa 0px 0px 3px 3px;
+  -o-box-shadow: #aaa 0px 0px 3px 3px;
+  box-shadow: #aaa 0px 0px 3px 3px;
 }
 
 .marquee.next {
