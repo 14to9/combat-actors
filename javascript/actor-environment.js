@@ -30,6 +30,13 @@ var ActorEnvironment = Backbone.Model.extend({
 
   resetAllAspects: function() {
     this.save({'aspects':[]});
+  },
+
+  removeLastAspect: function() {
+    var last = _.last(this.aspects);
+    if (last) {
+      this.removeAspect(last);
+    }
   }
 
 });

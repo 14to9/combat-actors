@@ -10,7 +10,6 @@
   line-height: 36px;
   margin: 4px 0 0 0;
   padding: 2px 4px 1px 4px;
-  width: 630px;
   background-color: #eee;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -205,8 +204,8 @@ ul.conditions {
 }
 .labels-maker .conditions.labels li.input .editable .resizer {
   padding-right: 2px;
-  min-width: 300px;
-  width: 300px;
+  min-width: 700px;
+  width: 700px;
 }
 .editable textarea {
   background-color: #eee;
@@ -355,8 +354,7 @@ ul.conditions {
   border-color: #333;
 }
 .environment .labels-maker .conditions.labels li.input .editable .resizer {
-  min-width: 100px;
-  width: 100px;
+  min-width: 700px;
 }
 
 .environment .labels-maker,

@@ -87,7 +87,7 @@ $(function(){
 
   });
 
-  var Environment = new ActorEnvironment;
+  var Environment = new ActorEnvironment({id: 1});
   var Actors = new ActorList;
 
   // make available in console for testing
@@ -140,6 +140,7 @@ $(function(){
     },
 
     setConditionFocus: function(e) {
+      this.newConditionCell.show();
       this.newCondition.val(null);
       this.newCondition.focus();
     },
@@ -150,6 +151,7 @@ $(function(){
         var condition = this.newCondition.val().replace(/^\s+|\s+$/g,'');
         this.collection.selectedActor().addCondition(condition);
         this.newCondition.blur();
+        this.newConditionCell.hide();
       }
     },
 
@@ -187,6 +189,8 @@ $(function(){
         this.initiativeForm = this.$('.actor-initiative .edit-form');
         this.showInitiative = this.$('.actor-initiative .show');
         this.newCondition = this.$('.editable .editor');
+        this.newConditionCell = this.$('.input.label');
+
         this.input = this.$('.edit');
         if (this.collection.isFocusedAway()) {
           this.away();
@@ -259,6 +263,7 @@ $(function(){
     render: function() {
       this.$el.html(this.template(Environment.toJSON()));
       this.newAspect = this.$('.editable .editor');
+      this.newAspectCell = this.$('.input.label');
       return this;
     },
 
@@ -267,6 +272,7 @@ $(function(){
         var aspect = this.newAspect.val().replace(/^\s+|\s+$/g,'');
         Environment.addAspect(aspect);
         this.newAspect.blur();
+        this.newAspectCell.hide();
       }
     },
 
@@ -278,6 +284,7 @@ $(function(){
     },
 
     setAspectFocus: function(e) {
+      this.newAspectCell.show();
       this.newAspect.val(null);
       this.newAspect.focus();
     }
@@ -338,6 +345,7 @@ $(function(){
       $(document).bind('keypress', this.commandStroke);
 
       Actors.fetch();
+      Environment.fetch();
 
       this.selectCurrent(Actors.activeActor());
     },
@@ -364,6 +372,8 @@ $(function(){
             Actors.downSelect(); break;
           case 107:  // 'k'
             Actors.upSelect(); break;
+          case 101:  // 'e'
+            this.addEnvironmentAspect(e); break;
           case 99:  // 'c'
             this.selectCurrent(Actors.activeActor()); break;
           case 105:  // 'i'
@@ -377,8 +387,6 @@ $(function(){
             this.editActorName(Actors.selectedActor(), e); break;
           case 73:  // 'I'
             this.editInitiative(Actors.selectedActor(), e); break;
-          case 69:  // 'E'
-            this.addEnvironmentAspect(e); break;
           case 68:  // 'D'
             this.deleteActor(Actors.selectedActor()); break;
           case 65:  // 'A'
