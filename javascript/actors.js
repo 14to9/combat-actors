@@ -321,7 +321,7 @@ $(function(){
       this.actorInput      = this.$("#new-actor");
       this.actorOrderInput = this.$("#new-actor-init");
       this.envView = new EnvironmentView({ model: Environment });
-      $('#fixed-panel').prepend(this.envView.render().el);
+      $('#environment-placement').append(this.envView.render().el);
 
       this.listenTo(Actors, 'add', this.addAll);
       this.listenTo(Actors, 'reset', this.addAll);

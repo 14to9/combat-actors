@@ -323,14 +323,14 @@ li:hover .destroy, li:hover .activate {
 }
 
 .marquee.next {
-  margin: 28px 10px 0 250px;
+  margin: 40px 10px 0 250px;
   width: 590px;
-  background-color: #aaa;
-  -webkit-box-shadow: #aaa 0px 0px 3px 3px;
-  -moz-box-shadow: #aaa 0px 0px 3px 3px;
-  -ms-box-shadow: #aaa 0px 0px 3px 3px;
-  -o-box-shadow: #aaa 0px 0px 3px 3px;
-  box-shadow: #aaa 0px 0px 3px 3px;
+  background-color: #ccc;
+  -webkit-box-shadow: #ccc 0px 0px 3px 3px;
+  -moz-box-shadow: #ccc 0px 0px 3px 3px;
+  -ms-box-shadow: #ccc 0px 0px 3px 3px;
+  -o-box-shadow: #ccc 0px 0px 3px 3px;
+  box-shadow: #ccc 0px 0px 3px 3px;
 }
 
 .marquee .cell {
