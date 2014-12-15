@@ -92,9 +92,6 @@ ul.conditions {
   background-color: #00f;
   padding: 6px 10px 6px 10px;
 }
-.environment .conditions.labels li a {
-  background-color: #666;
-}
 .marquee.next .conditions.labels li a {
   background-color: #00f;
   padding: 6px 10px 6px 10px;
@@ -256,6 +253,7 @@ ul.conditions {
 .conditions.labels li.delay  a
 {
   background-color: #0a0;
+  color: #fff;
 }
 
 .active .conditions.labels li.ready a.remove:before,
@@ -344,14 +342,18 @@ ul.conditions {
 .away .conditions.labels li a.remove:after {
   color: #660;
 }
+.environment .conditions.labels li a {
+  background-color: #000;
+  color: #fff;
+}
 .environment .labels-maker {
   margin: 9px 0 0 0;
 }
 .environment .conditions.labels li a.remove:after {
-  color: #333;
+  color: #eee;
 }
 .environment .conditions.labels li a.remove:before {
-  border-color: #333;
+  border-color: #eee;
 }
 .environment .labels-maker .conditions.labels li.input .editable .resizer {
   min-width: 700px;

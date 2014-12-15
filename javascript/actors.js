@@ -405,9 +405,9 @@ $(function(){
             this.toggleFeature(Actors.selectedActor(), 'dying'); break;
           case 48:  // '0'
             this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
-          case 710: // 'Shift-Option-I'
+          case 61: // '='
             this.selectNextAndEditInitiative(e); break;
-          case 206: // 'Shift-Option-D'
+          case 710: // 'Shift-Option-I'
             this.resetAllInitiatives(e); break;
           default:
             console.log('Command key: ' + e.keyCode);
