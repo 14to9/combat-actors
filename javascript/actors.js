@@ -395,18 +395,20 @@ $(function(){
             $.colorbox({inline:true,href:'#help'}); break;
           case 62:  // '>'
             this.actorDown(); break;
+          case 61: // '='
+            this.selectNextAndEditInitiative(e); break;
           case 60:  // '<'
             this.actorUp(); break;
+          case 57:  // '9'
+            this.rotateFeature(Actors.selectedActor(), ['bloodied', 'dying', 'incapacitated', 'health-neutral']); break;
           case 49:  // '1'
             this.toggleReadied(Actors.selectedActor()); break;
           case 50:  // '2'
-            this.toggleFeature(Actors.selectedActor(), 'bloodied'); break;
-          case 57:  // '9'
-            this.toggleFeature(Actors.selectedActor(), 'dying'); break;
+            this.rotateFeature(Actors.selectedActor(), ['advantage', 'disadvantage', 'advantage-neutral']); break;
+          case 51:  // '3'
+            this.rotateFeature(Actors.selectedActor(), ['defending', 'granting', 'defense-neutral']); break;
           case 48:  // '0'
             this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
-          case 61: // '='
-            this.selectNextAndEditInitiative(e); break;
           case 710: // 'Shift-Option-I'
             this.resetAllInitiatives(e); break;
           default:
@@ -540,6 +542,10 @@ $(function(){
 
     toggleFeature: function(model, feature) {
       model.toggleFeature(feature);
+    },
+
+    rotateFeature: function(model, featureList) {
+      model.rotateFeature(featureList);
     },
 
     toggleReadied: function( model ) {

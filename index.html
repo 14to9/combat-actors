@@ -58,8 +58,23 @@
         <% if (_.include(features, "readied")) { %>
           <div class='readied feature-icon'/>
         <% } %>
+        <% if (_.include(features, "advantage")) { %>
+          <div class='advantage feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "disadvantage")) { %>
+          <div class='disadvantage feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "defending")) { %>
+          <div class='defending feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "granting")) { %>
+          <div class='granting feature-icon'/>
+        <% } %>
         <% if (_.include(features, "bloodied")) { %>
           <div class='bloodied feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "incapacitated")) { %>
+          <div class='incapacitated feature-icon'/>
         <% } %>
         <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
@@ -79,11 +94,26 @@
     </div>
     <div class="marquee-name">
       <div class="show">
-      <% if (_.include(features, "readied")) { %>
+        <% if (_.include(features, "readied")) { %>
           <div class='readied feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "advantage")) { %>
+          <div class='advantage feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "disadvantage")) { %>
+          <div class='disadvantage feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "defending")) { %>
+          <div class='defending feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "granting")) { %>
+          <div class='granting feature-icon'/>
         <% } %>
         <% if (_.include(features, "bloodied")) { %>
           <div class='bloodied feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "incapacitated")) { %>
+          <div class='incapacitated feature-icon'/>
         <% } %>
         <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
@@ -93,12 +123,6 @@
         </label>
       </div>
       <div class="edit-form">
-        <% if (_.include(features, "bloodied")) { %>
-          <div class='bloodied feature-icon'/>
-        <% } %>
-        <% if (_.include(features, "dying")) { %>
-          <div class='dying feature-icon'/>
-        <% } %>
         <input class="edit" type="text" value="<%- title %>" />
       </div>
     </div>
@@ -189,9 +213,10 @@
       <tr><td><b>z</b></td><td>Remove (first) condition</td></tr>
       <tr><td><b>r</b></td><td>Rotate conditions</td></tr>
 
-      <tr><td><b>1</b></td><td>Toggle readied action</td></tr>
-      <tr><td><b>2</b></td><td>Toggle bloodied</td></tr>
-      <tr><td><b>9</b></td><td>Toggle dying</td></tr>
+      <tr><td><b>1</b></td><td>Toggle ready</td></tr>
+      <tr><td><b>2</b></td><td>Toggle advantage</td></tr>
+      <tr><td><b>3</b></td><td>Toggle defense</td></tr>
+      <tr><td><b>9</b></td><td>Toggle health</td></tr>
       <tr><td><b>0</b></td><td>Toggle permanence</td></tr>
 
       <tr><td><b>A</b></td><td>Add an actor</td></tr>

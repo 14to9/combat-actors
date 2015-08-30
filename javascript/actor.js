@@ -10,12 +10,12 @@ var Actor = Backbone.Model.extend({
       features: []
     };
   },
-  
+
   hasNoInitiative: function() {
 	var order = this.get("order");
 	if (order === '' || order == null) {
 		return true;
-	}  
+	}
 	else {
 		return false;
 	}
@@ -73,5 +73,24 @@ var Actor = Backbone.Model.extend({
     } else {
       this.addFeature(feature);
     }
+  },
+
+  rotateFeature: function(featureList) {
+    var matcher = function (feature) {
+      return _.contains(featureList, feature);
+    };
+    var currentSelection = _.find( this.get('features')
+                                 , matcher );
+    console.log('toggling from: '+ currentSelection);
+    if (currentSelection) {
+      this.removeFeature(currentSelection);
+      var idx = featureList.indexOf(currentSelection);
+      var next = idx + 1;
+      if (next == featureList.length) next = 0;
+      this.addFeature(featureList[next]);
+    } else {
+      this.addFeature(featureList[0]);
+    }
   }
+
 });

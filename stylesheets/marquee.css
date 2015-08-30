@@ -144,11 +144,11 @@ li.actor-item.active {
   width: 15px;
   height: 15px;
   background-size: 15px 15px;
-  margin-right: -2px;
+  margin-right: -5px;
 }
 
 .marquee .feature-icon {
-  margin-right: -15px;
+  margin-right: -17px;
   position: relative;
   display: inline-block;
   cursor: pointer;
@@ -162,12 +162,28 @@ li.actor-item.active {
   background-image: url(../images/blood-drop.png);
 }
 
+.feature-icon.defending {
+  background-image: url(../images/combat-icons_defending.png);
+}
+.feature-icon.granting {
+  background-image: url(../images/combat-icons_granting.png);
+}
+.feature-icon.advantage {
+  background-image: url(../images/combat-icons_advantage.png);
+}
+.feature-icon.disadvantage {
+  background-image: url(../images/combat-icons_disadvantage.png);
+}
+
 .feature-icon.dying {
   background-image: url(../images/purple-skull.png);
 }
+.feature-icon.incapacitated {
+  background-image: url(../images/orange-skull.png);
+}
 
 .feature-icon.readied {
-  background-image: url(../images/readied.png);
+  background-image: url(../images/combat-icons_readied.png);
 }
 
 li:hover .destroy, li:hover .activate {
