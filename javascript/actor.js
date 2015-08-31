@@ -81,7 +81,6 @@ var Actor = Backbone.Model.extend({
     };
     var currentSelection = _.find( this.get('features')
                                  , matcher );
-    console.log('toggling from: '+ currentSelection);
     if (currentSelection) {
       this.removeFeature(currentSelection);
       var idx = featureList.indexOf(currentSelection);
@@ -90,6 +89,26 @@ var Actor = Backbone.Model.extend({
       this.addFeature(featureList[next]);
     } else {
       this.addFeature(featureList[0]);
+    }
+  },
+
+  incrementCondition: function(condition, delta) {
+    var condition = _.find(this.get('conditions'), function(c){
+      return c === condition;
+    });
+    if (condition) {
+      // test for integer
+      var p = new RegExp("[0-9]+$");
+      var val = p.exec(condition);
+      if (val[0]) {
+        this.removeCondition(condition);
+        var newVal = parseInt(val[0]) + delta;
+        if (newVal <= 0) newVal = 0;
+        var prefixLen = condition.length - val[0].length;
+        var prefix = condition.substring(0, prefixLen);
+        var newCondition = prefix + newVal;
+        this.addCondition(newCondition);
+      }
     }
   }
 

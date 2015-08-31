@@ -401,14 +401,18 @@ $(function(){
             this.actorUp(); break;
           case 57:  // '9'
             this.rotateFeature(Actors.selectedActor(), ['bloodied', 'dying', 'incapacitated', 'health-neutral']); break;
-          case 49:  // '1'
-            this.toggleReadied(Actors.selectedActor()); break;
-          case 50:  // '2'
-            this.rotateFeature(Actors.selectedActor(), ['advantage', 'disadvantage', 'advantage-neutral']); break;
           case 51:  // '3'
             this.rotateFeature(Actors.selectedActor(), ['defending', 'granting', 'defense-neutral']); break;
+          case 50:  // '2'
+            this.rotateFeature(Actors.selectedActor(), ['advantage', 'disadvantage', 'advantage-neutral']); break;
+          case 49:  // '1'
+            this.toggleReadied(Actors.selectedActor()); break;
           case 48:  // '0'
             this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
+          case 45:  // '-'
+            this.incrementLastConditionFromActor(Actors.selectedActor(), -1); break;
+          case 43:  // '+'
+            this.incrementLastConditionFromActor(Actors.selectedActor(), +1); break;
           case 710: // 'Shift-Option-I'
             this.resetAllInitiatives(e); break;
           default:
@@ -566,6 +570,11 @@ $(function(){
     removeLastConditionFromActor: function(actor, e) {
       target = _.last(actor.get('conditions'));
       actor.removeCondition(target);
+    },
+
+    incrementLastConditionFromActor: function(actor, offset, e) {
+      target = _.last(actor.get('conditions'));
+      actor.incrementCondition(target, offset);
     },
 
     removeConditionsFromActor: function(actor) {
