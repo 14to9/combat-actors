@@ -2,6 +2,10 @@
   padding: 0 0 0 8px;
 }
 
+.actor-name .labels {
+  padding: 0;
+}
+
 .labels-maker {
   position: relative;
   float: left;
@@ -9,8 +13,8 @@
   font-size: 32px;
   line-height: 36px;
   margin: 4px 0 0 0;
-  padding: 2px 4px 1px 4px;
   background-color: #eee;
+  padding: 2px 4px 1px 4px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -24,6 +28,9 @@
   overflow-y: auto;
 }
 
+.actor-name .labels-maker {
+  min-height: 0;
+}
 .active .labels-maker {
   background-color: #fff;
 }
@@ -37,6 +44,29 @@
 .selected .labels-maker {
   background-color: white;
 }
+
+.actor-name .labels-maker {
+  font-size: 3px;
+  line-height: 1px;
+  margin: 0;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  -ms-border-radius: 1px;
+  -o-border-radius: 1px;
+  border-radius: 1px;
+  padding: 0;
+  overflow-y: auto;
+  background-color: transparent;
+}
+
+.actor-name .labels-maker:hover {
+  -webkit-box-shadow: transparent 0;
+  -moz-box-shadow: transparent 0;
+  -ms-box-shadow: transparent 0;
+  -o-box-shadow: transparent 0;
+  box-shadow: transparent 0;
+}
+
 
 ul.conditions {
   list-style: none;
@@ -89,7 +119,7 @@ ul.conditions {
 
 .marquee .conditions.labels li a,
 .environment .conditions.labels li a {
-  background-color: #00f;
+  background-color: #888;
   padding: 6px 10px 6px 10px;
 }
 .marquee.next .conditions.labels li a {
@@ -103,6 +133,9 @@ ul.conditions {
   padding: 2px 6px 2px 7px;
   text-decoration: none;
 }
+.actor-name .conditions.labels li a {
+  color: transparent;
+}
 
 .conditions.labels li a.name {
   font-weight: bold;
@@ -115,12 +148,21 @@ ul.conditions {
   margin-right: 37px;
 }
 
+.actor-name .conditions.labels li a.name {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  margin-right: 0px;
+}
+
 .marquee.next .conditions.labels li a.name {
   margin-right: 1px;
 }
 
 .conditions.labels li a.remove:before {
-  border-left: 1px solid #00b;
+  border-left: 1px solid #666;
   content: "";
   float: left;
   margin: 4px 0 0;
@@ -130,7 +172,7 @@ ul.conditions {
   float: left;
   content: "×";
   margin: -3px 0 0 7px;
-  color: #00b;
+  color: #666;
 }
 .labels-maker .conditions.labels {
   cursor: text;
@@ -214,11 +256,19 @@ ul.conditions {
   background-color: #ffb;
 }
 
+.away .actor-name .labels-maker
+{
+  background-color: transparent;
+}
+
 .selected .editable textarea {
   background-color: #fff;
 }
 .conditions.labels li.failed  a {
   background-color: #72f;
+}
+.actor-name .conditions.labels li.failed  a {
+  background-color: #76b;
 }
 .conditions.labels li.failed a.remove:before {
   border-left: 1px solid #629;
@@ -289,6 +339,24 @@ ul.conditions {
 .conditions.labels li.dazed a,
 .conditions.labels li.stunned a {
   background-color: #b40;
+}
+
+.actor-name .conditions.labels li.granting a,
+.actor-name .conditions.labels li.blinded a,
+.actor-name .conditions.labels li.deafened a,
+.actor-name .conditions.labels li.charmed a,
+.actor-name .conditions.labels li.frightened a,
+.actor-name .conditions.labels li.incapacitated a,
+.actor-name .conditions.labels li.prone a,
+.actor-name .conditions.labels li.restrained a,
+.actor-name .conditions.labels li.exhausted a,
+.actor-name .conditions.labels li.poisoned a,
+.actor-name .conditions.labels li.dominated a,
+.actor-name .conditions.labels li.slowed a,
+.actor-name .conditions.labels li.immobilized a,
+.actor-name .conditions.labels li.dazed a,
+.actor-name .conditions.labels li.stunned a {
+  background-color: #972;
 }
 
 .conditions.labels li.granting a.remove:before,

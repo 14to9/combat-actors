@@ -80,6 +80,21 @@
           <div class='dying feature-icon'/>
         <% } %>
         <label><%- title %></label>
+
+        <div class='active labels'>
+          <div class='labels-maker'>
+            <ul class="conditions labels">
+              <% _.each(conditions, function(i) { %>
+                <% if (i) { %>
+                  <li class="label <%- i %>" id = <%- i.replace(/\s/g , "-") %>>
+                    <a href="#" class="label name"><%- i %></a>
+                  </li>
+                <% } %>
+              <% }); %>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </script>

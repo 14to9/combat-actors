@@ -81,7 +81,7 @@ body {
 li.actor-item {
   padding: 4px 2px 4px 0px;
   width: 240px;
-  height: 27px;
+  /*height: 27px;*/
   position: relative;
   font-size: 18px;
   -webkit-border-radius: 5px;
@@ -144,7 +144,7 @@ li.actor-item.active {
   width: 15px;
   height: 15px;
   background-size: 15px 15px;
-  margin-right: -5px;
+  margin-right: -4px;
 }
 
 .marquee .feature-icon {
@@ -197,6 +197,7 @@ li:hover .destroy, li:hover .activate {
 .actor-name {
   padding: 0 0 0 8px;
   margin: 0;
+  min-height: 20px;
 }
 
 .actor-name .show {
