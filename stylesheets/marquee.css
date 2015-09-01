@@ -5,7 +5,7 @@ body {
 }
 
 body {
-  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 14px "Avenir Next Condensed", Helvetica, Arial, sans-serif;
   line-height: 1.4em;
   background: url(../images/valley-background.jpg) black no-repeat;
   color: #333333;
@@ -30,7 +30,7 @@ body {
 .marquee-name .edit-form input[type="text"] {
   background-color: white;
   width: 550px;
-  font: 72px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 72px "Avenir Next Condensed","Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
   border: 0;
   outline: none;
@@ -92,7 +92,7 @@ li.actor-item {
   border: solid 1px #666;
   overflow: auto;
   margin-bottom: 8px;
-  background-color: #bbb;
+  background-color: #ccc;
 }
 
 li.actor-item.active {
@@ -144,11 +144,11 @@ li.actor-item.active {
   width: 15px;
   height: 15px;
   background-size: 15px 15px;
-  margin-right: -4px;
+  margin-right: -3px;
 }
 
 .marquee .feature-icon {
-  margin-right: -17px;
+  margin-right: -10px;
   position: relative;
   display: inline-block;
   cursor: pointer;
@@ -198,6 +198,10 @@ li:hover .destroy, li:hover .activate {
   padding: 0 0 0 8px;
   margin: 0;
   min-height: 20px;
+}
+.actor-name label{
+  margin-left: 4px;
+  font-weight: 500;
 }
 
 .actor-name .show {
@@ -316,7 +320,7 @@ li:hover .destroy, li:hover .activate {
   margin: 40px 10px 0 40px;
   float: left;
   background-color: white;
-  width: 800px;
+  width: 900px;
   overflow: auto;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -359,6 +363,9 @@ li:hover .destroy, li:hover .activate {
   margin: 10px;
   line-height: 72px;
   font-weight: bold;
+}
+.marquee .cell .marquee-name label{
+  margin-left: 0;
 }
 
 .marquee.next .cell .marquee-name {

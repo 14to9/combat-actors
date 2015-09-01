@@ -540,9 +540,6 @@ $(function(){
 
     rotateConditions: function(model) {
       model.rotateConditions();
-      // why isn't the save firing a change, triggering render?
-      this.marquee.render();
-      this.render();
     },
 
     toggleFeature: function(model, feature) {

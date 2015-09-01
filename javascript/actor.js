@@ -58,7 +58,7 @@ var Actor = Backbone.Model.extend({
   },
 
   rotateConditions: function() {
-    var c = this.get('conditions') || [];
+    var c = _.clone(this.get('conditions') || []);
     c.push(c.shift());
     this.save({'conditions': c});
   },

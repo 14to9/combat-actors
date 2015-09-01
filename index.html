@@ -58,6 +58,7 @@
         <% if (_.include(features, "readied")) { %>
           <div class='readied feature-icon'/>
         <% } %>
+        <label><%- title %></label>
         <% if (_.include(features, "advantage")) { %>
           <div class='advantage feature-icon'/>
         <% } %>
@@ -79,7 +80,6 @@
         <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
         <% } %>
-        <label><%- title %></label>
 
         <div class='active labels'>
           <div class='labels-maker'>
@@ -112,6 +112,7 @@
         <% if (_.include(features, "readied")) { %>
           <div class='readied feature-icon'/>
         <% } %>
+        <label><%- title %></label>
         <% if (_.include(features, "advantage")) { %>
           <div class='advantage feature-icon'/>
         <% } %>
@@ -133,12 +134,9 @@
         <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
         <% } %>
-        <label>
-          <%- title %>
-        </label>
       </div>
       <div class="edit-form">
-        <input class="edit" type="text" value="<%- title %>" />
+        <input class="edit" maxlength="20" type="text" value="<%- title %>" />
       </div>
     </div>
     <div class='active labels'>
