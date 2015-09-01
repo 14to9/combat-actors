@@ -8,12 +8,11 @@ body {
   font: 14px "Avenir Next Condensed", Helvetica, Arial, sans-serif;
   line-height: 1.4em;
   background: url(../images/valley-background.jpg) black no-repeat;
-  color: #333333;
+  color: #333;
   -webkit-font-smoothing: antialiased;
 }
 
 #actorapp {
-  background-color: rgba(255,255,255,0.8);
   float: right;
   width: 267px;
   padding: 0px;
@@ -55,8 +54,8 @@ body {
 }
 
 #main {
-  background: #eee;
-  color: #333333;
+  background: rgba(0,0,0,0.2);
+  color: #eee;
   width: 100%;
   padding-bottom: 15px;
   clear: both;
@@ -92,7 +91,7 @@ li.actor-item {
   border: solid 1px #666;
   overflow: auto;
   margin-bottom: 8px;
-  background-color: #ccc;
+  background-color: rgba(0,0,0,0.2);
 }
 
 li.actor-item.active {
@@ -144,7 +143,8 @@ li.actor-item.active {
   width: 15px;
   height: 15px;
   background-size: 15px 15px;
-  margin-right: -3px;
+  margin-right: -2px;
+  vertical-align: baseline;
 }
 
 .marquee .feature-icon {
@@ -199,11 +199,20 @@ li:hover .destroy, li:hover .activate {
   margin: 0;
   min-height: 20px;
 }
-.actor-name label{
+
+.actor-name label {
   margin-left: 4px;
   font-weight: 500;
+  color: #eee;
 }
 
+.away .selected .actor-name label {
+  color: #333;
+}
+
+.active .actor-name label {
+  color: #333;
+}
 .actor-name .show {
   width: 200px;
 }
@@ -381,6 +390,10 @@ li:hover .destroy, li:hover .activate {
 .away,
 .away .editable .editor {
   background-color: #ffb;
+}
+
+#actorapp.away {
+  background-color: transparent;
 }
 
 .marquee.primary.away {

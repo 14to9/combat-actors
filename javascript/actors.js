@@ -584,9 +584,7 @@ $(function(){
     },
 
     resetActorFeatures: function(actor) {
-      actor.removeFeature("bloodied");
-      actor.removeFeature("dying");
-      actor.removeFeature("readied");
+      actor.removeTransientFeatures();
     },
 
     resetAllActorFeatures: function() {

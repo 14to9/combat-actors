@@ -92,6 +92,15 @@ var Actor = Backbone.Model.extend({
     }
   },
 
+  removeTransientFeatures: function() {
+    var newFeatures = _.reject(this.get('features'), function(f) {
+      return (f != 'persistent');
+    });
+    this.save({
+      'features': newFeatures
+    });
+  },
+
   incrementCondition: function(condition, delta) {
     var condition = _.find(this.get('conditions'), function(c){
       return c === condition;
