@@ -101,7 +101,7 @@
 
   <script type="text/template" id="marquee-template">
     <p class='return-msg' style="margin: 8px 0 0 12px; display: none;">EDITING</p>
-    <div class="actor-initiative">
+    <div class="actor-initiative <%= _.include(features, "persistent") ?  'persistent' : '' %>  ">
       <div class="show"><%- order %></div>
       <div class="edit-form">
         <input type="text" value="<%- order %>"/>
