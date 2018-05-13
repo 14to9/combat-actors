@@ -261,6 +261,7 @@ li:hover .destroy, li:hover .activate {
 }
 
 .actor-initiative {
+  overflow: hidden;
   clear: both;
   display: inline-block;
   float: right;
@@ -282,6 +283,10 @@ li:hover .destroy, li:hover .activate {
 }
 
 .persistent .actor-initiative {
+  background-color: #56a0ecab;
+}
+
+.persistent.actor-initiative {
   background-color: #56a0ecab;
 }
 
