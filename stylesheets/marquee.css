@@ -12,6 +12,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+input:focus { outline: none; }
+
 #actorapp {
   float: right;
   width: 267px;
@@ -59,7 +61,7 @@ body {
   width: 100%;
   padding-bottom: 15px;
   clear: both;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .panel.fixed {
