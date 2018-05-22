@@ -12,6 +12,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+input:focus { outline: none; }
+
 #actorapp {
   float: right;
   width: 267px;
@@ -59,7 +61,7 @@ body {
   width: 100%;
   padding-bottom: 15px;
   clear: both;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .panel.fixed {
@@ -261,6 +263,7 @@ li:hover .destroy, li:hover .activate {
 }
 
 .actor-initiative {
+  overflow: hidden;
   clear: both;
   display: inline-block;
   float: right;
@@ -282,6 +285,10 @@ li:hover .destroy, li:hover .activate {
 }
 
 .persistent .actor-initiative {
+  background-color: #56a0ecab;
+}
+
+.persistent.actor-initiative {
   background-color: #56a0ecab;
 }
 
