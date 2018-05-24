@@ -19,11 +19,11 @@ $(function(){
     },
 
     setSelected: function(actor){
-    if (actor != undefined) {
-    this.where({selected: true}).forEach(function(previous) {
-        previous.save({selected: false});
-      });
-      actor.save({selected: true});
+      if (actor != undefined) {
+        this.where({selected: true}).forEach(function(previous) {
+          previous.save({selected: false});
+        });
+        actor.save({selected: true});
       }
     },
 
@@ -46,15 +46,15 @@ $(function(){
     },
 
     selectedIndex: function() {
-      return this.indexOf(this.selectedActor()) || 0
+      return this.indexOf(this.selectedActor()) || 0;
     },
 
     nextActiveIndex: function() {
-      return this.activeIndex() + 1
+      return this.activeIndex() + 1;
     },
 
     nextSelectedIndex: function() {
-      return this.selectedIndex() + 1
+      return this.selectedIndex() + 1;
     },
 
     downSelect: function() {
@@ -82,13 +82,13 @@ $(function(){
     },
 
     isFocusedAway: function() {
-      return (this.selectedActor() != this.activeActor())
+      return (this.selectedActor() != this.activeActor());
     }
 
   });
 
   var Environment = new ActorEnvironment({id: 1});
-  var Actors = new ActorList;
+  var Actors = new ActorList();
 
   // make available in console for testing
   actors = Actors;
@@ -351,74 +351,80 @@ $(function(){
     },
 
     commandStroke: function(e) {
-      if (!$(e.target).is('input, textarea')) {
-        switch (e.keyCode) {
-          case 122:  // 'z'
-            this.removeFirstConditionFromActor(Actors.selectedActor()); break;
-          case 120:  // 'x'
-            this.removeLastConditionFromActor(Actors.selectedActor()); break;
-          case 114:  // 'r'
-            this.rotateConditions(Actors.selectedActor()); break;
-          case 112:  // 'p'
-            Actors.activatePrevious(); break;
-          case 110:  // 'n'
-          case 13:   // Enter
-            if (Actors.isFocusedAway()) {
-              this.selectCurrent(Actors.activeActor()); break;
-            } else {
-              Actors.activateNext(); break;
-            }
-          case 106:  // 'j'
-            Actors.downSelect(); break;
-          case 107:  // 'k'
-            Actors.upSelect(); break;
-          case 101:  // 'e'
-            this.addEnvironmentAspect(e); break;
-          case 99:  // 'c'
-            this.selectCurrent(Actors.activeActor()); break;
-          case 105:  // 'i'
-          case 97:  // 'a'
-            this.addCondition(Actors.selectedActor(), e); break;
-          case 88:  // 'X'
-            this.removeConditionsFromActor(Actors.selectedActor()); break;
-          case 82:  // 'R'
-            this.resetEverything(); break;
-          case 78:  // 'N'
-            this.editActorName(Actors.selectedActor(), e); break;
-          case 73:  // 'I'
-            this.editInitiative(Actors.selectedActor(), e); break;
-          case 68:  // 'D'
-            this.deleteActor(Actors.selectedActor()); break;
-          case 65:  // 'A'
-            this.addActor(e); break;
-          case 63:
-            $.colorbox({inline:true,href:'#help'}); break;
-          case 62:  // '>'
-            this.actorDown(); break;
-          case 61: // '='
-            this.selectNextAndEditInitiative(e); break;
-          case 60:  // '<'
-            this.actorUp(); break;
-          case 57:  // '9'
-            this.rotateFeature(Actors.selectedActor(), ['bloodied', 'dying', 'incapacitated', 'health-neutral']); break;
-          case 51:  // '3'
-            this.rotateFeature(Actors.selectedActor(), ['defending', 'granting', 'defense-neutral']); break;
-          case 50:  // '2'
-            this.rotateFeature(Actors.selectedActor(), ['advantage', 'disadvantage', 'advantage-neutral']); break;
-          case 49:  // '1'
-            this.toggleReadied(Actors.selectedActor()); break;
-          case 48:  // '0'
-            this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
-          case 45:  // '-'
-            this.incrementLastConditionFromActor(Actors.selectedActor(), -1); break;
-          case 43:  // '+'
-            this.incrementLastConditionFromActor(Actors.selectedActor(), +1); break;
-          case 710: // 'Shift-Option-I'
-            this.resetAllInitiatives(e); break;
-          default:
-            console.log('Command key: ' + e.keyCode);
+
+      var charCode = (typeof e.which == "number") ? e.which: e.keyCode;
+
+      if ($(e.target).is('input, textarea')) {
+        return;
+      }
+
+      switch (charCode) {
+        case 122:  // 'z'
+          this.removeFirstConditionFromActor(Actors.selectedActor()); break;
+        case 120:  // 'x'
+          this.removeLastConditionFromActor(Actors.selectedActor()); break;
+        case 114:  // 'r'
+          this.rotateConditions(Actors.selectedActor()); break;
+        case 112:  // 'p'
+          Actors.activatePrevious(); break;
+        case 110:  // 'n'
+        case 13:   // Enter
+          if (Actors.isFocusedAway()) {
+            this.selectCurrent(Actors.activeActor());
+          } else {
+            Actors.activateNext();
           }
-       }
+          break;
+        case 106:  // 'j'
+          Actors.downSelect(); break;
+        case 107:  // 'k'
+          Actors.upSelect(); break;
+        case 101:  // 'e'
+          this.addEnvironmentAspect(e); break;
+        case 99:  // 'c'
+          this.selectCurrent(Actors.activeActor()); break;
+        case 105:  // 'i'
+        case 97:  // 'a'
+          this.addCondition(Actors.selectedActor(), e); break;
+        case 88:  // 'X'
+          this.removeConditionsFromActor(Actors.selectedActor()); break;
+        case 82:  // 'R'
+          this.resetEverything(); break;
+        case 78:  // 'N'
+          this.editActorName(Actors.selectedActor(), e); break;
+        case 73:  // 'I'
+          this.editInitiative(Actors.selectedActor(), e); break;
+        case 68:  // 'D'
+          this.deleteActor(Actors.selectedActor()); break;
+        case 65:  // 'A'
+          this.addActor(e); break;
+        case 63:
+          $.colorbox({inline:true,href:'#help'}); break;
+        case 62:  // '>'
+          this.actorDown(); break;
+        case 61: // '='
+          this.selectNextAndEditInitiative(e); break;
+        case 60:  // '<'
+          this.actorUp(); break;
+        case 57:  // '9'
+          this.rotateFeature(Actors.selectedActor(), ['bloodied', 'dying', 'incapacitated', 'health-neutral']); break;
+        case 51:  // '3'
+          this.rotateFeature(Actors.selectedActor(), ['defending', 'granting', 'defense-neutral']); break;
+        case 50:  // '2'
+          this.rotateFeature(Actors.selectedActor(), ['advantage', 'disadvantage', 'advantage-neutral']); break;
+        case 49:  // '1'
+          this.toggleReadied(Actors.selectedActor()); break;
+        case 48:  // '0'
+          this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
+        case 45:  // '-'
+          this.incrementLastConditionFromActor(Actors.selectedActor(), -1); break;
+        case 43:  // '+'
+          this.incrementLastConditionFromActor(Actors.selectedActor(), +1); break;
+        case 710: // 'Shift-Option-I'
+          this.resetAllInitiatives(e); break;
+        default:
+          console.log('Command key: ' + charCode);
+        }
     },
 
     reset: function(){
@@ -552,7 +558,7 @@ $(function(){
 
     toggleReadied: function( model ) {
       model.toggleFeature('readied' );
-      var readyString = model.get('title') + " ready"
+      var readyString = model.get('title') + " ready";
       if (model.hasFeature('readied')) {
         Environment.addAspect(readyString);
       } else {
@@ -599,7 +605,7 @@ $(function(){
         this.resetAllActorFeatures();
         this.resetAllInitiatives();
         Environment.resetAllAspects();
-      } else { return }
+      } else { return; }
     },
 
     resetAllInitiatives: function(e) {
@@ -617,13 +623,13 @@ $(function(){
       this.selectNextActorWithoutInitiative();
       if (Actors.selectedActor().hasNoInitiative()) {
         this.editInitiative(Actors.selectedActor(), e);
-      };
+      }
     },
 
     deleteActorsWithoutFeature: function( filterFeature ) {
       var notFeatured = function(a) {
         return !a.hasFeature(filterFeature);
-      }
+      };
       var deleteTargets = Actors.filter(notFeatured, this);
       _.each(deleteTargets, this.deleteActor, this);
     },
@@ -643,15 +649,15 @@ $(function(){
 
   });
 
-  var App = new AppView;
+  var App = new AppView();
   var Marquee = new MarqueeView({collection: Actors});
   $('.marquee.primary').append(Marquee.render().el);
 
   var MarqueeNext = new MarqueeNextView({collection: Actors});
   $('.marquee.next').append(MarqueeNext.render().el);
 
-  App.marquee = Marquee
+  App.marquee = Marquee;
 
   // console debugging
-  window.Marquee = Marquee
+  window.Marquee = Marquee;
 });
