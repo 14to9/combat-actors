@@ -12,13 +12,12 @@ var Actor = Backbone.Model.extend({
   },
 
   hasNoInitiative: function() {
-	var order = this.get("order");
-	if (order === '' || order == null) {
-		return true;
-	}
-	else {
-		return false;
-	}
+    var order = this.get("order");
+    if (order === '' || order == null) {
+      return true;
+    } else {
+      return false;
+    }
   },
 
   addCondition: function(condition){
@@ -69,7 +68,7 @@ var Actor = Backbone.Model.extend({
 
   toggleFeature: function(feature) {
     if (this.hasFeature(feature)) {
-      this.removeFeature(feature)
+      this.removeFeature(feature);
     } else {
       this.addFeature(feature);
     }
@@ -79,8 +78,8 @@ var Actor = Backbone.Model.extend({
     var matcher = function (feature) {
       return _.contains(featureList, feature);
     };
-    var currentSelection = _.find( this.get('features')
-                                 , matcher );
+    var currentSelection = _.find( this.get('features'), matcher );
+
     if (currentSelection) {
       this.removeFeature(currentSelection);
       var idx = featureList.indexOf(currentSelection);
@@ -101,10 +100,12 @@ var Actor = Backbone.Model.extend({
     });
   },
 
-  incrementCondition: function(condition, delta) {
+  incrementCondition: function(unused, delta) {
+
     var condition = _.find(this.get('conditions'), function(c){
       return c === condition;
     });
+
     if (condition) {
       // test for integer
       var p = new RegExp("[0-9]+$");
