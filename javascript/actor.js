@@ -100,17 +100,17 @@ var Actor = Backbone.Model.extend({
     });
   },
 
-  incrementCondition: function(unused, delta) {
+  incrementCondition: function(condition, delta) {
 
-    var condition = _.find(this.get('conditions'), function(c){
-      return c === condition;
+    var verify_condition = _.find(this.get('conditions'), function(c){
+        return c === condition;
     });
 
-    if (condition) {
+    if (verify_condition) {
       // test for integer
       var p = new RegExp("[0-9]+$");
       var val = p.exec(condition);
-      if (val[0]) {
+      if (val && val[0]) {
         this.removeCondition(condition);
         var newVal = parseInt(val[0]) + delta;
         if (newVal <= 0) newVal = 0;
