@@ -1,7 +1,10 @@
 $(function(){
 
   var Environment = new ActorEnvironment({id: 1});
+  var Sessions = new SessionList();
   var Actors = new ActorList();
+
+  Actors.reset(Sessions.getActors());
 
   // make available in console for testing
   actors = Actors;
@@ -249,6 +252,8 @@ $(function(){
       this.listenTo(Actors, 'sort', this.reset);
       this.listenTo(Actors, 'change', this.render);
 
+      this.listenTo(Sessions, 'change', this.onSessionUpdate);
+
       this.footer = this.$('footer');
       this.main = $('#main');
       this.orderList = $("#actor-list");
@@ -257,12 +262,19 @@ $(function(){
       _.bindAll(this, 'commandStroke');
       $(document).bind('keypress', this.commandStroke);
 
-      Actors.fetch();
-      Environment.fetch();
+      this.addAll();
+      this.onSessionUpdate();
+      // Actors.fetch();
+      // Environment.fetch();
 
       this.selectCurrent(Actors.activeActor());
     },
 
+
+    onSessionUpdate: function() {
+      console.log('app: Game Session Changed');
+      this.$el.find('.session-title').html(Sessions.getTitle());
+    },
     commandStroke: function(e) {
 
       var charCode = (typeof e.which == "number") ? e.which: e.keyCode;
@@ -335,8 +347,43 @@ $(function(){
           this.incrementLastConditionFromActor(Actors.selectedActor(), +1); break;
         case 710: // 'Shift-Option-I'
           this.resetAllInitiatives(e); break;
+        case 91: // ] session dwn
+            console.log('switch session up');
+            Sessions.upSelect();
+            Actors.reset(Sessions.getActors());
+            break;
+
+        case 93: // [ session up
+            console.log('switch session down');
+            Sessions.downSelect();
+            Actors.reset(Sessions.getActors());
+            break;
+
+        case 115: // s Save session
+          console.log('Saving Session');
+          Sessions.saveActors(Actors.toJSON());
+          break;
+
+        case 125: // } new session
+            console.log('new session');
+            Sessions.newSession();
+            Actors.reset(Sessions.getActors());
+            break;
+
+        case 123: // } delete session
+            console.log('delete session');
+            var reset = window.confirm("Delete Game Session? This will remove all game state!");
+              if (reset) {
+                console.log('gone');
+                Sessions.removeSession();
+                Actors.reset(Sessions.getActors());
+              } else {
+                console.log('sikeeeeee');
+               return;
+               }
+             break;
         default:
-          console.log('Command key: ' + charCode);
+          console.log('Command key: ' + charCode + ' ' + e.key);
         }
     },
 
@@ -409,10 +456,6 @@ $(function(){
     renderSelected: function(model) {
       actor = Actors.selectedActor();
       if (actor) { Actors.setSelected(actor); }
-    },
-
-    activateNext: function() {
-      Actors.activateNext();
     },
 
     createOnEnter: function(e) {
