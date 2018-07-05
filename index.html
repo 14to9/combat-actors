@@ -14,7 +14,8 @@
       <header>
         <p class='head'>
            ACTION ORDER<br/>
-           <span class='help-message'><i>Press '?' for help</i></span>
+           <span class='help-message'><i>Press '?' for help</i></span><br/>
+           <span style='color:#ffffff' class='session-title'><i>Session Title</i></span>
         </p>
       </header>
       <ul id="actor-list"></ul>
@@ -45,7 +46,10 @@
   <script src="javascript/jquery.colorbox-min.js"></script>
   <script src="javascript/actor.js"></script>
   <script src="javascript/actor-environment.js"></script>
-  <script src="javascript/actors.js"></script>
+  <script src="javascript/actorslist.js"></script>
+  <script src="javascript/session.js"></script>
+  <script src="javascript/sessions.js"></script>
+  <script src="javascript/app.js"></script>
 
   <!-- Templates -->
 
@@ -240,10 +244,13 @@
       <tr><td><b>R</b></td><td>Reset!</td></tr>
       <tr><td><b>X</b></td><td>Remove (all) conditions on selected</td></tr>
 
-      <tr><td><b>&lt;</b>, <b>&gt;</b></td><td>Move selected actor</td></tr>
+      <tr><td><b>&lt; </b>, <b> &gt;</b></td><td>Move selected actor</td></tr>
 
       <tr><td><b>=</b></td><td>Edit next actor without initiative</td></tr>
       <tr><td><b>Shift-Option-I</b></td><td>Clear all initiative values</td></tr>
+      <tr><td><b>[ </b>, <b> ]</b></td><td>Session Switch Up / Down</td></tr>
+      <tr><td><b>{ </b>, <b> }</b></td><td>Session Delete / Create</td></tr>
+      <tr><td><b>s</b></td><td>Session Save</td></tr>
 
 
     </table>
