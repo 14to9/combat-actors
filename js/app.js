@@ -33,6 +33,7 @@ $(function(){
 
     initialize: function() {
       this.listenTo(this.collection, 'change', this.render);
+      this.listenTo(this.collection, 'reset', this.render);
     },
 
     editInitiative: function() {
@@ -46,7 +47,7 @@ $(function(){
       if (e.keyCode == 13) { // enter CR
 
         var value = this.$('.actor-initiative .edit-form input').val();
-        value = isNaN(parseInt(value)) ? 0 : parseInt(value);
+        value = isNaN(parseInt(value)) ? "" : parseInt(value);
 
         console.log('Updating initiative with', value);
         this.collection.selectedActor().save({order: value});
@@ -103,6 +104,7 @@ $(function(){
     },
 
     render: function() {
+      console.log('marqueeview render event');
       var selectedActor = this.collection.selectedActor();
       if (selectedActor) {
         this.$el.html(this.template(selectedActor.toJSON()));
@@ -141,6 +143,7 @@ $(function(){
 
     initialize: function() {
       this.listenTo(this.collection, 'change', this.render);
+      this.listenTo(this.collection, 'reset', this.render);
     },
 
     render: function() {
@@ -407,7 +410,7 @@ $(function(){
         case 123: // } delete session
             console.log('delete session');
             Sessions.saveActors(Actors.toJSON());
-            var reset = window.confirm("Delete Game Session? This will remove all game state!");
+            var reset = window.confirm("Delete Game Session? This will remove the entire session!");
               if (reset) {
                 console.log('gone');
                 Sessions.removeSession();

@@ -2,6 +2,7 @@ var Actor = Backbone.Model.extend({
 
   save: function(update) {
       _.extend(this.attributes, update);
+      this.trigger('change:order');
       this.trigger('change');
       return null;
   },

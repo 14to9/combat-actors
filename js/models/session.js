@@ -13,19 +13,11 @@ var Session = Backbone.Model.extend({
         {
           title: "Ready Player 1",
           order: 0,
-          active: false,
-          selected: false,
+          active: true,
+          selected: true,
           conditions: [],
           features: ['persistent']
         },
-        {
-          title: "Ready Player 2",
-          order: 0,
-          active: false,
-          selected: false,
-          conditions: [],
-          features: ['persistent']
-        }
       ],
       environments: null
     };
