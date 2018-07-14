@@ -386,6 +386,7 @@ li:hover .destroy, li:hover .activate {
   -ms-box-shadow: white 0px 0px 3px 3px;
   -o-box-shadow: white 0px 0px 3px 3px;
   box-shadow: white 0px 0px 3px 3px;
+  min-height: 100px;
 }
 
 .environment {
@@ -399,12 +400,13 @@ li:hover .destroy, li:hover .activate {
 
 
 .marquee.primary {
-    min-height: 125px;
+    min-height: 160px;
 }
 
 .marquee.next {
   margin: 40px 10px 0 250px;
   width: 590px;
+  min-height: 130px;
   background-color: #ccc;
   -webkit-box-shadow: #ccc 0px 0px 3px 3px;
   -moz-box-shadow: #ccc 0px 0px 3px 3px;
