@@ -15,14 +15,21 @@
         <p class='head'>
            ACTION ORDER<br/>
            <span class='help-message'><i>Press '?' for help</i></span><br/>
-           <span style='color:#ffffff' class='session-title'><i>Session Title</i></span>
+        </p>
+      </header>
+      <header>
+        <p class="session">
+          <span id="session-label" style='color:#ffffff'><i>Session Title</i></span>
+          <span id="session-input" class="edit-form" style="">
+            <input class="edit-session" placeholder="New Session Name" type="text" value="" style=""  />
+          </span>
         </p>
       </header>
       <ul id="actor-list"></ul>
     </section>
     <div id="control-panel">
       <div id="actor-form">
-        <input id="new-actor" type="text" placeholder=" actor name">
+        <input id="new-actor" type="text" placeholder="actor name">
         <input class="number" id="new-actor-init" type="text" placeholder="0">
       </div>
     </div>
@@ -250,7 +257,6 @@
       <tr><td><b>Shift-Option-I</b></td><td>Clear all initiative values</td></tr>
       <tr><td><b>[ </b>, <b> ]</b></td><td>Session Switch Up / Down</td></tr>
       <tr><td><b>{ </b>, <b> }</b></td><td>Session Delete / Create</td></tr>
-      <tr><td><b>s</b></td><td>Session Save</td></tr>
 
 
     </table>

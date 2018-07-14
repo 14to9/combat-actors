@@ -43,9 +43,13 @@ $(function(){
     },
 
     updateInitiative: function(e) {
-      if (e.keyCode == 13) {
-        var value = this.$('.actor-initiative .edit-form input').val() || 0;
-        this.collection.selectedActor().save({order: parseInt(value)});
+      if (e.keyCode == 13) { // enter CR
+
+        var value = this.$('.actor-initiative .edit-form input').val();
+        value = isNaN(parseInt(value)) ? 0 : parseInt(value);
+
+        console.log('Updating initiative with', value);
+        this.collection.selectedActor().save({order: value});
         this.hideInitiative();
       }
     },
@@ -235,11 +239,16 @@ $(function(){
     el: $("#actorapp"),
 
     events: {
+      "dblclick #session-label" : "editSession",
+      "keypress #session-input input" : "updateSession",
       "keypress #new-actor":       "createOnEnter",
       "keypress #new-actor-init":  "createOnEnter"
     },
 
     initialize: function() {
+      this.sessionForm = this.$("#session-input");
+      this.sessionInput = this.$("#session-input input");
+      this.sessionLabel = this.$("#session-label");
 
       this.actorInput      = this.$("#new-actor");
       this.actorOrderInput = this.$("#new-actor-init");
@@ -270,11 +279,31 @@ $(function(){
       this.selectCurrent(Actors.activeActor());
     },
 
+    updateSession: function(e){
+      if (e.keyCode == 13) { // enter CR
+        var value = this.sessionInput.val();
+        this.sessionForm.hide();
+        this.sessionLabel.show();
+        console.log('Updating session name: ', value);
+
+        this.sessionInput.val('');
+        Sessions.setTitle(value);
+
+      }
+    },
+
+    editSession: function() {
+      this.sessionLabel.hide();
+      this.sessionForm.show();
+      this.sessionInput.focus();
+      console.log('double click on session title change it');
+    },
 
     onSessionUpdate: function() {
       console.log('app: Game Session Changed');
-      this.$el.find('.session-title').html(Sessions.getTitle());
+      this.sessionLabel.html(Sessions.getTitle());
     },
+
     commandStroke: function(e) {
 
       var charCode = (typeof e.which == "number") ? e.which: e.keyCode;
@@ -292,6 +321,7 @@ $(function(){
           this.rotateConditions(Actors.selectedActor()); break;
         case 112:  // 'p'
           Actors.activatePrevious(); break;
+          Sessions.saveActors(Actors.toJSON());
         case 110:  // 'n'
         case 13:   // Enter
           if (Actors.isFocusedAway()) {
@@ -299,6 +329,7 @@ $(function(){
           } else {
             Actors.activateNext();
           }
+          Sessions.saveActors(Actors.toJSON());
           break;
         case 106:  // 'j'
           Actors.downSelect(); break;
@@ -323,7 +354,7 @@ $(function(){
           this.deleteActor(Actors.selectedActor()); break;
         case 65:  // 'A'
           this.addActor(e); break;
-        case 63:
+        case 63:  // '?'
           $.colorbox({inline:true,href:'#help'}); break;
         case 62:  // '>'
           this.actorDown(); break;
@@ -349,12 +380,14 @@ $(function(){
           this.resetAllInitiatives(e); break;
         case 91: // ] session dwn
             console.log('switch session up');
+            Sessions.saveActors(Actors.toJSON());
             Sessions.upSelect();
             Actors.reset(Sessions.getActors());
             break;
 
         case 93: // [ session up
             console.log('switch session down');
+            Sessions.saveActors(Actors.toJSON());
             Sessions.downSelect();
             Actors.reset(Sessions.getActors());
             break;
@@ -366,12 +399,14 @@ $(function(){
 
         case 125: // } new session
             console.log('new session');
+            Sessions.saveActors(Actors.toJSON());
             Sessions.newSession();
             Actors.reset(Sessions.getActors());
             break;
 
         case 123: // } delete session
             console.log('delete session');
+            Sessions.saveActors(Actors.toJSON());
             var reset = window.confirm("Delete Game Session? This will remove all game state!");
               if (reset) {
                 console.log('gone');

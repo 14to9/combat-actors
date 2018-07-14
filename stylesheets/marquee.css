@@ -28,6 +28,17 @@ input:focus { outline: none; }
   margin: 10px 0 10px 0;
 }
 
+#actorapp .session {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+
+.session ::placeholder {
+   color:    #eee;
+}
+
 .marquee-name .edit-form input[type="text"] {
   background-color: white;
   width: 550px;
@@ -246,6 +257,21 @@ li:hover .destroy, li:hover .activate {
 
 .edit-form {
   display: none;
+}
+
+.edit-session {
+    outline:  none;
+    font-family: "Avenir Next Condensed", Helvetica,Arial,Verdana,sans-serif;
+    width: 90%;
+    font-size:18px;
+    color: white;
+    padding: 5px 10px;
+    font-weight: 500;
+    box-shadow: none;
+    background-color: rgba(228,168,218,0.3);
+    border-radius:5px;
+    height: 25px;
+    border: solid 1px #666;
 }
 
 #actorapp footer {

@@ -22,6 +22,15 @@
         s.save();
     },
 
+    setTitle(title) {
+      var session = this.selectedSession();
+      if(session && title.length > 0) {
+        return session.save({title});
+      } else {
+        return '';
+      }
+    },
+
     getTitle: function() {
         var session = this.selectedSession();
         if(session){
