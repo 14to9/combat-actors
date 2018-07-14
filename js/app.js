@@ -1,10 +1,11 @@
 $(function(){
 
-  var Environment = new ActorEnvironment({id: 1});
+  var Environment = new ActorEnvironment();
   var Sessions = new SessionList();
   var Actors = new ActorList();
 
   Actors.reset(Sessions.getActors());
+  Environment.set(Sessions.getEnv());
 
   // make available in console for testing
   actors = Actors;
@@ -324,7 +325,7 @@ $(function(){
           this.rotateConditions(Actors.selectedActor()); break;
         case 112:  // 'p'
           Actors.activatePrevious(); break;
-          Sessions.saveActors(Actors.toJSON());
+          Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
         case 110:  // 'n'
         case 13:   // Enter
           if (Actors.isFocusedAway()) {
@@ -332,7 +333,7 @@ $(function(){
           } else {
             Actors.activateNext();
           }
-          Sessions.saveActors(Actors.toJSON());
+          Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
           break;
         case 106:  // 'j'
           Actors.downSelect(); break;
@@ -383,42 +384,46 @@ $(function(){
           this.resetAllInitiatives(e); break;
         case 91: // ] session dwn
             console.log('switch session up');
-            Sessions.saveActors(Actors.toJSON());
+            Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
             Sessions.upSelect();
             Actors.reset(Sessions.getActors());
+            Environment.set(Sessions.getEnv());
             break;
 
         case 93: // [ session up
             console.log('switch session down');
-            Sessions.saveActors(Actors.toJSON());
+            Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
             Sessions.downSelect();
             Actors.reset(Sessions.getActors());
+            Environment.set(Sessions.getEnv());
             break;
 
         case 115: // s Save session
           console.log('Saving Session');
-          Sessions.saveActors(Actors.toJSON());
+          Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
           break;
 
         case 125: // } new session
             console.log('new session');
-            Sessions.saveActors(Actors.toJSON());
+            Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
             Sessions.newSession();
             Actors.reset(Sessions.getActors());
+            Environment.set(Sessions.getEnv());
             break;
 
         case 123: // } delete session
             console.log('delete session');
-            Sessions.saveActors(Actors.toJSON());
+            Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
             var reset = window.confirm("Delete Game Session? This will remove the entire session!");
               if (reset) {
                 console.log('gone');
                 Sessions.removeSession();
                 Actors.reset(Sessions.getActors());
+                Environment.set(Sessions.getEnv());
               } else {
                 console.log('sikeeeeee');
-               return;
-               }
+                return;
+              }
              break;
         default:
           console.log('Command key: ' + charCode + ' ' + e.key);

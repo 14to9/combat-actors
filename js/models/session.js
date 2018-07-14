@@ -19,7 +19,7 @@ var Session = Backbone.Model.extend({
           features: ['persistent']
         },
       ],
-      environments: null
+      env: {aspects:[]}
     };
   }
 });

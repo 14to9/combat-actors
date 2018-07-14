@@ -1,6 +1,11 @@
 var ActorEnvironment = Backbone.Model.extend({
 
-  localStorage: new Backbone.LocalStorage("actors-environment-backbone"),
+  // localStorage: new Backbone.LocalStorage("actors-environment-backbone"),
+  save: function(update) {
+    _.extend(this.attributes, update);
+    this.trigger('change');
+    return null;
+  },
 
   defaults: function() {
     return {

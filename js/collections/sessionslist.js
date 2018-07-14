@@ -15,12 +15,24 @@
             this.setSelected(this.selectedSession());
         }
     },
-
-    saveActors: function(models) {
+    saveSession: function(env, actors) {
         var s = this.selectedSession();
-        s.set('actors', models);
+        s.set('env', env);
+        s.set('actors', actors);
         s.save();
     },
+
+    // saveEnv: function(models) {
+    //     var s = this.selectedSession();
+    //     s.set('env', models);
+    //     s.save();
+    // },
+
+    // saveActors: function(models) {
+    //     var s = this.selectedSession();
+    //     s.set('actors', models);
+    //     s.save();
+    // },
 
     setTitle(title) {
       var session = this.selectedSession();
@@ -38,6 +50,10 @@
         } else {
           return '';
         }
+    },
+
+    getEnv: function() {
+        return this.selectedSession().get('env');
     },
 
     getActors: function() {
