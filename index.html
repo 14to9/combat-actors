@@ -96,9 +96,9 @@
           <div class='labels-maker'>
             <ul class="conditions labels">
               <% _.each(conditions, function(i) { %>
-                <% if (i) { %>
-                  <li class="label <%- i %>" id = <%- i.replace(/\s/g , "-") %>>
-                    <a href="#" class="label name"><%- i %></a>
+                <% if (i.title) { %>
+                  <li class="label <%- i.title %>" id = <%- i.title.replace(/\s/g , "-") %>>
+                    <a href="#" class=" <%= (i.persistent == false) ? '': 'persistent' %> label name"><%- i.title %></a>
                   </li>
                 <% } %>
               <% }); %>
@@ -154,9 +154,9 @@
       <div class='labels-maker'>
         <ul class="conditions labels">
           <% _.each(conditions, function(i) { %>
-            <% if (i) { %>
-              <li class="label <%- i %>" id = <%- i.replace(/\s/g , "-") %>>
-                <a href="#" class="label name"><%- i %></a>
+            <% if (i.title) { %>
+              <li class="label <%- i.title %>" id = <%- i.title.replace(/\s/g , "-") %>>
+                <a href="#" class=" <%= (i.persistent == false) ? '': 'persistent' %> label name"><%- i.title %></a>
                 <a href="#" class="remove"></a>
               </li>
             <% } %>
@@ -184,9 +184,9 @@
     <div class='active labels'>
         <ul class="conditions labels">
           <% _.each(conditions, function(i) { %>
-            <% if (i) { %>
-              <li class="label <%- i %>" id = <%- i.replace(/\s/g , "-") %>>
-                <a href="#" class="label name"><%- i %></a>
+            <% if (i.title) { %>
+              <li class="label <%- i.title %>" id = <%- i.title.replace(/\s/g , "-") %>>
+                <a href="#" class=" <%= (i.persistent == false) ? '': 'persistent' %>label name"><%- i.title %></a>
               </li>
             <% } %>
           <% }); %>
@@ -227,6 +227,7 @@
       <tr><th>Key</th><th>Generic Action</th></tr>
 
       <tr><td><b>a</b> or <b>i</b></td><td>Insert condition</td></tr>
+      <tr><td><b>o</b></td><td>Persist last condition</td></tr>
       <tr><td><b>c</b></td><td>Select active actor</td></tr>
       <tr><td><b>e</b></td><td>Add environment aspect</td></tr>
       <tr><td><b>h</b></td><td>Show command key help</td></tr>
