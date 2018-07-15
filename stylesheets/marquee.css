@@ -189,6 +189,10 @@ li.actor-item.active {
   background-image: url(../images/blood-drop.png);
 }
 
+.feature-icon.used-reaction {
+  background-image: url(../images/used-reaction.png);
+}
+
 .feature-icon.defending {
   background-image: url(../images/combat-icons_defending.png);
 }
