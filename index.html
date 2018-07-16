@@ -85,6 +85,9 @@
         <% if (_.include(features, "bloodied")) { %>
           <div class='bloodied feature-icon'/>
         <% } %>
+        <% if (_.include(features, "used-reaction")) { %>
+          <div class='used-reaction feature-icon'/>
+        <% } %>
         <% if (_.include(features, "incapacitated")) { %>
           <div class='incapacitated feature-icon'/>
         <% } %>
@@ -138,6 +141,9 @@
         <% } %>
         <% if (_.include(features, "bloodied")) { %>
           <div class='bloodied feature-icon'/>
+        <% } %>
+        <% if (_.include(features, "used-reaction")) { %>
+          <div class='used-reaction feature-icon'/>
         <% } %>
         <% if (_.include(features, "incapacitated")) { %>
           <div class='incapacitated feature-icon'/>
@@ -241,6 +247,7 @@
       <tr><td><b>1</b></td><td>Toggle ready</td></tr>
       <tr><td><b>2</b></td><td>Toggle advantage</td></tr>
       <tr><td><b>3</b></td><td>Toggle defense</td></tr>
+      <tr><td><b>7</b></td><td>Toggle used reaction</td></tr>
       <tr><td><b>9</b></td><td>Toggle health</td></tr>
       <tr><td><b>0</b></td><td>Toggle permanence</td></tr>
 

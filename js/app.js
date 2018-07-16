@@ -366,6 +366,8 @@ $(function(){
           this.selectNextAndEditInitiative(e); break;
         case 60:  // '<'
           this.actorUp(); break;
+        case 55:  // '7'
+          this.toggleFeature(Actors.selectedActor(), 'used-reaction'); break;
         case 57:  // '9'
           this.rotateFeature(Actors.selectedActor(), ['bloodied', 'dying', 'incapacitated', 'health-neutral']); break;
         case 51:  // '3'
