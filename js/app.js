@@ -71,7 +71,13 @@ $(function(){
       if (e.keyCode == 13) {
         var target_id = $(e.target).parent().attr('id');
         var condition = this.newCondition.val().replace(/^\s+|\s+$/g,'');
-        this.collection.selectedActor().addCondition(condition);
+
+        if(condition.length > 0){
+          this.collection.selectedActor().addCondition({title:condition, persistent: false});
+        } else {
+          console.log('skipping empty condition');
+        }
+
         this.newCondition.blur();
         this.newConditionCell.hide();
       }
@@ -80,7 +86,7 @@ $(function(){
     removeCondition: function(e) {
       var target_id = $(e.target).parent().attr('id');
       var condition = target_id.replace(/-/g , " ");
-      this.collection.selectedActor().removeCondition(condition);
+      this.collection.selectedActor().removeCondition({title:condition, persistent: null});
       return false;
     },
 
@@ -324,8 +330,12 @@ $(function(){
         case 114:  // 'r'
           this.rotateConditions(Actors.selectedActor()); break;
         case 112:  // 'p'
-          Actors.activatePrevious(); break;
+          Actors.activatePrevious();
           Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
+          break;
+        case 111:  // 'o'
+          this.persistLastConditionFromActor(Actors.selectedActor());
+          break;
         case 110:  // 'n'
         case 13:   // Enter
           if (Actors.isFocusedAway()) {
@@ -568,13 +578,21 @@ $(function(){
     },
 
     removeFirstConditionFromActor: function(actor, e) {
-      target = _.first(actor.get('conditions'));
+      var target = _.first(actor.get('conditions'));
       actor.removeCondition(target);
     },
 
     removeLastConditionFromActor: function(actor, e) {
-      target = _.last(actor.get('conditions'));
+      var target = _.last(actor.get('conditions'));
       actor.removeCondition(target);
+    },
+
+    persistLastConditionFromActor: function(actor, e) {
+      var target = _.last(actor.get('conditions'));
+      if(target){
+        actor.removeCondition(target);
+        actor.addCondition({title:target.title, persistent: ! target.persistent});
+      }
     },
 
     incrementLastConditionFromActor: function(actor, offset, e) {

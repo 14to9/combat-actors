@@ -117,6 +117,12 @@ ul.conditions {
   width: 27px;
 }
 
+.marquee .conditions.labels .persistent {
+    text-decoration: underline;
+    /*font-weight: normal;*/
+    font-style: italic;
+}
+
 .marquee .conditions.labels li a,
 .environment .conditions.labels li a {
   background-color: #888;
