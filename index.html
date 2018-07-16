@@ -14,14 +14,22 @@
       <header>
         <p class='head'>
            ACTION ORDER<br/>
-           <span class='help-message'><i>Press '?' for help</i></span>
+           <span class='help-message'><i>Press '?' for help</i></span><br/>
+        </p>
+      </header>
+      <header>
+        <p class="session">
+          <span id="session-label" style='color:#ffffff'><i>Session Title</i></span>
+          <span id="session-input" class="edit-form" style="">
+            <input class="edit-session" placeholder="New Session Name" type="text" value="" style=""  />
+          </span>
         </p>
       </header>
       <ul id="actor-list"></ul>
     </section>
     <div id="control-panel">
       <div id="actor-form">
-        <input id="new-actor" type="text" placeholder=" actor name">
+        <input id="new-actor" type="text" placeholder="actor name">
         <input class="number" id="new-actor-init" type="text" placeholder="0">
       </div>
     </div>
@@ -37,15 +45,18 @@
     </div>
   </div>
 
-  <script src="javascript/jquery.js"></script>
-  <script src="javascript/underscore.js"></script>
-  <script src="javascript/backbone.js"></script>
-  <script src="javascript/backbone.localStorage.js"></script>
-  <script src="javascript/jquery-ui.js"></script>
-  <script src="javascript/jquery.colorbox-min.js"></script>
-  <script src="javascript/actor.js"></script>
-  <script src="javascript/actor-environment.js"></script>
-  <script src="javascript/actors.js"></script>
+  <script src="js/libs/jquery.js"></script>
+  <script src="js/libs/underscore.js"></script>
+  <script src="js/libs/backbone.js"></script>
+  <script src="js/libs/backbone.localStorage.js"></script>
+  <script src="js/libs/jquery-ui.js"></script>
+  <script src="js/libs/jquery.colorbox-min.js"></script>
+  <script src="js/models/actor.js"></script>
+  <script src="js/models/actor-environment.js"></script>
+  <script src="js/collections/actorslist.js"></script>
+  <script src="js/models/session.js"></script>
+  <script src="js/collections/sessionslist.js"></script>
+  <script src="js/app.js"></script>
 
   <!-- Templates -->
 
@@ -240,10 +251,12 @@
       <tr><td><b>R</b></td><td>Reset!</td></tr>
       <tr><td><b>X</b></td><td>Remove (all) conditions on selected</td></tr>
 
-      <tr><td><b>&lt;</b>, <b>&gt;</b></td><td>Move selected actor</td></tr>
+      <tr><td><b>&lt; </b>, <b> &gt;</b></td><td>Move selected actor</td></tr>
 
       <tr><td><b>=</b></td><td>Edit next actor without initiative</td></tr>
       <tr><td><b>Shift-Option-I</b></td><td>Clear all initiative values</td></tr>
+      <tr><td><b>[ </b>, <b> ]</b></td><td>Session Switch Up / Down</td></tr>
+      <tr><td><b>{ </b>, <b> }</b></td><td>Session Delete / Create</td></tr>
 
 
     </table>
