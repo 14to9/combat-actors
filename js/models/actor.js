@@ -1,5 +1,12 @@
 var Actor = Backbone.Model.extend({
 
+  save: function(update) {
+      _.extend(this.attributes, update);
+      this.trigger('change:order');
+      this.trigger('change');
+      return null;
+  },
+
   defaults: function() {
     return {
       title: "empty actor...",
@@ -29,7 +36,7 @@ var Actor = Backbone.Model.extend({
 
   removeCondition: function(condition){
     var newConditions = _.reject(this.get('conditions'), function(existing_condition){
-      return existing_condition === condition;
+      return existing_condition.title === condition.title;
     });
     this.save({
       'conditions': newConditions
@@ -53,13 +60,26 @@ var Actor = Backbone.Model.extend({
   },
 
   removeAllConditions: function() {
-    this.save({'conditions':[]});
+    // this.save({'conditions':[]});
+
+    var newConditions = _.reject(this.get('conditions'), function(existing_condition){
+      return existing_condition.persistent === false;
+    });
+
+    this.save({
+      'conditions': newConditions
+    });
+
+
   },
 
   rotateConditions: function() {
     var c = _.clone(this.get('conditions') || []);
-    c.push(c.shift());
-    this.save({'conditions': c});
+    if(c.length > 0){
+        console.log('rotateConditions', c);
+        c.push(c.shift());
+        this.save({'conditions': c});
+    }
   },
 
   hasFeature: function(feature) {
@@ -102,22 +122,24 @@ var Actor = Backbone.Model.extend({
 
   incrementCondition: function(condition, delta) {
 
+    console.log('incrementCondition', condition);
     var verify_condition = _.find(this.get('conditions'), function(c){
-        return c === condition;
+        return c.title === condition.title;
     });
 
     if (verify_condition) {
       // test for integer
       var p = new RegExp("[0-9]+$");
-      var val = p.exec(condition);
+      var val = p.exec(condition.title);
       if (val && val[0]) {
+        console.log('val', val);
         this.removeCondition(condition);
         var newVal = parseInt(val[0]) + delta;
         if (newVal <= 0) newVal = 0;
-        var prefixLen = condition.length - val[0].length;
-        var prefix = condition.substring(0, prefixLen);
+        var prefixLen = condition.title.length - val[0].length;
+        var prefix = condition.title.substring(0, prefixLen);
         var newCondition = prefix + newVal;
-        this.addCondition(newCondition);
+        this.addCondition({title:newCondition, persistent: condition.persistent});
       }
     }
   }

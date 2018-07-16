@@ -28,6 +28,17 @@ input:focus { outline: none; }
   margin: 10px 0 10px 0;
 }
 
+#actorapp .session {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+
+::placeholder {
+   color:    white;
+}
+
 .marquee-name .edit-form input[type="text"] {
   background-color: white;
   width: 550px;
@@ -43,12 +54,26 @@ input:focus { outline: none; }
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
 }
 
+#actor-form input {
+    outline:  none;
+    font-family: "Avenir Next Condensed", Helvetica,Arial,Verdana,sans-serif;
+    font-size:18px;
+    color: white;
+    padding: 5px 10px;
+    font-weight: 500;
+    box-shadow: none;
+    background-color: rgba(228,168,218,0.3);
+    border-radius:5px;
+    height: 25px;
+    border: solid 1px #666;
+}
+
 #actor-form input[type="text"] {
-  width: 200px;
+  width: 175px;
 }
 
 #actor-form input[type="text"].number {
-  width: 50px;
+  width: 45px;
 }
 
 #actorapp input::-webkit-input-placeholder {
@@ -164,6 +189,10 @@ li.actor-item.active {
   background-image: url(../images/blood-drop.png);
 }
 
+.feature-icon.used-reaction {
+  background-image: url(../images/used-reaction.png);
+}
+
 .feature-icon.defending {
   background-image: url(../images/combat-icons_defending.png);
 }
@@ -246,6 +275,21 @@ li:hover .destroy, li:hover .activate {
 
 .edit-form {
   display: none;
+}
+
+.edit-session {
+    outline:  none;
+    font-family: "Avenir Next Condensed", Helvetica,Arial,Verdana,sans-serif;
+    width: 90%;
+    font-size:18px;
+    color: white;
+    padding: 5px 10px;
+    font-weight: 500;
+    box-shadow: none;
+    background-color: rgba(228,168,218,0.3);
+    border-radius:5px;
+    height: 25px;
+    border: solid 1px #666;
 }
 
 #actorapp footer {
@@ -346,6 +390,7 @@ li:hover .destroy, li:hover .activate {
   -ms-box-shadow: white 0px 0px 3px 3px;
   -o-box-shadow: white 0px 0px 3px 3px;
   box-shadow: white 0px 0px 3px 3px;
+  min-height: 100px;
 }
 
 .environment {
@@ -357,9 +402,15 @@ li:hover .destroy, li:hover .activate {
   box-shadow: #aaa 0px 0px 3px 3px;
 }
 
+
+.marquee.primary {
+    min-height: 160px;
+}
+
 .marquee.next {
   margin: 40px 10px 0 250px;
   width: 590px;
+  min-height: 130px;
   background-color: #ccc;
   -webkit-box-shadow: #ccc 0px 0px 3px 3px;
   -moz-box-shadow: #ccc 0px 0px 3px 3px;

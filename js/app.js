@@ -1,94 +1,11 @@
 $(function(){
 
-  var ActorList = Backbone.Collection.extend({
-
-    model: Actor,
-
-    localStorage: new Backbone.LocalStorage("actors-backbone"),
-
-    comparator: function(x){
-      return - parseInt(x.get('order'));
-    },
-
-    setActive: function(actor){
-      this.where({active: true}).forEach(function(previous) {
-        previous.save({active: false});
-      });
-      actor.save({active: true});
-      this.setSelected(actor);
-    },
-
-    setSelected: function(actor){
-      if (actor != undefined) {
-        this.where({selected: true}).forEach(function(previous) {
-          previous.save({selected: false});
-        });
-        actor.save({selected: true});
-      }
-    },
-
-    activeActor: function(){
-      return this.where({active: true})[0];
-    },
-
-    nextActor: function(){
-      candidate_index = this.nextActiveIndex();
-      target_index = candidate_index == this.length ? 0 : candidate_index;
-      return this.at(target_index);
-    },
-
-    activeIndex: function(){
-      return this.indexOf(this.activeActor());
-    },
-
-    selectedActor: function(){
-      return this.where({selected: true})[0];
-    },
-
-    selectedIndex: function() {
-      return this.indexOf(this.selectedActor()) || 0;
-    },
-
-    nextActiveIndex: function() {
-      return this.activeIndex() + 1;
-    },
-
-    nextSelectedIndex: function() {
-      return this.selectedIndex() + 1;
-    },
-
-    downSelect: function() {
-      candidate_index = this.nextSelectedIndex();
-      target_index = candidate_index == this.length ? 0 : candidate_index;
-      this.setSelected(this.at(target_index));
-    },
-
-    upSelect: function() {
-      candidate_index  = this.selectedIndex() - 1;
-      target_index = candidate_index < 0 ? this.length - 1 : candidate_index;
-      this.setSelected(this.at(target_index));
-    },
-
-    activateNext: function() {
-      candidate_index = this.nextActiveIndex();
-      target_index = candidate_index == this.length ? 0 : candidate_index;
-      this.setActive(this.at(target_index));
-    },
-
-    activatePrevious: function() {
-      candidate_index  = this.activeIndex() - 1;
-      target_index = candidate_index < 0 ? this.length - 1 : candidate_index;
-      this.setActive(this.at(target_index));
-    },
-
-    isFocusedAway: function() {
-      return (this.selectedActor() != this.activeActor());
-    }
-
-  });
-
-  var Environment = new ActorEnvironment({id: 1});
+  var Environment = new ActorEnvironment();
+  var Sessions = new SessionList();
   var Actors = new ActorList();
+
+  Actors.reset(Sessions.getActors());
+  Environment.set(Sessions.getEnv());
 
   // make available in console for testing
   actors = Actors;
@@ -117,6 +34,7 @@ $(function(){
 
     initialize: function() {
       this.listenTo(this.collection, 'change', this.render);
+      this.listenTo(this.collection, 'reset', this.render);
     },
 
     editInitiative: function() {
@@ -127,9 +45,13 @@ $(function(){
     },
 
     updateInitiative: function(e) {
-      if (e.keyCode == 13) {
-        var value = this.$('.actor-initiative .edit-form input').val() || 0;
-        this.collection.selectedActor().save({order: parseInt(value)});
+      if (e.keyCode == 13) { // enter CR
+
+        var value = this.$('.actor-initiative .edit-form input').val();
+        value = isNaN(parseInt(value)) ? "" : parseInt(value);
+
+        console.log('Updating initiative with', value);
+        this.collection.selectedActor().save({order: value});
         this.hideInitiative();
       }
     },
@@ -149,7 +71,13 @@ $(function(){
       if (e.keyCode == 13) {
         var target_id = $(e.target).parent().attr('id');
         var condition = this.newCondition.val().replace(/^\s+|\s+$/g,'');
-        this.collection.selectedActor().addCondition(condition);
+
+        if(condition.length > 0){
+          this.collection.selectedActor().addCondition({title:condition, persistent: false});
+        } else {
+          console.log('skipping empty condition');
+        }
+
         this.newCondition.blur();
         this.newConditionCell.hide();
       }
@@ -158,7 +86,7 @@ $(function(){
     removeCondition: function(e) {
       var target_id = $(e.target).parent().attr('id');
       var condition = target_id.replace(/-/g , " ");
-      this.collection.selectedActor().removeCondition(condition);
+      this.collection.selectedActor().removeCondition({title:condition, persistent: null});
       return false;
     },
 
@@ -183,6 +111,7 @@ $(function(){
     },
 
     render: function() {
+      console.log('marqueeview render event');
       var selectedActor = this.collection.selectedActor();
       if (selectedActor) {
         this.$el.html(this.template(selectedActor.toJSON()));
@@ -221,6 +150,7 @@ $(function(){
 
     initialize: function() {
       this.listenTo(this.collection, 'change', this.render);
+      this.listenTo(this.collection, 'reset', this.render);
     },
 
     render: function() {
@@ -319,11 +249,16 @@ $(function(){
     el: $("#actorapp"),
 
     events: {
+      "dblclick #session-label" : "editSession",
+      "keypress #session-input input" : "updateSession",
       "keypress #new-actor":       "createOnEnter",
       "keypress #new-actor-init":  "createOnEnter"
     },
 
     initialize: function() {
+      this.sessionForm = this.$("#session-input");
+      this.sessionInput = this.$("#session-input input");
+      this.sessionLabel = this.$("#session-label");
 
       this.actorInput      = this.$("#new-actor");
       this.actorOrderInput = this.$("#new-actor-init");
@@ -336,6 +271,8 @@ $(function(){
       this.listenTo(Actors, 'sort', this.reset);
       this.listenTo(Actors, 'change', this.render);
 
+      this.listenTo(Sessions, 'change', this.onSessionUpdate);
+
       this.footer = this.$('footer');
       this.main = $('#main');
       this.orderList = $("#actor-list");
@@ -344,10 +281,37 @@ $(function(){
       _.bindAll(this, 'commandStroke');
       $(document).bind('keypress', this.commandStroke);
 
-      Actors.fetch();
-      Environment.fetch();
+      this.addAll();
+      this.onSessionUpdate();
+      // Actors.fetch();
+      // Environment.fetch();
 
       this.selectCurrent(Actors.activeActor());
+    },
+
+    updateSession: function(e){
+      if (e.keyCode == 13) { // enter CR
+        var value = this.sessionInput.val();
+        this.sessionForm.hide();
+        this.sessionLabel.show();
+        console.log('Updating session name: ', value);
+
+        this.sessionInput.val('');
+        Sessions.setTitle(value);
+
+      }
+    },
+
+    editSession: function() {
+      this.sessionLabel.hide();
+      this.sessionForm.show();
+      this.sessionInput.focus();
+      console.log('double click on session title change it');
+    },
+
+    onSessionUpdate: function() {
+      console.log('app: Game Session Changed');
+      this.sessionLabel.html(Sessions.getTitle());
     },
 
     commandStroke: function(e) {
@@ -366,7 +330,12 @@ $(function(){
         case 114:  // 'r'
           this.rotateConditions(Actors.selectedActor()); break;
         case 112:  // 'p'
-          Actors.activatePrevious(); break;
+          Actors.activatePrevious();
+          Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
+          break;
+        case 111:  // 'o'
+          this.persistLastConditionFromActor(Actors.selectedActor());
+          break;
         case 110:  // 'n'
         case 13:   // Enter
           if (Actors.isFocusedAway()) {
@@ -374,6 +343,7 @@ $(function(){
           } else {
             Actors.activateNext();
           }
+          Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
           break;
         case 106:  // 'j'
           Actors.downSelect(); break;
@@ -398,7 +368,7 @@ $(function(){
           this.deleteActor(Actors.selectedActor()); break;
         case 65:  // 'A'
           this.addActor(e); break;
-        case 63:
+        case 63:  // '?'
           $.colorbox({inline:true,href:'#help'}); break;
         case 62:  // '>'
           this.actorDown(); break;
@@ -406,6 +376,8 @@ $(function(){
           this.selectNextAndEditInitiative(e); break;
         case 60:  // '<'
           this.actorUp(); break;
+        case 55:  // '7'
+          this.toggleFeature(Actors.selectedActor(), 'used-reaction'); break;
         case 57:  // '9'
           this.rotateFeature(Actors.selectedActor(), ['bloodied', 'dying', 'incapacitated', 'health-neutral']); break;
         case 51:  // '3'
@@ -422,8 +394,51 @@ $(function(){
           this.incrementLastConditionFromActor(Actors.selectedActor(), +1); break;
         case 710: // 'Shift-Option-I'
           this.resetAllInitiatives(e); break;
+        case 91: // ] session dwn
+            console.log('switch session up');
+            Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
+            Sessions.upSelect();
+            Actors.reset(Sessions.getActors());
+            Environment.set(Sessions.getEnv());
+            break;
+
+        case 93: // [ session up
+            console.log('switch session down');
+            Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
+            Sessions.downSelect();
+            Actors.reset(Sessions.getActors());
+            Environment.set(Sessions.getEnv());
+            break;
+
+        case 115: // s Save session
+          console.log('Saving Session');
+          Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
+          break;
+
+        case 125: // } new session
+            console.log('new session');
+            Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
+            Sessions.newSession();
+            Actors.reset(Sessions.getActors());
+            Environment.set(Sessions.getEnv());
+            break;
+
+        case 123: // } delete session
+            console.log('delete session');
+            Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
+            var reset = window.confirm("Delete Game Session? This will remove the entire session!");
+              if (reset) {
+                console.log('gone');
+                Sessions.removeSession();
+                Actors.reset(Sessions.getActors());
+                Environment.set(Sessions.getEnv());
+              } else {
+                console.log('sikeeeeee');
+                return;
+              }
+             break;
         default:
-          console.log('Command key: ' + charCode);
+          console.log('Command key: ' + charCode + ' ' + e.key);
         }
     },
 
@@ -498,10 +513,6 @@ $(function(){
       if (actor) { Actors.setSelected(actor); }
     },
 
-    activateNext: function() {
-      Actors.activateNext();
-    },
-
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
       if (!this.actorInput.val()) return;
@@ -567,13 +578,21 @@ $(function(){
     },
 
     removeFirstConditionFromActor: function(actor, e) {
-      target = _.first(actor.get('conditions'));
+      var target = _.first(actor.get('conditions'));
       actor.removeCondition(target);
     },
 
     removeLastConditionFromActor: function(actor, e) {
-      target = _.last(actor.get('conditions'));
+      var target = _.last(actor.get('conditions'));
       actor.removeCondition(target);
+    },
+
+    persistLastConditionFromActor: function(actor, e) {
+      var target = _.last(actor.get('conditions'));
+      if(target){
+        actor.removeCondition(target);
+        actor.addCondition({title:target.title, persistent: ! target.persistent});
+      }
     },
 
     incrementLastConditionFromActor: function(actor, offset, e) {
