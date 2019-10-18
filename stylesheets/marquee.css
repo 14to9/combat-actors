@@ -188,11 +188,9 @@ li.actor-item.active {
 .feature-icon.bloodied {
   background-image: url(../images/blood-drop.png);
 }
-
-.feature-icon.used-reaction {
-  background-image: url(../images/used-reaction.png);
+.feature-icon.concentrating {
+  background-image: url(../images/combat-icons_concentrating.png);
 }
-
 .feature-icon.defending {
   background-image: url(../images/combat-icons_defending.png);
 }
@@ -205,16 +203,17 @@ li.actor-item.active {
 .feature-icon.disadvantage {
   background-image: url(../images/combat-icons_disadvantage.png);
 }
-
 .feature-icon.dying {
   background-image: url(../images/purple-skull.png);
 }
 .feature-icon.incapacitated {
   background-image: url(../images/orange-skull.png);
 }
-
-.feature-icon.readied {
-  background-image: url(../images/combat-icons_readied.png);
+.feature-icon.available {
+  background-image: url(../images/combat-icons_available.png);
+}
+.feature-icon.reacted {
+  background-image: url(../images/combat-icons_reacted.png);
 }
 
 li:hover .destroy, li:hover .activate {

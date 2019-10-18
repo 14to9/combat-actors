@@ -304,7 +304,7 @@ textarea {
   border-left: 1px solid #c0e;
 }
 
-.active .conditions.labels li.ready a,
+.active .conditions.labels li.readied a,
 .conditions.labels li.ready  a,
 .active .conditions.labels li.delay a,
 .conditions.labels li.delay  a
