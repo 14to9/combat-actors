@@ -5,20 +5,11 @@ var Session = Backbone.Model.extend({
     var d = Date().toLocaleString('en-US');
 
     return {
-      title: "Ready Session 0",
+      title: "New Session",
       index: null,
       selected: true ,
       lastplayed: d,
-      actors: [
-        {
-          title: "Ready Player 1",
-          order: 0,
-          active: true,
-          selected: true,
-          conditions: [],
-          features: ['persistent']
-        },
-      ],
+      actors: [],
       env: {aspects:[]}
     };
   }

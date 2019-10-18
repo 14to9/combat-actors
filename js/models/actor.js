@@ -14,7 +14,7 @@ var Actor = Backbone.Model.extend({
       active: false,
       selected: false,
       conditions: [],
-      features: []
+      features: ['available']
     };
   },
 
