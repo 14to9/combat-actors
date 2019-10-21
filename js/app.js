@@ -374,7 +374,7 @@ $(function(){
         case 56:  // '8'
           this.toggleFeature(Actors.selectedActor(), 'concentrating'); break;
         case 55:  // '7'
-          this.toggleFeature(Actors.selectedActor(), 'used-reaction'); break;
+          this.toggleReadied(Actors.selectedActor()); break;
         case 51:  // '3'
           this.rotateFeature(Actors.selectedActor(), ['defending', 'granting', 'defense-neutral']); break;
         case 50:  // '2'

@@ -85,9 +85,6 @@
         <% if (_.include(features, "granting")) { %>
           <div class='granting feature-icon'/>
         <% } %>
-        <% if (_.include(features, "used-reaction")) { %>
-          <div class='used-reaction feature-icon'/>
-        <% } %>
         <% if (_.include(features, "concentrating")) { %>
           <div class='concentrating feature-icon'/>
         <% } %>
@@ -147,9 +144,6 @@
         <% } %>
         <% if (_.include(features, "granting")) { %>
           <div class='granting feature-icon'/>
-        <% } %>
-        <% if (_.include(features, "used-reaction")) { %>
-          <div class='used-reaction feature-icon'/>
         <% } %>
         <% if (_.include(features, "concentrating")) { %>
           <div class='concentrating feature-icon'/>
@@ -257,11 +251,12 @@
       <tr><td><b>r</b></td><td>Rotate conditions</td></tr>
       <tr><td><b>+/-</b></td><td>Inc/Decrement (last) condition</td></tr>
 
-      <tr><td><b>1</b></td><td>Toggle ready</td></tr>
+      <tr><td><b>1</b></td><td>Toggle reaction</td></tr>
       <tr><td><b>2</b></td><td>Toggle advantage</td></tr>
       <tr><td><b>3</b></td><td>Toggle defense</td></tr>
-      <tr><td><b>7</b></td><td>Toggle used reaction</td></tr>
-      <tr><td><b>9</b></td><td>Toggle health</td></tr>
+      <tr><td><b>7</b></td><td>Toggle readied</td></tr>
+      <tr><td><b>8</b></td><td>Toggle concentrating</td></tr>
+      <tr><td><b>9</b></td><td>Toggle bloodied/dying/unconscious</td></tr>
       <tr><td><b>0</b></td><td>Toggle permanence</td></tr>
 
       <tr><td><b>A</b></td><td>Add an actor</td></tr>
