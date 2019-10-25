@@ -271,18 +271,33 @@ textarea {
 .selected .editable textarea {
   background-color: #fff;
 }
-.conditions.labels li.failed  a {
+.conditions.labels li.dying  a {
   background-color: #72f;
 }
-.actor-name .conditions.labels li.failed  a {
+.actor-name .conditions.labels li.dying  a {
   background-color: #76b;
 }
-.conditions.labels li.failed a.remove:before {
+.conditions.labels li.dying a.remove:before {
   border-left: 1px solid #629;
 }
-.conditions.labels li.failed a.remove:after {
+.conditions.labels li.dying a.remove:after {
   color: #629;
 }
+
+.conditions.labels li.stabilizing  a {
+  background-color: #32f;
+}
+.actor-name .conditions.labels li.stabilizing  a {
+  background-color: #36b;
+}
+.conditions.labels li.stabilizing a.remove:before {
+  border-left: 1px solid #629;
+}
+.conditions.labels li.stabilizing a.remove:after {
+  color: #629;
+}
+
+
 .conditions.labels li.bloodied a,
 .conditions.labels li.ongoing a {
   background-color: red;
@@ -330,74 +345,66 @@ textarea {
 }
 
 /* Negative effects */
-.conditions.labels li.granting a,
 .conditions.labels li.blinded a,
 .conditions.labels li.deafened a,
 .conditions.labels li.charmed a,
 .conditions.labels li.frightened a,
+.conditions.labels li.unconscious a,
 .conditions.labels li.incapacitated a,
 .conditions.labels li.prone a,
 .conditions.labels li.restrained a,
 .conditions.labels li.exhausted a,
 .conditions.labels li.poisoned a,
-.conditions.labels li.dominated a,
 .conditions.labels li.slowed a,
-.conditions.labels li.immobilized a,
-.conditions.labels li.dazed a,
+.conditions.labels li.grappled a,
 .conditions.labels li.stunned a {
   background-color: #b40;
 }
 
-.actor-name .conditions.labels li.granting a,
 .actor-name .conditions.labels li.blinded a,
 .actor-name .conditions.labels li.deafened a,
 .actor-name .conditions.labels li.charmed a,
 .actor-name .conditions.labels li.frightened a,
-.actor-name .conditions.labels li.incapacitated a,
+.actor-name .conditions.labels li.unconscious a,
 .actor-name .conditions.labels li.prone a,
+.actor-name .conditions.labels li.incapacitated a,
 .actor-name .conditions.labels li.restrained a,
 .actor-name .conditions.labels li.exhausted a,
 .actor-name .conditions.labels li.poisoned a,
-.actor-name .conditions.labels li.dominated a,
 .actor-name .conditions.labels li.slowed a,
-.actor-name .conditions.labels li.immobilized a,
-.actor-name .conditions.labels li.dazed a,
+.actor-name .conditions.labels li.grappled a,
 .actor-name .conditions.labels li.stunned a {
   background-color: #972;
 }
 
-.conditions.labels li.granting a.remove:before,
 .conditions.labels li.blinded a.remove:before,
 .conditions.labels li.deafened a.remove:before,
 .conditions.labels li.charmed a.remove:before,
 .conditions.labels li.frightened a.remove:before,
-.conditions.labels li.incapacitated a.remove:before,
+.conditions.labels li.unconscious a.remove:before,
 .conditions.labels li.prone a.remove:before,
+.conditions.labels li.incapacitated a.remove:before,
 .conditions.labels li.restrained a.remove:before,
 .conditions.labels li.exhausted a.remove:before,
-.conditions.labels li.dominated a.remove:before,
 .conditions.labels li.poisoned a.remove:before,
 .conditions.labels li.slowed a.remove:before,
-.conditions.labels li.immobilized a.remove:before,
-.conditions.labels li.dazed a.remove:before,
+.conditions.labels li.grappled a.remove:before,
 .conditions.labels li.stunned a.remove:before {
   border-left: 1px solid #c60;
 }
 
-.conditions.labels li.granting a.remove:after,
-.conditions.labels li.dominated a.remove:after,
 .conditions.labels li.blinded a.remove:after,
 .conditions.labels li.deafened a.remove:after,
 .conditions.labels li.charmed a.remove:after,
 .conditions.labels li.frightened a.remove:after,
-.conditions.labels li.incapacitated a.remove:after,
+.conditions.labels li.unconscious a.remove:after,
 .conditions.labels li.prone a.remove:after,
+.conditions.labels li.incapacitated a.remove:after,
 .conditions.labels li.restrained a.remove:after,
 .conditions.labels li.exhausted a.remove:after,
 .conditions.labels li.poisoned a.remove:after,
 .conditions.labels li.slowed a.remove:after,
-.conditions.labels li.immobilized a.remove:after,
-.conditions.labels li.dazed a.remove:after,
+.conditions.labels li.grappled a.remove:after,
 .conditions.labels li.stunned a.remove:after {
   color: #c60;
 }

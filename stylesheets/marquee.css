@@ -206,7 +206,7 @@ li.actor-item.active {
 .feature-icon.dying {
   background-image: url(../images/purple-skull.png);
 }
-.feature-icon.incapacitated {
+.feature-icon.unconscious {
   background-image: url(../images/orange-skull.png);
 }
 .feature-icon.available {
@@ -363,14 +363,24 @@ li:hover .destroy, li:hover .activate {
 
 #help {
   padding: 0px 20px 10px 20px;
+  min-width: 600px;
 }
 #help th {
   text-align: left;
-  background-color: #8bf;
-  min-width: 100px;
+  background-color: #5bf;
+  min-width: 80px;
+  color: white;
 }
 #help th, #help td {
   padding: 3px 5px 3px 5px;
+}
+#help th.behavior {
+  min-width: 400px;
+}
+#help tr.break {
+  height: 50px;
+  vertical-align: bottom;
+  color: #4ae;
 }
 
 .marquee, .environment {

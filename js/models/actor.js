@@ -28,19 +28,24 @@ var Actor = Backbone.Model.extend({
   },
 
   addCondition: function(condition){
-    var newConditions = _.union(this.get('conditions'), [condition]);
-    this.save({
-      'conditions': newConditions
-    });
+    if (condition) {
+      var newConditions = _.union(this.get('conditions'), [condition]);
+      var withoutDups   = _.uniq(newConditions, function(i, k, a) { return i.title; });
+      this.save({
+        'conditions': withoutDups
+      });
+    }
   },
 
   removeCondition: function(condition){
-    var newConditions = _.reject(this.get('conditions'), function(existing_condition){
-      return existing_condition.title === condition.title;
-    });
-    this.save({
-      'conditions': newConditions
-    });
+    if (condition) {
+      var newConditions = _.reject(this.get('conditions'), function(existing_condition){
+        return existing_condition.title === condition.title;
+      });
+      this.save({
+        'conditions': newConditions
+      });
+    }
   },
 
   addFeature: function(feature){
@@ -120,9 +125,9 @@ var Actor = Backbone.Model.extend({
     });
   },
 
-  incrementCondition: function(condition, delta) {
+  incrementCondition: function(condition, delta=1) {
+    // Function removes condition entirely if decremented to '0' or less
 
-    console.log('incrementCondition', condition);
     var verify_condition = _.find(this.get('conditions'), function(c){
         return c.title === condition.title;
     });
@@ -132,16 +137,49 @@ var Actor = Backbone.Model.extend({
       var p = new RegExp("[0-9]+$");
       var val = p.exec(condition.title);
       if (val && val[0]) {
-        console.log('val', val);
         this.removeCondition(condition);
         var newVal = parseInt(val[0]) + delta;
-        if (newVal <= 0) newVal = 0;
-        var prefixLen = condition.title.length - val[0].length;
-        var prefix = condition.title.substring(0, prefixLen);
-        var newCondition = prefix + newVal;
-        this.addCondition({title:newCondition, persistent: condition.persistent});
+        if (newVal <= 0) {
+          this.removeCondition(condition);
+        } else {
+          var prefixLen = condition.title.length - val[0].length;
+          var prefix = condition.title.substring(0, prefixLen);
+          var newCondition = prefix + newVal;
+          this.addCondition({title:newCondition, persistent: condition.persistent});
+        }
       }
     }
+  },
+
+  findConditionLike: function(titleMatch) {
+    return _.find(this.get('conditions'), function(c){
+        return c.title.includes(titleMatch);
+    });
+
+  },
+
+  incrementMatched: function(partialTitle, offset) {
+    var target = this.findConditionLike(partialTitle);
+    if (target) { this.incrementCondition(target, offset) }
+    else { this.addCondition(Condition.newCondition(partialTitle + " x1")); }
+  },
+
+  actorDown: function() {
+    this.toggleFeature('dying');
+    if (this.hasFeature('dying')) {
+      this.addCondition(Condition.proneCondition());
+      this.addCondition(Condition.incapacitatedCondition());
+      this.addCondition(Condition.unconsciousCondition());
+    }
+  },
+
+  cleanupDeath: function() {
+    this.removeFeature('dying');
+    this.removeFeature('unconscious');
+    this.removeCondition(Condition.incapacitatedCondition());
+    this.removeCondition(Condition.unconsciousCondition());
+    this.removeCondition(this.findConditionLike('dying'));
+    this.removeCondition(this.findConditionLike('stabilizing'));
   }
 
 });

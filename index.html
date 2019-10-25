@@ -57,6 +57,7 @@
   <script src="js/libs/jquery.colorbox-min.js"></script>
   <script src="js/models/actor.js"></script>
   <script src="js/models/actor-environment.js"></script>
+  <script src="js/models/condition.js"></script>
   <script src="js/collections/actorslist.js"></script>
   <script src="js/models/session.js"></script>
   <script src="js/collections/sessionslist.js"></script>
@@ -95,8 +96,8 @@
         <% if (_.include(features, "bloodied")) { %>
           <div class='bloodied feature-icon'/>
         <% } %>
-        <% if (_.include(features, "incapacitated")) { %>
-          <div class='incapacitated feature-icon'/>
+        <% if (_.include(features, "unconscious")) { %>
+          <div class='unconscious feature-icon'/>
         <% } %>
         <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
@@ -155,8 +156,8 @@
         <% if (_.include(features, "bloodied")) { %>
           <div class='bloodied feature-icon'/>
         <% } %>
-        <% if (_.include(features, "incapacitated")) { %>
-          <div class='incapacitated feature-icon'/>
+        <% if (_.include(features, "unconscious")) { %>
+          <div class='unconscious feature-icon'/>
         <% } %>
         <% if (_.include(features, "dying")) { %>
           <div class='dying feature-icon'/>
@@ -238,46 +239,56 @@
     <!-- This contains the hidden content for inline calls -->
   <div style='display:none'>
     <div id='help'>
-    <h2>Command Keys</h2>
-    <table>
-      <tr><th>Key</th><th>Generic Action</th></tr>
+      <h2>Command Keys Reference</h2>
+      <table>
+        <tr class="break"><td colspan=2><b>Getting Started</b></td></tr>
+        <tr><th>Key</th><th class="behavior">Behavior</th></tr>
+          <tr><td><b>[Shift] + A</b></td><td>Add an actor</td></tr>
+          <tr><td><b>[Shift] + =</b></td><td>Set next empty initiative</td></tr>
+          <tr><td><b>n</b> or <b>[Enter]</b></td><td>Activate next actor</td></tr>
+          <tr><td><b>p</b></td><td>Activate previous actor</td></tr>
+          <tr><td><b>[Shift] + P</b></td><td>Toggle permanence on selected</td></tr>
+          <tr><td><b>[Shift] + R</b></td><td>Reset session</td></tr>
+          <tr><td><b>h</b> or <b>?</b></td><td>Show this reference</td></tr>
 
-      <tr><td><b>a</b> or <b>i</b></td><td>Insert condition</td></tr>
-      <tr><td><b>o</b></td><td>Persist last condition</td></tr>
-      <tr><td><b>c</b></td><td>Select active actor</td></tr>
-      <tr><td><b>e</b></td><td>Add environment aspect</td></tr>
-      <tr><td><b>h</b></td><td>Show command key help</td></tr>
-      <tr><td><b>j</b>, <b>k</b></td><td>Select actor</td></tr>
-      <tr><td><b>n</b> or <b>Enter</b></td><td>Activate next actor</td></tr>
-      <tr><td><b>p</b></td><td>Activate previous actor</td></tr>
-      <tr><td><b>x</b></td><td>Remove (last) condition</td></tr>
-      <tr><td><b>z</b></td><td>Remove (first) condition</td></tr>
-      <tr><td><b>r</b></td><td>Rotate conditions</td></tr>
-      <tr><td><b>+/-</b></td><td>Inc/Decrement (last) condition</td></tr>
+        <tr class="break"><td colspan=2><b>Selecting Actors</b></td></tr>
+        <tr><th>Key</th><th>Behavior</th></tr>
+          <tr><td><b>j</b> (<b>k</b>)</td><td>Select next (prev) actor</td></tr>
+          <tr><td><b>c</b> or <b>[Enter]</b></td><td>Exit actor selection</td></tr>
 
-      <tr><td><b>1</b></td><td>Toggle reaction</td></tr>
-      <tr><td><b>2</b></td><td>Toggle advantage</td></tr>
-      <tr><td><b>3</b></td><td>Toggle defense</td></tr>
-      <tr><td><b>7</b></td><td>Toggle readied</td></tr>
-      <tr><td><b>8</b></td><td>Toggle concentrating</td></tr>
-      <tr><td><b>9</b></td><td>Toggle bloodied/dying/unconscious</td></tr>
-      <tr><td><b>0</b></td><td>Toggle permanence</td></tr>
+        <tr class="break"><td colspan=2><b>Editing Actors and Features</b></td></tr>
+        <tr><th>Key</th><th>Behavior</th></tr>
 
-      <tr><td><b>A</b></td><td>Add an actor</td></tr>
-      <tr><td><b>D</b></td><td>Delete actor</td></tr>
-      <tr><td><b>I</b></td><td>Set initiative</td></tr>
-      <tr><td><b>N</b></td><td>Rename actor</td></tr>
-      <tr><td><b>R</b></td><td>Reset!</td></tr>
-      <tr><td><b>X</b></td><td>Remove (all) conditions on selected</td></tr>
+          <tr><td><b>[Shift] + D</b></td><td>Delete selected actor</td></tr>
+          <tr><td><b>[Shift] + I</b></td><td>Set initiative on selected</td></tr>
+          <tr><td><b>[Shift] + N</b></td><td>Rename selected</td></tr>
+          <tr><td><b>1</b></td><td>Toggle reaction</td></tr>
+          <tr><td><b>2</b></td><td>Toggle advantage</td></tr>
+          <tr><td><b>3</b></td><td>Toggle defense</td></tr>
+          <tr><td><b>7</b></td><td>Toggle readied</td></tr>
+          <tr><td><b>8</b></td><td>Toggle concentrating</td></tr>
+          <tr><td><b>9</b></td><td>Toggle bloodied</td></tr>
+          <tr><td><b>0</b></td><td>Toggle dying (adds conditions)</td></tr>
+          <tr><td><b>&lt; </b>, <b> &gt;</b></td><td>Move selected actor</td></tr>
 
-      <tr><td><b>&lt; </b>, <b> &gt;</b></td><td>Move selected actor</td></tr>
+        <tr class="break"><td colspan=2><b>Custom Conditions</b></td></tr>
+        <tr><th>Key</th><th>Behavior</th></tr>
+          <tr><td><b>a</b> or <b>i</b></td><td>Insert condition</td></tr>
+          <tr><td><b>f</b> (<b>g</b>)</td><td>Add/Increment dying (stabilizing)</td></tr>
+          <tr><td><b>[Shift] + F</b> (<b>G</b>)</td><td>Remove/Decr dying (stabilizing)</td></tr>
+          <tr><td><b>o</b></td><td>Persist last condition</td></tr>
+          <tr><td><b>r</b></td><td>Rotate conditions</td></tr>
+          <tr><td><b>x</b>, <b>z</b></td><td>Remove last (first) condition on selected</td></tr>
+          <tr><td><b>[Shift] + X</b></td><td>Remove (all) conditions on selected</td></tr>
+          <tr><td><b>[Shift] + 0</b></td><td>Cleanup dying related conditions</td></tr>
+          <tr><td><b>+/-</b></td><td>Incr/Decrement last condition</td></tr>
 
-      <tr><td><b>=</b></td><td>Edit next actor without initiative</td></tr>
-      <tr><td><b>Shift-Option-I</b></td><td>Clear all initiative values</td></tr>
-      <tr><td><b>[ </b>, <b> ]</b></td><td>Session Switch Up / Down</td></tr>
-      <tr><td><b>{ </b>, <b> }</b></td><td>Session Delete / Create</td></tr>
-
-
+        <tr class="break"><td colspan=2><b>Environment and Session</b></td></tr>
+        <tr><th>Key</th><th>Behavior</th></tr>
+          <tr><td><b>e</b></td><td>Add environment aspect</td></tr>
+          <tr><td><b>[Option] + [Shift] + I</b></td><td>Clear all initiative values</td></tr>
+          <tr><td><b>[ </b>, <b> ]</b></td><td>Session Switch Up / Down</td></tr>
+          <tr><td><b>[Shift] + { </b>, <b>[Shift] + }</b></td><td>Session Delete / Create</td></tr>
     </table>
     </div>
   </div>

@@ -72,7 +72,7 @@ $(function(){
         var condition = this.newCondition.val().replace(/^\s+|\s+$/g,'');
 
         if (condition.length > 0){
-          this.collection.selectedActor().addCondition({title:condition, persistent: false});
+          this.collection.selectedActor().addCondition(Condition.newCondition(condition));
         } 
 
         this.newCondition.blur();
@@ -279,8 +279,6 @@ $(function(){
 
       this.addAll();
       this.onSessionUpdate();
-      // Actors.fetch();
-      // Environment.fetch();
 
       this.selectCurrent(Actors.activeActor());
     },
@@ -338,6 +336,10 @@ $(function(){
           }
           Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
           break;
+        case 102: // 'f'
+          Actors.selectedActor().incrementMatched("dying", 1);break;
+        case 103: // 'g'
+          Actors.selectedActor().incrementMatched("stabilizing", 1);break;
         case 106:  // 'j'
           Actors.downSelect(); break;
         case 107:  // 'k'
@@ -357,6 +359,10 @@ $(function(){
           this.editActorName(Actors.selectedActor(), e); break;
         case 73:  // 'I'
           this.editInitiative(Actors.selectedActor(), e); break;
+        case 71: // 'G'
+          Actors.selectedActor().incrementMatched("stabilizing", -1);break;
+        case 70: // 'F'
+          Actors.selectedActor().incrementMatched("dying", -1);break;
         case 68:  // 'D'
           this.deleteActor(Actors.selectedActor()); break;
         case 65:  // 'A'
@@ -370,7 +376,7 @@ $(function(){
         case 60:  // '<'
           this.actorUp(); break;
         case 57:  // '9'
-          this.rotateFeature(Actors.selectedActor(), ['bloodied', 'dying', 'incapacitated', 'health-neutral']); break;
+          this.toggleFeature(Actors.selectedActor(), 'bloodied'); break;
         case 56:  // '8'
           this.toggleFeature(Actors.selectedActor(), 'concentrating'); break;
         case 55:  // '7'
@@ -382,13 +388,17 @@ $(function(){
         case 49:  // '1'
           this.rotateFeature(Actors.selectedActor(), ['available', 'reacted']); break;
         case 48:  // '0'
-          this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
+          Actors.selectedActor().actorDown(); break;
         case 45:  // '-'
           this.incrementLastConditionFromActor(Actors.selectedActor(), -1); break;
         case 43:  // '+'
           this.incrementLastConditionFromActor(Actors.selectedActor(), +1); break;
+        case 41:  // ')'
+          Actors.selectedActor().cleanupDeath(); break;
         case 33:  // '!'
           this.toggleReadied(Actors.selectedActor()); break;
+        case 80:  // 'P'
+          this.toggleFeature(Actors.selectedActor(), 'persistent'); break;
         case 710: // 'Shift-Option-I'
           this.resetAllInitiatives(e); break;
         case 91: // ] session dwn
@@ -666,5 +676,5 @@ $(function(){
   App.marquee = Marquee;
 
   // console debugging
-  window.Marquee = Marquee;
+  window.App = Marquee;
 });
