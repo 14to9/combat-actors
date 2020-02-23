@@ -367,6 +367,7 @@ $(function(){
           this.deleteActor(Actors.selectedActor()); break;
         case 65:  // 'A'
           this.addActor(e); break;
+        case 104:  // 'h'
         case 63:  // '?'
           $.colorbox({inline:true,href:'#help'}); break;
         case 62:  // '>'
@@ -482,8 +483,7 @@ $(function(){
       target_index = candidate_index < 0 ? 0 : candidate_index;
       if (target_index != current_index) {
         target_initiative = parseInt(Actors.at(target_index).get('order')) + 1;
-        Actors.at(current_index).save({'order': target_initiative});
-      }
+        Actors.at(current_index).save({'order': target_initiative});}
     },
 
     actorDown: function() {
@@ -493,7 +493,11 @@ $(function(){
       if (target_index != current_index) {
         candidate_initiative = parseInt(Actors.at(target_index).get('order')) - 1;
         target_initiative = candidate_initiative < 0 ? 0 : candidate_initiative;
-        Actors.at(current_index).save({'order': target_initiative});
+        if (isNaN(target_initiative)) {
+          return;
+          }
+        else {
+          Actors.at(current_index).save({'order': target_initiative});}
       }
     },
 
@@ -607,7 +611,8 @@ $(function(){
     },
 
     resetActorFeatures: function(actor) {
-      actor.removeTransientFeatures();
+      //actor.removeTransientFeatures();
+      actor.resetFeatures();
     },
 
     resetAllActorFeatures: function() {

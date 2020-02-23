@@ -116,12 +116,18 @@ var Actor = Backbone.Model.extend({
     }
   },
 
-  removeTransientFeatures: function() {
-    var newFeatures = _.reject(this.get('features'), function(f) {
-      return (f != 'persistent');
-    });
-    this.save({
-      'features': newFeatures
+  // removeTransientFeatures: function() {
+  //   var newFeatures = _.reject(this.get('features'), function(f) {
+  //     return (f != 'persistent');
+  //   });
+  //   this.save({
+  //     'features': newFeatures
+  //   });
+  // },
+
+  resetFeatures: function() {
+    var newFeatures = ['available'];
+    this.save({'features': newFeatures
     });
   },
 
