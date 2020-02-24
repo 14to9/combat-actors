@@ -482,7 +482,8 @@ $(function(){
       target_index = candidate_index < 0 ? 0 : candidate_index;
       if (target_index != current_index) {
         target_initiative = parseInt(Actors.at(target_index).get('order')) + 1;
-        Actors.at(current_index).save({'order': target_initiative});
+        if (isNaN(target_initiative)){return;}
+        else {Actors.at(current_index).save({'order': target_initiative});}
       }
     },
 
@@ -491,9 +492,9 @@ $(function(){
       candidate_index  = current_index + 1;
       target_index = candidate_index == Actors.length ? Actors.length - 1 : candidate_index;
       if (target_index != current_index) {
-        candidate_initiative = parseInt(Actors.at(target_index).get('order')) - 1;
-        target_initiative = candidate_initiative < 0 ? 0 : candidate_initiative;
-        Actors.at(current_index).save({'order': target_initiative});
+        target_initiative = parseInt(Actors.at(target_index).get('order')) - 1;
+        if (isNaN(target_initiative)){return;}
+        else {Actors.at(current_index).save({'order': target_initiative});}
       }
     },
 
