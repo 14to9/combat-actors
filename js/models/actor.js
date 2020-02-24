@@ -116,10 +116,8 @@ var Actor = Backbone.Model.extend({
     }
   },
 
-  removeTransientFeatures: function() {
-    var newFeatures = _.reject(this.get('features'), function(f) {
-      return (f != 'persistent');
-    });
+  resetFeatures: function() {
+    var newFeatures = ['available', 'persistent'];
     this.save({
       'features': newFeatures
     });
