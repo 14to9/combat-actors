@@ -16,14 +16,14 @@
   <div id="actorapp">
     <section id="main" style="display: block;">
       <header>
-        <p class='head'>
+        <p class="head">
            ACTION ORDER<br/>
-           <span class='help-message'><i>Press '?' for help</i></span><br/>
+           <span class="help-message"><i>Press ? for help</i></span><br/>
         </p>
       </header>
       <header>
         <p class="session">
-          <span id="session-label" style='color:#ffffff'><i>Session Title</i></span>
+          <span id="session-label" style="color:#ffffff"><i>Session Title</i></span>
           <span id="session-input" class="edit-form" style="">
             <input class="edit-session" placeholder="New Session Name" type="text" value="" style=""  />
           </span>
@@ -42,9 +42,9 @@
   </div>
 
   <div class="panel fixed" id="fixed-panel">
-    <div class='marquee primary' id="marquee-primary"></div>
+    <div class="marquee primary" id="marquee-primary"></div>
     <div id="environment-placement"></div>
-    <div class='marquee next'>
+    <div class="marquee next">
        <p style="margin: 8px 0 0 22px;">NEXT TO ACT</p>
     </div>
   </div>
@@ -72,39 +72,39 @@
     <div class="actor-name">
       <div class="show">
         <% if (_.include(features, "available")) { %>
-          <div class='available feature-icon'/>
+          <div class="available feature-icon"/>
         <% } %>
         <% if (_.include(features, "reacted")) { %>
-          <div class='reacted feature-icon'/>
+          <div class="reacted feature-icon"/>
         <% } %>
         <label><%- title %></label>
         <% if (_.include(features, "advantage")) { %>
-          <div class='advantage feature-icon'/>
+          <div class="advantage feature-icon"/>
         <% } %>
         <% if (_.include(features, "disadvantage")) { %>
-          <div class='disadvantage feature-icon'/>
+          <div class="disadvantage feature-icon"/>
         <% } %>
         <% if (_.include(features, "defending")) { %>
-          <div class='defending feature-icon'/>
+          <div class="defending feature-icon"/>
         <% } %>
         <% if (_.include(features, "granting")) { %>
-          <div class='granting feature-icon'/>
+          <div class="granting feature-icon"/>
         <% } %>
         <% if (_.include(features, "concentrating")) { %>
-          <div class='concentrating feature-icon'/>
+          <div class="concentrating feature-icon"/>
         <% } %>
         <% if (_.include(features, "bloodied")) { %>
-          <div class='bloodied feature-icon'/>
+          <div class="bloodied feature-icon"/>
         <% } %>
         <% if (_.include(features, "unconscious")) { %>
-          <div class='unconscious feature-icon'/>
+          <div class="unconscious feature-icon"/>
         <% } %>
         <% if (_.include(features, "dying")) { %>
-          <div class='dying feature-icon'/>
+          <div class="dying feature-icon"/>
         <% } %>
 
-        <div class='active labels'>
-          <div class='labels-maker'>
+        <div class="active labels">
+          <div class="labels-maker">
             <ul class="conditions labels">
               <% _.each(conditions, function(i) { %>
                 <% if (i.title) { %>
@@ -122,7 +122,7 @@
   </script>
 
   <script type="text/template" id="marquee-template">
-    <p class='return-msg' style="margin: 8px 0 0 12px; display: none;">EDITING</p>
+    <p class="return-msg" style="margin: 8px 0 0 12px; display: none;">EDITING</p>
     <div class="actor-initiative <%= _.include(features, "persistent") ?  'persistent' : '' %>  ">
       <div class="show"><%- order %></div>
       <div class="edit-form">
@@ -132,43 +132,43 @@
     <div class="marquee-name">
       <div class="show">
         <% if (_.include(features, "available")) { %>
-          <div class='available feature-icon'/>
+          <div class="available feature-icon"/>
         <% } %>
         <% if (_.include(features, "reacted")) { %>
-          <div class='reacted feature-icon'/>
+          <div class="reacted feature-icon"/>
         <% } %>
         <label><%- title %></label>
         <% if (_.include(features, "advantage")) { %>
-          <div class='advantage feature-icon'/>
+          <div class="advantage feature-icon"/>
         <% } %>
         <% if (_.include(features, "disadvantage")) { %>
-          <div class='disadvantage feature-icon'/>
+          <div class="disadvantage feature-icon"/>
         <% } %>
         <% if (_.include(features, "defending")) { %>
-          <div class='defending feature-icon'/>
+          <div class="defending feature-icon"/>
         <% } %>
         <% if (_.include(features, "granting")) { %>
-          <div class='granting feature-icon'/>
+          <div class="granting feature-icon"/>
         <% } %>
         <% if (_.include(features, "concentrating")) { %>
-          <div class='concentrating feature-icon'/>
+          <div class="concentrating feature-icon"/>
         <% } %>
         <% if (_.include(features, "bloodied")) { %>
-          <div class='bloodied feature-icon'/>
+          <div class="bloodied feature-icon"/>
         <% } %>
         <% if (_.include(features, "unconscious")) { %>
-          <div class='unconscious feature-icon'/>
+          <div class="unconscious feature-icon"/>
         <% } %>
         <% if (_.include(features, "dying")) { %>
-          <div class='dying feature-icon'/>
+          <div class="dying feature-icon"/>
         <% } %>
       </div>
       <div class="edit-form">
         <input class="edit" maxlength="20" type="text" value="<%- title %>" />
       </div>
     </div>
-    <div class='active labels'>
-      <div class='labels-maker'>
+    <div class="active labels">
+      <div class="labels-maker">
         <ul class="conditions labels">
           <% _.each(conditions, function(i) { %>
             <% if (i.title) { %>
@@ -198,7 +198,7 @@
         </label>
       </div>
     </div>
-    <div class='active labels'>
+    <div class="active labels">
         <ul class="conditions labels">
           <% _.each(conditions, function(i) { %>
             <% if (i.title) { %>
@@ -213,8 +213,8 @@
 
   <script type="text/template" id="environment-list">
     <p style="margin: 8px 0 0 22px;">ENVIRONMENT</p>
-    <div class='active labels'>
-      <div class='labels-maker'>
+    <div class="active labels">
+      <div class="labels-maker">
         <ul class="conditions labels">
           <% _.each(aspects, function(i) { %>
             <% if (i) { %>
@@ -237,8 +237,8 @@
   </script>
 
     <!-- This contains the hidden content for inline calls -->
-  <div style='display:none'>
-    <div id='help'>
+  <div style="display:none">
+    <div id="help">
       <h2>Command Keys Reference</h2>
       <table>
         <tr class="break"><td colspan=2><b>Getting Started</b></td></tr>
@@ -295,7 +295,7 @@
 
   <script>
     $(document).ready(function(){
-      $(".head").colorbox({inline:true,href:'#help'});
+      $(".head").colorbox({inline:true,href:"#help"});
     });
   </script>
 
