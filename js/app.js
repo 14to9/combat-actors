@@ -609,7 +609,7 @@ $(function(){
     },
 
     resetActorFeatures: function(actor) {
-      actor.removeTransientFeatures();
+      actor.resetFeatures();
     },
 
     resetAllActorFeatures: function() {
