@@ -368,6 +368,7 @@ $(function(){
         case 65:  // 'A'
           this.addActor(e); break;
         case 63:  // '?'
+        case 163: // '£'
           $.colorbox({inline:true,href:'#help'}); break;
         case 62:  // '>'
           this.actorDown(); break;
