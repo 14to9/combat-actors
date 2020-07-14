@@ -345,7 +345,7 @@ $(function(){
         case 103: // 'g'
           Actors.selectedActor().incrementMatched("stabilizing", 1);break;
         case 104: // 'h'
-          Actors.selectedActor().addCondition(Condition.newCondition("happy"));break;
+          Actors.selectedActor().addCondition(Condition.newCondition("Inspired"));break;
         case 106:  // 'j'
           Actors.downSelect(); break;
         case 107:  // 'k'
@@ -366,7 +366,7 @@ $(function(){
         case 73:  // 'I'
           this.editInitiative(Actors.selectedActor(), e); break;
         case 72: // 'H'
-          this.removeAllHappyConditions(); break;
+          this.removeAllInspiredConditions(); break;
         case 71: // 'G'
           Actors.selectedActor().incrementMatched("stabilizing", -1);break;
         case 70: // 'F'
@@ -616,9 +616,9 @@ $(function(){
       Actors.each(this.removeConditionsFromActor, this);
     },
 
-    removeAllHappyConditions: function() {
+    removeAllInspiredConditions: function() {
      var f = function(actor) {
-      actor.removeCondition(Condition.newCondition("happy"));
+      actor.removeCondition(Condition.newCondition("Inspired"));
      }
      Actors.each(f);
     },
