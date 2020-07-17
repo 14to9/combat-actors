@@ -4,6 +4,9 @@ $(function(){
   var Sessions = new SessionList();
   var Actors = new ActorList();
 
+  var panel = document.getElementById("fixed-panel");
+  var actApp = document.getElementById("actorapp");
+
   Actors.reset(Sessions.getActors());
   Environment.set(Sessions.getEnv());
 
@@ -320,10 +323,8 @@ $(function(){
           this.removeLastConditionFromActor(Actors.selectedActor()); break;
         case 114:  // 'r'
           this.rotateConditions(Actors.selectedActor()); break;
-        case 113:  // 'q'
-          this.switchActorListLeft(); break;
-        case 81: // 'Q'
-          this.switchActorListRight(); break;
+        case 92:  // '\'
+          this.switchButtonActors(); break;
         case 112:  // 'p'
           Actors.activatePrevious();
           Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
@@ -344,8 +345,6 @@ $(function(){
           Actors.selectedActor().incrementMatched("dying", 1);break;
         case 103: // 'g'
           Actors.selectedActor().incrementMatched("stabilizing", 1);break;
-        case 104: // 'h'
-          Actors.selectedActor().addCondition(Condition.newCondition("happy"));break;
         case 106:  // 'j'
           Actors.downSelect(); break;
         case 107:  // 'k'
@@ -365,8 +364,6 @@ $(function(){
           this.editActorName(Actors.selectedActor(), e); break;
         case 73:  // 'I'
           this.editInitiative(Actors.selectedActor(), e); break;
-        case 72: // 'H'
-          this.removeAllHappyConditions(); break;
         case 71: // 'G'
           Actors.selectedActor().incrementMatched("stabilizing", -1);break;
         case 70: // 'F'
@@ -616,23 +613,26 @@ $(function(){
       Actors.each(this.removeConditionsFromActor, this);
     },
 
-    removeAllHappyConditions: function() {
-     var f = function(actor) {
-      actor.removeCondition(Condition.newCondition("happy"));
-     }
-     Actors.each(f);
-    },
-
     switchActorListLeft: function() {
-      document.getElementById("actorapp").style.cssFloat = "left";
-      document.getElementById("fixed-panel").style.cssFloat = "right";
-      document.getElementById("fixed-panel").style.left = "287px";
+      this.switchActorList("left", "right", "287px");
     },
 
     switchActorListRight: function() {
-      document.getElementById("actorapp").style.cssFloat = "right";
-      document.getElementById("fixed-panel").style.cssFloat = "left";
-      document.getElementById("fixed-panel").style.left = "0px";
+      this.switchActorList("right", "left", "0px");
+    },
+
+    switchActorList: function(actFloat, panFloat, panFix) {
+      actApp.style.cssFloat = actFloat;
+      panel.style.cssFloat = panFloat;
+      panel.style.left = panFix;
+    },
+
+    switchButtonActors: function() {
+      if (actApp.style.cssFloat == "left") {
+            this.switchActorListRight();
+          } else {
+            this.switchActorListLeft();
+          }
     },
 
     resetActorFeatures: function(actor) {
