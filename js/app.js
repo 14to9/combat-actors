@@ -4,6 +4,9 @@ $(function(){
   var Sessions = new SessionList();
   var Actors = new ActorList();
 
+  var panel = document.getElementById("fixed-panel");
+  var actApp = document.getElementById("actorapp");
+
   Actors.reset(Sessions.getActors());
   Environment.set(Sessions.getEnv());
 
@@ -320,6 +323,8 @@ $(function(){
           this.removeLastConditionFromActor(Actors.selectedActor()); break;
         case 114:  // 'r'
           this.rotateConditions(Actors.selectedActor()); break;
+        case 92:  // '\'
+          this.switchButtonActors(); break;
         case 112:  // 'p'
           Actors.activatePrevious();
           Sessions.saveSession(Environment.toJSON(), Actors.toJSON());
@@ -606,6 +611,28 @@ $(function(){
 
     removeAllActorConditions: function() {
       Actors.each(this.removeConditionsFromActor, this);
+    },
+
+    switchActorListLeft: function() {
+      this.switchActorList("left", "right", "287px");
+    },
+
+    switchActorListRight: function() {
+      this.switchActorList("right", "left", "0px");
+    },
+
+    switchActorList: function(actFloat, panFloat, panFix) {
+      actApp.style.cssFloat = actFloat;
+      panel.style.cssFloat = panFloat;
+      panel.style.left = panFix;
+    },
+
+    switchButtonActors: function() {
+      if (actApp.style.cssFloat == "left") {
+            this.switchActorListRight();
+          } else {
+            this.switchActorListLeft();
+          }
     },
 
     resetActorFeatures: function(actor) {
